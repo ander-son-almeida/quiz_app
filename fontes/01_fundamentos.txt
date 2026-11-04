@@ -1,0 +1,394 @@
+# Ciência de Dados | Fundamentos Gerais | Fundamentos Cloud
+Q1 [1] Qual modelo de serviço em nuvem entrega máquinas virtuais, rede e armazenamento, deixando sistema operacional e aplicação sob responsabilidade do cliente?
+A) SaaS
+B) PaaS
+C) IaaS
+D) FaaS
+R: C
+E: IaaS (Infrastructure as a Service, infraestrutura como serviço): o provedor cuida de hardware, rede e virtualização; o cliente cuida do sistema operacional para cima. PaaS (Platform as a Service) entrega também o ambiente de execução; SaaS (Software as a Service) entrega o aplicativo pronto; FaaS (Function as a Service) executa funções sob demanda, como Azure Functions.
+Q2 [1] O Azure Databricks é classificado mais adequadamente como:
+A) Plataforma gerenciada de análise (PaaS)
+B) IaaS puro
+C) SaaS de CRM
+D) Banco relacional OLTP
+R: A
+E: O provedor gerencia os clusters Spark, atualizações e escalonamento; o usuário escreve notebooks e jobs. CRM (Customer Relationship Management) é software de relacionamento com cliente; OLTP (Online Transaction Processing) é banco de dados transacional, como o que registra os pedidos de uma loja virtual.
+Q3 [2] Na arquitetura medalhão (medallion) do Databricks, qual camada guarda dados limpos, tipados e deduplicados, ainda no nível de registro?
+A) Bronze
+B) Gold
+C) Silver
+D) Platinum
+R: C
+E: Bronze = dado bruto como chegou; Silver = dado limpo e conformado, linha a linha; Gold = dado agregado para consumo (tabelas de features, relatórios). Platinum não faz parte do padrão.
+Q4 [2] Qual recurso do Delta Lake permite consultar uma tabela como ela estava numa versão anterior?
+A) Z-Ordering
+B) Auto Loader
+C) Photon
+D) Time travel
+R: D
+E: Time travel (viagem no tempo) lê o log de transações (_delta_log) com `VERSION AS OF 12` ou `TIMESTAMP AS OF '2026-10-01'`. Z-Ordering reorganiza arquivos para acelerar filtros; Auto Loader ingere arquivos novos de forma incremental; Photon é o motor vetorizado de execução.
+Q5 [2] No Azure, o armazenamento de objetos com namespace hierárquico (pastas reais) usado como data lake é:
+A) Azure Data Lake Storage Gen2
+B) Azure SQL Database
+C) Azure Cosmos DB
+D) Azure Key Vault
+R: A
+E: ADLS Gen2 é o Blob Storage com namespace hierárquico e controle de acesso por ACL (Access Control List, lista de permissões por pasta/arquivo). Key Vault guarda segredos e chaves; Cosmos DB é banco NoSQL (não relacional).
+Q6 [2] Um cluster Databricks com autoscaling de 2 a 8 workers e encerramento automático após 30 minutos ocioso busca principalmente:
+A) Latência zero
+B) Pagar só pela capacidade usada
+C) Aumentar a precisão do modelo
+D) Substituir o controle de versão
+R: B
+E: É elasticidade: o cluster cresce com a carga e desliga quando parado. O custo é cobrado em DBU (Databricks Unit, unidade de consumo por hora) mais o preço das VMs (máquinas virtuais). Exemplo: 8 workers ligados 24 h custam cerca de 4 vezes mais que 2 workers no mesmo período.
+Q7 [3] Qual serviço do GCP (Google Cloud Platform) equivale ao armazenamento de objetos do Azure Blob/ADLS?
+A) BigQuery
+B) Pub/Sub
+C) Cloud Storage
+D) Cloud Run
+R: C
+E: Cloud Storage é o armazenamento de objetos do GCP, equivalente ao S3 da AWS. BigQuery é o data warehouse sem servidor; Pub/Sub é mensageria (publica e consome eventos); Cloud Run executa contêineres.
+Q8 [3] No modelo de responsabilidade compartilhada da nuvem, quem responde por classificar os dados e gerenciar permissões de usuários num workspace?
+A) O provedor de nuvem
+B) A Databricks, exclusivamente
+C) Ninguém; é automático
+D) O cliente
+R: D
+E: O provedor protege a infraestrutura física e o serviço; dados, identidades e acessos são sempre do cliente. No Databricks, o Unity Catalog é a ferramenta para isso.
+# Ciência de Dados | Fundamentos Gerais | Qualidade de Dados
+Q16 [1] A dimensão de qualidade que mede a proporção de campos obrigatórios preenchidos é:
+A) Acurácia
+B) Completude
+C) Unicidade
+D) Tempestividade
+R: B
+E: Completude = preenchidos ÷ esperados. Exemplo: 9.500 de 10.000 pedidos com CEP de entrega preenchido → completude de 95%. Acurácia = valor correto frente à realidade; unicidade = sem duplicatas; tempestividade (timeliness) = dado disponível a tempo.
+Q17 [2] Numa tabela de pedidos, a data de entrega é anterior à data da compra. Qual dimensão de qualidade foi violada?
+A) Completude
+B) Unicidade
+C) Disponibilidade
+D) Consistência
+R: D
+E: Consistência verifica regras entre campos ou entre sistemas. Os dois campos estão preenchidos (completos), mas um contradiz o outro.
+Q18 [2] Em PySpark, qual expressão conta duplicatas pela chave `id_pedido`?
+A) `df.distinct().count()`
+B) `df.groupBy().count()`
+C) `df.count() - df.dropDuplicates(["id_pedido"]).count()`
+D) `df.select("id_pedido").count()`
+R: C
+E: Total de linhas menos linhas únicas pela chave = linhas excedentes. Exemplo: 1.000 linhas e 990 pedidos distintos → 10 duplicatas. A opção A remove duplicatas de linha inteira, não pela chave.
+Q19 [2] Uma regra "nota entre 0 e 10" numa base de avaliações de produtos é um teste de:
+A) Unicidade
+B) Tempestividade
+C) Linhagem
+D) Validade (domínio)
+R: D
+E: Validade verifica se o valor pertence ao domínio permitido (faixa, formato, lista). Exemplo: nota 15 é inválida mesmo estando preenchida.
+Q20 [3] Em bibliotecas como Great Expectations ou nas expectations do Delta Live Tables, uma expectation é:
+A) Uma previsão do modelo
+B) Uma asserção declarativa sobre os dados, como "coluna não nula"
+C) Um tipo de cluster
+D) Uma métrica de negócio
+R: B
+E: Exemplo: `expect_column_values_to_not_be_null("renda")`. Cada execução registra quantas linhas passaram e, conforme a configuração, alerta, descarta ou interrompe o pipeline.
+Q21 [3] O volume diário de uma tabela de eventos costuma ser 50.000 linhas e hoje chegou com 5.000. A técnica mais adequada para detectar isso automaticamente é:
+A) Teste de unicidade
+B) Monitoramento de volume com limites históricos (ex.: média ± 3 desvios)
+C) Teste de formato de e-mail
+D) Revisão manual mensal
+R: B
+E: É observabilidade de dados: compara volume, nulos e distribuições do dia com o histórico. Se a média é 50.000 e o desvio-padrão 2.000, o limite inferior é 44.000; 5.000 dispara alerta.
+Q22 [4] Ao validar um modelo, você nota que 30% dos valores de renda são exatamente 1.000,00. A melhor interpretação inicial é:
+A) A população é homogênea
+B) Erro de arredondamento do Spark
+C) Distribuição normal
+D) Provável valor-padrão (default) inserido no sistema de origem; investigar e tratar como faltante disfarçado
+R: D
+E: Concentração anormal em um único valor redondo costuma indicar preenchimento automático. Tratar como renda real distorce o modelo; o correto é confirmar com o dono do dado e, se for o caso, recodificar como ausente.
+# Ciência de Dados | Fundamentos Gerais | Metodologias Ágeis e Híbridas
+Q23 [1] No Scrum, quem é responsável por priorizar o backlog do produto?
+A) Scrum Master
+B) Time de desenvolvimento
+C) Product Owner
+D) Gerente de projeto
+R: C
+E: O Product Owner (dono do produto) ordena o backlog (lista priorizada de trabalho) para maximizar valor. O Scrum Master facilita o processo e remove impedimentos.
+Q24 [1] A duração máxima de uma sprint no Scrum é:
+A) Um mês
+B) Uma semana
+C) Três meses
+D) Não há limite
+R: A
+E: O Guia do Scrum fixa sprints de até um mês; times de dados costumam usar duas semanas.
+Q25 [2] No Kanban, o limite de WIP serve para:
+A) Aumentar o número de tarefas iniciadas
+B) Limitar o trabalho em andamento e expor gargalos
+C) Definir salários
+D) Substituir a retrospectiva
+R: B
+E: WIP (Work In Progress) = trabalho em andamento. Exemplo: limite 3 na coluna "Validação"; se ela enche, o time ajuda a esvaziá-la antes de puxar nova tarefa.
+Q26 [2] Qual evento Scrum serve para inspecionar o incremento com as partes interessadas?
+A) Daily
+B) Retrospectiva
+C) Sprint Planning
+D) Sprint Review
+R: D
+E: A Review mostra o que foi feito (o produto); a Retrospectiva olha para como o time trabalhou (o processo).
+Q27 [2] Uma "Definition of Done" (definição de pronto) para um modelo de ML deve incluir, no mínimo:
+A) Só o código compilando
+B) Critérios verificáveis, como testes passando, métricas registradas e documentação mínima
+C) Aprovação verbal do gestor
+D) Número de linhas de código
+R: B
+E: É uma lista de checagem comum a todos os itens. Exemplo: "testes unitários verdes, AUC registrada no MLflow, PSI calculado, ficha do modelo atualizada".
+Q28 [3] Uma abordagem híbrida (waterfall + ágil) é mais indicada quando:
+A) O projeto tem marcos externos fixos, mas o desenvolvimento interno se beneficia de iterações
+B) Não há prazos
+C) O time tem uma pessoa
+D) O escopo é desconhecido e não há restrições externas
+R: A
+E: Exemplo: lançamento de um produto com data contratual fixa (marco no estilo waterfall, ou cascata) e desenvolvimento em sprints até lá.
+Q29 [3] Velocidade (velocity) em Scrum é melhor usada para:
+A) Comparar times diferentes
+B) Avaliar desempenho individual
+C) Prever quanto o próprio time entrega nas próximas sprints
+D) Calcular bônus
+R: C
+E: Velocidade = pontos concluídos por sprint. Se o time fez 20, 24 e 22 pontos, a média de 22 orienta o planejamento. Pontos não têm a mesma escala entre times.
+# Ciência de Dados | Fundamentos Gerais | Modelagem de Processos BPMN
+Q30 [1] BPMN significa:
+A) Business Process Model and Notation
+B) Basic Process Management Network
+C) Business Planning and Monitoring Notation
+D) Batch Processing Model Notation
+R: A
+E: É a notação-padrão (mantida pela OMG, Object Management Group) para desenhar processos de negócio. Bizagi, Draw.io e Visio são ferramentas que a implementam.
+Q31 [1] No BPMN, uma tarefa (atividade) é representada por:
+A) Círculo
+B) Losango
+C) Retângulo de cantos arredondados
+D) Seta tracejada
+R: C
+E: Círculos são eventos (início, intermediário, fim); losangos são gateways (desvios); setas cheias são fluxo de sequência; setas tracejadas são fluxo de mensagem.
+Q32 [2] Um gateway exclusivo (XOR) indica que:
+A) Todos os caminhos seguem em paralelo
+B) Exatamente um caminho é seguido, conforme uma condição
+C) O processo termina
+D) Uma mensagem é enviada
+R: B
+E: Exemplo: "Score ≥ 600?" → Sim: aprovar; Não: recusar. O gateway paralelo (AND, símbolo +) abre todos os caminhos; o inclusivo (OR, símbolo ○) abre um ou mais.
+Q33 [2] Em BPMN, pools e lanes (piscinas e raias) servem para:
+A) Indicar tempo
+B) Representar dados
+C) Separar participantes e responsabilidades
+D) Marcar erros
+R: C
+E: Pool = participante (ex.: loja, cliente); lane = papel dentro dele (ex.: Vendas, Estoque, Expedição).
+Q34 [2] Para comunicar dois pools diferentes (ex.: loja e transportadora), usa-se:
+A) Fluxo de mensagem (seta tracejada)
+B) Fluxo de sequência (seta cheia)
+C) Associação pontilhada
+D) Gateway paralelo
+R: A
+E: Fluxo de sequência só liga elementos dentro do mesmo pool; entre pools usa-se fluxo de mensagem.
+Q35 [3] Um evento intermediário de temporizador (relógio) num fluxo de pós-venda modela:
+A) Uma decisão
+B) Uma tarefa manual
+C) O fim do processo
+D) Uma espera até data ou prazo, como "aguardar 3 dias após a entrega"
+R: D
+E: O token (marcador de execução) fica parado até o tempo passar e então segue para a próxima tarefa, por exemplo "enviar pesquisa de satisfação".
+Q36 [3] Ao mapear o ciclo de vida de um modelo (desenvolvimento → validação → aprovação), a ordem correta de um mapeamento AS-IS/TO-BE é:
+A) Desenhar o TO-BE e implantar sem olhar o atual
+B) Mapear o processo atual (AS-IS), identificar gargalos e desenhar o futuro (TO-BE)
+C) Automatizar primeiro e mapear depois
+D) Mapear só as exceções
+R: B
+E: AS-IS = como é hoje; TO-BE = como deve ser. Sem o AS-IS não se sabe onde está o desperdício. Exemplo: descobrir que a validação espera 10 dias por dados que poderiam vir com o pacote do modelo.
+# Ciência de Dados | Fundamentos Gerais | Python
+Q37 [1] Qual é a saída?
+```python
+x = [1, 2, 3]
+y = x
+y.append(4)
+print(x)
+```
+A) [1, 2, 3]
+B) [1, 2, 3, 4]
+C) Erro
+D) [4]
+R: B
+E: `y = x` não copia a lista; os dois nomes apontam para o mesmo objeto. Para copiar, use `x.copy()` ou `list(x)`.
+Q38 [1] Qual é a saída de `print(7 // 2, 7 % 2, 7 / 2)`?
+A) 3 1 3.5
+B) 3.5 1 3
+C) 3 1 3
+D) 4 1 3.5
+R: A
+E: `//` é divisão inteira (arredonda para baixo), `%` é o resto, `/` é divisão real.
+Q39 [2] Qual é a saída?
+```python
+def f(a, lista=[]):
+    lista.append(a)
+    return lista
+f(1)
+print(f(2))
+```
+A) [2]
+B) [1]
+C) [1, 2]
+D) Erro
+R: C
+E: O valor padrão `[]` é criado uma única vez, quando a função é definida, e reaproveitado entre chamadas. O padrão correto é `lista=None` e, dentro, `if lista is None: lista = []`.
+Q40 [2] Qual compreensão de lista (list comprehension) gera os quadrados dos pares de 0 a 9?
+A) `[x**2 for x in range(10) if x % 2 == 0]`
+B) `[x**2 if x % 2 for x in range(10)]`
+C) `[for x in range(10): x**2]`
+D) `[x*2 for x in range(10) if x % 2]`
+R: A
+E: Resultado: [0, 4, 16, 36, 64]. O filtro `if` vai no final; a opção B tem sintaxe inválida.
+Q41 [2] Em pandas, `df.groupby("mes")["vendas"].mean()` retorna:
+A) Um DataFrame com todas as colunas
+B) A média geral
+C) Uma Series com a média de `vendas` por mês
+D) Um erro
+R: C
+E: Series é a estrutura unidimensional do pandas (índice + valores). Exemplo: mês 2026-01 → 412,5; mês 2026-02 → 398,0.
+Q42 [2] Qual é a diferença entre `df.loc[0:2]` e `df.iloc[0:2]` num DataFrame com índice padrão 0, 1, 2, …?
+A) Nenhuma
+B) `loc` retorna 3 linhas (inclui o rótulo 2); `iloc` retorna 2 (exclui a posição 2)
+C) `loc` retorna 2 linhas; `iloc` retorna 3
+D) `iloc` usa rótulos
+R: B
+E: `loc` seleciona por rótulo e inclui o fim; `iloc` seleciona por posição e exclui o fim, como o fatiamento do Python.
+Q43 [2] Qual é a saída de `print({1, 2, 2, 3} | {3, 4})`?
+A) {1, 2, 2, 3, 3, 4}
+B) {3}
+C) {1, 2, 3, 4}
+D) Erro
+R: C
+E: `{}` com valores cria um set (conjunto, sem repetição); `|` é união. `&` daria a interseção {3}.
+Q44 [3] Qual é a saída?
+```python
+funcs = [lambda: i for i in range(3)]
+print([f() for f in funcs])
+```
+A) [0, 1, 2]
+B) [2, 2, 2]
+C) [0, 0, 0]
+D) Erro
+R: B
+E: Late binding (ligação tardia): cada lambda busca `i` quando é chamada, e nesse momento `i` vale 2. Correção: `lambda i=i: i`.
+Q45 [3] Um gerador (generator) como `(x**2 for x in range(10**9))` é preferível a uma lista porque:
+A) É mais rápido em qualquer caso
+B) Produz valores sob demanda, sem guardar todos na memória
+C) Permite indexação `g[5]`
+D) Pode ser percorrido várias vezes
+R: B
+E: Uma lista com 10⁹ inteiros ocuparia dezenas de GB; o gerador ocupa poucos bytes. Em troca, só pode ser percorrido uma vez e não aceita índice.
+Q46 [3] Em pandas, por que `df[df.renda > 5000]["faixa"] = "alta"` pode não alterar `df`?
+A) Porque strings são imutáveis
+B) Porque a indexação encadeada pode operar sobre uma cópia; o correto é `df.loc[df.renda > 5000, "faixa"] = "alta"`
+C) Porque falta `inplace=True`
+D) Porque `renda` é float
+R: B
+E: É o aviso SettingWithCopyWarning. O primeiro `[]` pode devolver uma cópia, e a atribuição vai para ela. `.loc` com linha e coluna na mesma chamada altera o original.
+Q47 [3] Qual é a saída de `sorted(["b10", "b2", "a1"], key=lambda s: (s[0], int(s[1:])))`?
+A) ['a1', 'b10', 'b2']
+B) ['b2', 'b10', 'a1']
+C) ['a1', 'b2', 'b10']
+D) Erro
+R: C
+E: A chave é a tupla (letra, número inteiro): ('a', 1), ('b', 2), ('b', 10). Sem `int`, a ordem seria textual e "b10" viria antes de "b2".
+Q48 [4] Qual é a complexidade de testar `x in conjunto` (set) e `x in lista` (list), em média?
+A) O(1) e O(n)
+B) O(n) e O(1)
+C) O(log n) e O(n)
+D) O(1) e O(1)
+R: A
+E: Notação O ("big O") descreve como o tempo cresce com n elementos. O set usa tabela hash (acesso direto pelo código do valor); a lista percorre item a item. Com 1 milhão de IDs de usuário, testar pertencimento em set é milhares de vezes mais rápido.
+# Ciência de Dados | Fundamentos Gerais | SQL
+Q49 [1] Qual cláusula filtra grupos depois da agregação?
+A) WHERE
+B) HAVING
+C) ORDER BY
+D) LIMIT
+R: B
+E: WHERE filtra linhas antes do GROUP BY; HAVING filtra grupos depois. `WHERE COUNT(*) > 1` dá erro.
+Q50 [1] A ordem lógica de execução de uma consulta é:
+A) SELECT → FROM → WHERE → GROUP BY
+B) FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+C) WHERE → FROM → SELECT → HAVING
+D) FROM → SELECT → WHERE → ORDER BY
+R: B
+E: Por isso um apelido criado no SELECT não pode ser usado no WHERE (ainda não existe), mas pode no ORDER BY.
+Q51 [2] (Adaptada — padrão "Top Competitors", HackerRank) Tabelas `Submissoes(hacker_id, desafio_id, pontos)` e `Desafios(desafio_id, pontos_max)`. Qual consulta lista hackers com nota máxima em mais de um desafio?
+A) `... WHERE s.pontos = d.pontos_max AND COUNT(*) > 1`
+B) `... WHERE s.pontos = d.pontos_max GROUP BY s.hacker_id HAVING COUNT(*) > 1`
+C) `... GROUP BY s.hacker_id WHERE COUNT(*) > 1`
+D) `... HAVING s.pontos = d.pontos_max`
+R: B
+E: A comparação linha a linha (pontos = máximo do desafio) vai no WHERE, após o JOIN; a condição sobre o agregado (mais de um) vai no HAVING.
+Q52 [2] Tabela A tem 3 linhas; tabela B tem 4. Um `CROSS JOIN` entre elas retorna:
+A) 7 linhas
+B) 4 linhas
+C) 12 linhas
+D) 3 linhas
+R: C
+E: Produto cartesiano: 3 × 4 = 12 combinações.
+Q53 [2] Clientes (10 linhas) `LEFT JOIN` Pedidos, onde 7 clientes têm 1 pedido, 2 têm 3 pedidos e 1 não tem nenhum. Quantas linhas resultam?
+A) 10
+B) 13
+C) 16
+D) 14
+R: D
+E: 7 × 1 + 2 × 3 + 1 (cliente sem pedido, com colunas de Pedidos nulas) = 7 + 6 + 1 = 14. É o fan-out (multiplicação de linhas) que distorce somas se não for previsto.
+Q54 [2] Qual é o resultado de `SELECT COUNT(col), COUNT(*)` numa tabela com 5 linhas, das quais 2 têm `col` nulo?
+A) 5, 5
+B) 3, 3
+C) 3, 5
+D) 5, 3
+R: C
+E: `COUNT(col)` ignora nulos; `COUNT(*)` conta linhas.
+Q55 [2] (Adaptada — padrão "New Companies", HackerRank) As tabelas de funcionários podem ter registros duplicados. Para contar funcionários distintos por empresa, usa-se:
+A) `COUNT(*)`
+B) `COUNT(DISTINCT codigo_funcionario)`
+C) `SUM(1)`
+D) `MAX(codigo_funcionario)`
+R: B
+E: Se um funcionário aparece 3 vezes, `COUNT(*)` conta 3 e `COUNT(DISTINCT ...)` conta 1. Ler a observação "pode haver duplicatas" no enunciado é parte do teste.
+Q56 [3] (Adaptada — padrão "15 Days of Learning SQL", HackerRank) Para escolher um único vencedor por dia, desempatando pelo menor `hacker_id`, a função de janela correta é:
+A) `RANK() OVER (PARTITION BY dia ORDER BY qtd DESC)`
+B) `ROW_NUMBER() OVER (PARTITION BY dia ORDER BY qtd DESC, hacker_id ASC)`
+C) `DENSE_RANK() OVER (ORDER BY qtd)`
+D) `COUNT(*) OVER ()`
+R: B
+E: Função de janela (window function) calcula sobre um grupo de linhas sem colapsá-las. `ROW_NUMBER` numera 1, 2, 3 sem empates; `RANK` daria dois "1" em caso de empate. A segunda chave de ordenação aplica a regra de desempate.
+Q57 [3] Para valores 100, 100, 90, 80, quais são `RANK()` e `DENSE_RANK()` em ordem decrescente?
+A) RANK 1,1,3,4 e DENSE_RANK 1,1,2,3
+B) RANK 1,1,2,3 e DENSE_RANK 1,1,3,4
+C) Ambos 1,2,3,4
+D) RANK 1,2,2,3 e DENSE_RANK 1,2,3,4
+R: A
+E: `RANK` pula posições após empate (1, 1, 3); `DENSE_RANK` não pula (1, 1, 2).
+Q58 [3] (Adaptada — padrão "Binary Tree Nodes", HackerRank) Tabela `BST(N, P)`, onde P é o pai. Para classificar cada nó como Root, Inner ou Leaf, a ordem correta do CASE é:
+A) Leaf → Inner → Root
+B) Root (P IS NULL) → Inner (existe filho) → Leaf (ELSE)
+C) Inner → Root → Leaf
+D) A ordem não importa
+R: B
+E: O CASE para no primeiro WHEN verdadeiro. A raiz é testada antes, porque ela também tem filhos e cairia em Inner. Exemplo: nó 2 sem pai → Root; nó 5 com filho 3 → Inner; nó 1 sem filhos → Leaf.
+Q59 [3] (Adaptada — série "Weather Observation Station", HackerRank) P1 = (a, b) com a = MIN(LAT_N) e b = MIN(LONG_W); P2 = (c, d) com os máximos. Para mínimos (10, 20) e máximos (40, 60), a distância de Manhattan é:
+A) 50
+B) 70
+C) 30
+D) 40
+R: B
+E: Distância de Manhattan = |c − a| + |d − b| = |40 − 10| + |60 − 20| = 30 + 40 = 70. Em SQL: `ROUND(ABS(MAX(LAT_N)-MIN(LAT_N)) + ABS(MAX(LONG_W)-MIN(LONG_W)), 4)`. A euclidiana seria √(30² + 40²) = 50.
+Q60 [4] Qual consulta calcula as vendas acumuladas de cada loja ao longo dos dias?
+A) `SUM(valor) GROUP BY dia`
+B) `SUM(valor) OVER (PARTITION BY loja ORDER BY dia ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)`
+C) `SUM(valor) OVER ()`
+D) `LAG(valor) OVER (ORDER BY loja)`
+R: B
+E: A janela vai do primeiro dia da loja até a linha atual. Exemplo: vendas 100, 50, 30 → acumulado 100, 150, 180. A opção C dá o total geral em todas as linhas; `LAG` traz o valor da linha anterior.

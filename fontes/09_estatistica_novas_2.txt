@@ -1,0 +1,601 @@
+# Estatística | Testes e Comparações | Testes Não Paramétricos e Qui-quadrado
+Q501 [1] Testes não paramétricos são preferíveis quando:
+A) Os dados são normais e a amostra é grande
+B) Se deseja maior poder em qualquer situação
+C) Há apenas uma observação
+D) A normalidade é duvidosa, a amostra é pequena ou a variável é ordinal
+R: D
+E: Não paramétrico = não supõe uma família de distribuição (como a normal). Costumam usar postos (ordens). Sob normalidade, perdem um pouco de poder para os testes paramétricos.
+Q502 [2] A alternativa não paramétrica à ANOVA de um fator é o teste de:
+A) Wilcoxon pareado
+B) Mann-Whitney
+C) Kruskal-Wallis
+D) McNemar
+R: C
+E: Kruskal-Wallis compara três ou mais grupos independentes usando postos. Mann-Whitney é o caso de dois grupos.
+Q503 [2] Para comparar a renda dos mesmos clientes antes e depois de um evento, sem supor normalidade, usa-se:
+A) Mann-Whitney
+B) Kruskal-Wallis
+C) Qui-quadrado
+D) Teste dos postos sinalizados de Wilcoxon
+R: D
+E: Wilcoxon signed-rank (postos sinalizados) é a versão não paramétrica do t pareado: ordena os valores absolutos das diferenças e soma os postos das positivas e das negativas.
+Q504 [2] Um dado é lançado 60 vezes; as frequências das faces 1 a 6 são 8, 12, 10, 10, 9 e 11. A estatística qui-quadrado de aderência a um dado justo é:
+A) 1,0
+B) 10,0
+C) 0,1
+D) 6,0
+R: A
+E: Esperado = 10 por face. χ² = Σ (obs − esp)² ÷ esp = (4 + 4 + 0 + 0 + 1 + 1) ÷ 10 = 1,0, com 5 graus de liberdade. Bem abaixo do crítico (11,07): não há evidência contra o dado justo.
+Q505 [2] Numa tabela 2×2 com 200 casos, uma linha soma 100 e uma coluna soma 40. A frequência esperada da célula sob independência é:
+A) 40
+B) 50
+C) 20
+D) 10
+R: C
+E: Esperado = (total da linha × total da coluna) ÷ total geral = 100 × 40 ÷ 200 = 20.
+Q506 [3] Num teste qui-quadrado de independência, várias células têm frequência esperada abaixo de 5. O procedimento recomendado é:
+A) Teste exato de Fisher ou agrupar categorias
+B) Ignorar
+C) Usar teste t
+D) Multiplicar as contagens por 10
+R: A
+E: A aproximação qui-quadrado fica ruim com esperados pequenos. O teste exato de Fisher calcula a probabilidade diretamente pela hipergeométrica.
+Q507 [3] Uma tabela de contingência 3 × 4 tem quantos graus de liberdade no teste qui-quadrado de independência?
+A) 12
+B) 7
+C) 11
+D) 6
+R: D
+E: gl = (linhas − 1) × (colunas − 1) = 2 × 3 = 6.
+Q508 [3] O V de Cramér complementa o teste qui-quadrado porque:
+A) Substitui o p-valor
+B) Mede a força da associação numa escala de 0 a 1, independente do tamanho da amostra
+C) Testa normalidade
+D) Só funciona em tabelas 2×2
+R: B
+E: Com milhões de linhas, qualquer associação mínima vira significativa. V = √[χ² ÷ (n × (min(linhas, colunas) − 1))] indica se ela é relevante.
+Q509 [3] Para medir a associação entre a posição num ranking (ordinal) e a nota média de avaliação, com relação monotônica mas não linear, usa-se:
+A) Spearman
+B) Pearson
+C) Qui-quadrado de aderência
+D) Teste F
+R: A
+E: Spearman = Pearson aplicado aos postos. Capta qualquer relação monotônica (sempre crescente ou sempre decrescente) e é robusto a outliers.
+Q510 [3] Ao testar normalidade com o teste KS usando média e desvio estimados da própria amostra, a correção apropriada é:
+A) Bonferroni
+B) Lilliefors
+C) Welch
+D) Yates
+R: B
+E: O KS clássico supõe parâmetros conhecidos; estimá-los da amostra o torna conservador demais. Lilliefors ajusta os valores críticos.
+Q511 [3] O teste de Shapiro-Wilk aplicado aos resíduos deu p-valor 0,001. A conclusão é:
+A) Os resíduos são normais
+B) O modelo é bom
+C) Rejeita-se a normalidade dos resíduos
+D) Os resíduos são independentes
+R: C
+E: H0 do Shapiro-Wilk = dados normais. Em amostras muito grandes, desvios pequenos e irrelevantes também rejeitam; olhe o gráfico QQ junto.
+Q512 [3] Os mesmos 500 clientes foram classificados como aprovado/reprovado pelo modelo antigo e pelo novo. Para testar se as taxas de aprovação diferem, usa-se:
+A) McNemar
+B) Qui-quadrado de independência
+C) Mann-Whitney
+D) Kruskal-Wallis
+R: A
+E: McNemar usa só os pares discordantes: (b − c)² ÷ (b + c), onde b = aprovados só pelo antigo e c = só pelo novo. As observações são pareadas, por isso o qui-quadrado comum não serve.
+Q513 [4] Um teste de permutação para a diferença de médias entre dois grupos:
+A) Supõe normalidade
+B) Usa a tabela t
+C) Exige amostras iguais
+D) Gera a distribuição nula embaralhando os rótulos de grupo muitas vezes e recalculando a estatística
+R: D
+E: Se H0 vale, os rótulos são trocáveis. O p-valor é a fração de embaralhamentos com diferença tão ou mais extrema que a observada. Exato e sem suposição de distribuição.
+Q514 [3] Entre 10 pares de clientes, 6 são concordantes (ordens iguais em x e y) e 4 discordantes. O tau de Kendall é:
+A) 0,6
+B) 0,2
+C) 0,4
+D) 1,0
+R: B
+E: τ = (concordantes − discordantes) ÷ total de pares = (6 − 4) ÷ 10 = 0,2. Par concordante = quem tem x maior também tem y maior.
+Q515 [4] Comparado ao teste KS, o teste de Anderson-Darling:
+A) Dá mais peso às caudas da distribuição
+B) Ignora as caudas
+C) Só serve para dados discretos
+D) Não tem estatística de teste
+R: A
+E: O KS olha a maior diferença entre distribuições acumuladas, geralmente no meio. O Anderson-Darling pondera os desvios pelas caudas, onde ficam as perdas extremas.
+# Estatística | Estimação e Multivariada | Estimação e Intervalos
+Q516 [1] Um estimador pontual difere de um estimador intervalar porque:
+A) O pontual dá um único valor; o intervalar dá uma faixa com nível de confiança associado
+B) São iguais
+C) O intervalar dá um único valor
+D) O pontual só serve para médias
+R: A
+E: Exemplo: taxa de conversão estimada em 4% (pontual) e intervalo de 95% de [2,8%; 5,2%] (intervalar).
+Q517 [2] Amostra de n = 16, média 20 e desvio 8. Usando t com 15 graus de liberdade (quantil 97,5% = 2,131), o IC de 95% é aproximadamente:
+A) [16,1; 23,9]
+B) [12,0; 28,0]
+C) [18,0; 22,0]
+D) [15,7; 24,3]
+R: D
+E: Erro-padrão = 8 ÷ √16 = 2. Margem = 2,131 × 2 ≈ 4,26. IC = 20 ± 4,26 = [15,74; 24,26]. Usar 1,96 daria [16,1; 23,9], estreito demais para amostra pequena.
+Q518 [2] Mantendo tudo igual, quadruplicar o tamanho da amostra faz a largura do intervalo de confiança:
+A) Cair à metade
+B) Cair a um quarto
+C) Dobrar
+D) Não mudar
+R: A
+E: A largura é proporcional a 1 ÷ √n. √4 = 2, então a largura cai pela metade.
+Q519 [2] Passar o nível de confiança de 95% para 99%, com a mesma amostra, deixa o intervalo:
+A) Mais estreito
+B) Igual
+C) Mais largo
+D) Sem centro
+R: C
+E: O quantil passa de 1,96 para 2,576. Mais confiança exige uma faixa maior.
+Q520 [3] Pelo método dos momentos, para uma exponencial com média amostral 4, a taxa estimada é:
+A) 4
+B) 0,25
+C) 2
+D) 16
+R: B
+E: Método dos momentos = igualar momentos teóricos aos amostrais. Na exponencial, E[X] = 1 ÷ λ; então λ̂ = 1 ÷ x̄ = 1 ÷ 4 = 0,25.
+Q521 [3] As contagens de reclamações em 5 dias foram 2, 3, 1, 4 e 0. A estimativa de máxima verossimilhança do λ da Poisson é:
+A) 2
+B) 10
+C) 2,5
+D) 4
+R: A
+E: Na Poisson, o estimador de máxima verossimilhança de λ é a média amostral: (2 + 3 + 1 + 4 + 0) ÷ 5 = 10 ÷ 5 = 2.
+Q522 [3] Um estimador tem viés 2 e variância 5. Seu erro quadrático médio (EQM) é:
+A) 7
+B) 3
+C) 10
+D) 9
+R: D
+E: EQM = viés² + variância = 4 + 5 = 9. Às vezes um estimador viesado com variância muito menor tem EQM menor que um não viesado.
+Q523 [3] Pelo método delta, se X tem média 10 e variância 4, a variância aproximada de ln(X) é:
+A) 0,4
+B) 0,04
+C) 4
+D) 0,2
+R: B
+E: Var[g(X)] ≈ [g'(μ)]² × Var(X). Com g = ln, g'(μ) = 1 ÷ 10. Var ≈ (0,1)² × 4 = 0,04.
+Q524 [3] Num teste com 50 peças não houve nenhuma falha. O intervalo de Wald (p̂ ± 1,96 × √[p̂(1 − p̂)/n]) dá [0; 0]. A melhor alternativa é:
+A) Usar intervalo de Wilson, Clopper-Pearson ou Jeffreys
+B) Aceitar taxa de falha zero
+C) Aumentar o nível de confiança para 99%
+D) Remover a amostra
+R: A
+E: Com p̂ = 0 o erro-padrão estimado é zero, e o Wald colapsa. Os intervalos de Wilson e Clopper-Pearson (exato) continuam com limite superior positivo.
+Q525 [3] Em 300 peças testadas não apareceu nenhum defeito. Pela "regra do três", o limite superior de 95% para a taxa de defeito é aproximadamente:
+A) 1%
+B) 0,3%
+C) 3%
+D) 0%
+R: A
+E: Com zero eventos em n, o limite superior de 95% ≈ 3 ÷ n = 3 ÷ 300 = 1%. Vem de resolver (1 − p)^n = 0,05.
+Q526 [2] O IC de 95% para a diferença de taxas de pagamento entre teste e controle é [−0,5; 1,8] pontos percentuais. A conclusão a 5% é:
+A) A diferença é significativa
+B) O teste foi um sucesso
+C) O controle é melhor
+D) Não há evidência de diferença, pois o intervalo contém zero
+R: D
+E: O intervalo inclui diferenças negativas, nula e positivas. Equivale a um teste com p-valor acima de 0,05.
+Q527 [3] Em amostras grandes, a variância do estimador de máxima verossimilhança é aproximada por:
+A) O inverso da informação de Fisher
+B) A informação de Fisher
+C) O quadrado da média
+D) Zero
+R: A
+E: Informação de Fisher = curvatura da log-verossimilhança no ponto máximo. Verossimilhança muito "pontuda" = muita informação = estimador preciso.
+Q528 [3] Para obter o erro-padrão da mediana da renda, para a qual não há fórmula simples, a técnica prática é:
+A) Teste t
+B) Correção de Bessel
+C) Bootstrap
+D) Qui-quadrado
+R: C
+E: Reamostram-se os dados com reposição, calcula-se a mediana em cada réplica e usa-se o desvio-padrão dessas medianas como erro-padrão.
+Q529 [4] O limite inferior de Cramér-Rao estabelece:
+A) O maior viés possível
+B) A menor variância possível para estimadores não viesados
+C) O número mínimo de observações
+D) O máximo da verossimilhança
+R: B
+E: Nenhum estimador não viesado tem variância abaixo de 1 ÷ I(θ), onde I é a informação de Fisher. Um estimador que atinge o limite é chamado eficiente.
+Q530 [4] Estimar a taxa de conversão de cada página de um site, puxando as estimativas das páginas com poucos acessos em direção à média geral (shrinkage), tende a:
+A) Aumentar o EQM
+B) Eliminar o viés
+C) Ser equivalente à taxa simples por página
+D) Introduzir algum viés, mas reduzir a variância e, em geral, o erro quadrático médio total
+R: D
+E: É a troca viés-variância. O estimador de James-Stein mostrou que, com três ou mais médias, encolher reduz o EQM total em relação às médias individuais.
+# Estatística | Estimação e Multivariada | Análise Multivariada
+Q531 [1] Na diagonal principal de uma matriz de correlação, os valores são:
+A) Zero
+B) As variâncias
+C) Sempre 1
+D) As médias
+R: C
+E: É a correlação de cada variável consigo mesma. Na matriz de covariância, a diagonal traz as variâncias.
+Q532 [2] Cov(X, Y) = 6, desvio de X = 2 e desvio de Y = 5. A correlação é:
+A) 0,6
+B) 6
+C) 0,12
+D) 1,2
+R: A
+E: r = Cov ÷ (σX × σY) = 6 ÷ (2 × 5) = 0,6. A correlação é a covariância padronizada, sempre entre −1 e 1.
+Q533 [2] O primeiro componente principal de um PCA é:
+A) A variável com maior média
+B) A combinação linear das variáveis com a maior variância possível
+C) A variável mais correlacionada com o alvo
+D) O centróide dos dados
+R: B
+E: Os componentes seguintes têm variância máxima entre as direções perpendiculares às anteriores. O PCA não olha o alvo.
+Q534 [2] Variáveis em escalas muito diferentes (renda em reais, idade em anos) entram num PCA. O correto é:
+A) Usar a matriz de covariância bruta
+B) Remover a renda
+C) Multiplicar a idade por 1.000
+D) Padronizar as variáveis, ou seja, fazer PCA sobre a matriz de correlação
+R: D
+E: Sem padronizar, a renda domina o primeiro componente só por ter variância numérica maior.
+Q535 [3] Num PCA sobre a matriz de correlação de 10 variáveis, o critério de Kaiser manda reter os componentes com:
+A) Autovalor maior que 1
+B) Autovalor maior que 10
+C) Carga maior que 0,5
+D) Autovalor negativo
+R: A
+E: Cada variável padronizada contribui com variância 1. Um componente com autovalor abaixo de 1 explica menos que uma variável isolada. Outro critério comum é o gráfico de cotovelo (scree plot).
+Q536 [3] No PCA, as cargas (loadings) de um componente indicam:
+A) A variância total
+B) O p-valor de cada variável
+C) O número de clusters
+D) O peso de cada variável original na formação do componente
+R: D
+E: Exemplo: se o componente 1 tem cargas altas em altura, peso e envergadura, pode ser interpretado como "tamanho corporal".
+Q537 [3] A diferença conceitual entre análise fatorial e PCA é:
+A) São idênticas
+B) A análise fatorial só aceita duas variáveis
+C) A análise fatorial supõe fatores latentes que causam as variáveis, separando variância comum de variância específica; o PCA apenas resume a variância total
+D) O PCA exige rótulos
+R: C
+E: Fator latente = construto não observado, como "capacidade de pagamento". O PCA é uma rotação dos dados, sem modelo causal.
+Q538 [3] A análise discriminante linear (LDA) supõe que:
+A) As classes não têm média
+B) Os dados não têm covariância
+C) A variável alvo é contínua
+D) As variáveis seguem normal multivariada em cada classe, com a mesma matriz de covariância
+R: D
+E: Com covariâncias iguais a fronteira entre classes é linear. Com covariâncias diferentes, a versão quadrática (QDA) gera fronteiras curvas.
+Q539 [3] Com média (0, 0) e matriz de covariância igual à identidade, a distância de Mahalanobis do ponto (3, 4) é:
+A) 7
+B) 25
+C) 5
+D) 12
+R: C
+E: Com covariância identidade (variâncias 1, sem correlação), Mahalanobis = euclidiana = √(3² + 4²) = 5.
+Q540 [3] Sob normalidade multivariada com 2 variáveis, a distância de Mahalanobis ao quadrado segue qui-quadrado com 2 graus de liberdade. O corte para marcar outliers a 97,5% é cerca de:
+A) 1,96
+B) 7,38
+C) 3,84
+D) 9,49
+R: B
+E: O quantil 97,5% da χ²(2) é 7,38. Pontos com D² acima disso são candidatos a outlier multivariado. 3,84 é o quantil 95% com 1 grau de liberdade.
+Q541 [3] A correlação parcial entre X e Y controlando por Z mede:
+A) A correlação entre X e Y depois de remover de ambas o efeito linear de Z
+B) A correlação total
+C) A correlação entre X e Z
+D) A soma das correlações
+R: A
+E: Exemplo: vendas de sorvete e de protetor solar são correlacionadas, mas boa parte disso vem da temperatura. A correlação parcial controlando a temperatura mostra a relação que sobra.
+Q542 [4] O determinante da matriz de correlação das variáveis de um modelo está muito próximo de zero. Isso indica:
+A) Variáveis independentes
+B) Forte multicolinearidade
+C) Ausência de outliers
+D) Normalidade
+R: B
+E: O determinante vale 1 quando as variáveis são não correlacionadas e se aproxima de 0 quando alguma é quase combinação linear das outras; a matriz fica quase impossível de inverter.
+Q543 [3] No agrupamento hierárquico, o critério de ligação de Ward une, a cada passo, os dois grupos que:
+A) Estão mais distantes
+B) Têm mais elementos
+C) Têm o vizinho mais próximo
+D) Geram o menor aumento da soma de quadrados dentro dos grupos
+R: D
+E: Ward tende a formar grupos compactos e de tamanho parecido. Ligação simples (vizinho mais próximo) tende a formar cadeias alongadas.
+Q544 [3] Para visualizar a associação entre as categorias de duas variáveis categóricas (ex.: região × marca preferida) num mapa, usa-se:
+A) Análise de correspondência
+B) Regressão linear
+C) PCA sobre variáveis contínuas
+D) Kaplan-Meier
+R: A
+E: É uma decomposição da tabela de contingência que posiciona categorias associadas próximas no gráfico.
+Q545 [4] Os componentes principais de um PCA são, entre si:
+A) Perfeitamente correlacionados
+B) Iguais às variáveis originais
+C) Não correlacionados, pois vêm de autovetores ortogonais da matriz de covariância
+D) Independentes em qualquer distribuição
+R: C
+E: Ortogonal = perpendicular. Não correlação não é o mesmo que independência, exceto sob normalidade.
+# Estatística | Sobrevivência e Séries | Análise de Sobrevivência
+Q546 [1] Na análise de sobrevivência, uma observação censurada à direita é aquela em que:
+A) O evento ainda não foi observado até o fim do acompanhamento
+B) O evento ocorreu antes do início do estudo
+C) Os dados estão errados
+D) O evento ocorreu no primeiro mês
+R: A
+E: Exemplo: assinante ainda ativo na data de corte ou paciente que saiu do estudo. Sabe-se apenas que o evento, se ocorrer, será depois. Descartar esses casos distorce a estimativa.
+Q547 [2] Começam 100 assinantes. No mês 1 ocorrem 5 cancelamentos. No mês 2, há 90 em risco (5 foram censurados) e ocorrem 9 cancelamentos. A sobrevivência de Kaplan-Meier ao fim do mês 2 é:
+A) 0,855
+B) 0,860
+C) 0,900
+D) 0,950
+R: A
+E: S(1) = 1 − 5/100 = 0,95. S(2) = 0,95 × (1 − 9/90) = 0,95 × 0,90 = 0,855. A cada evento, multiplica-se pela fração de quem estava em risco e sobreviveu; censurados saem do denominador sem contar como evento.
+Q548 [2] A função de sobrevivência S(t) é definida como:
+A) P(T > t), a probabilidade de o evento ocorrer depois de t
+B) P(T = t)
+C) P(T < t)
+D) A taxa de risco
+R: A
+E: S(0) = 1 e decresce com o tempo. A probabilidade acumulada do evento até t é 1 − S(t).
+Q549 [2] A função de risco (hazard) h(t) representa:
+A) A probabilidade acumulada de evento
+B) A média do tempo
+C) A taxa instantânea de ocorrência do evento em t, dado que ele ainda não ocorreu até t
+D) A proporção censurada
+R: C
+E: Em tempo discreto: entre os assinantes ativos no início do 6º mês, a fração que cancela nesse mês.
+Q550 [3] O modelo de riscos proporcionais de Cox é chamado semiparamétrico porque:
+A) Não usa covariáveis
+B) Supõe distribuição exponencial
+C) Exige ausência de censura
+D) Estima o efeito das covariáveis sem especificar a forma do risco basal
+R: D
+E: h(t | x) = h₀(t) × exp(xβ). O risco basal h₀(t) fica livre; só os coeficientes β são estimados, pela verossimilhança parcial.
+Q551 [3] No modelo de Cox, uma covariável binária tem coeficiente 0,4. A razão de riscos (hazard ratio) é aproximadamente:
+A) 0,40
+B) 1,40
+C) 1,49
+D) 0,67
+R: C
+E: HR = e^0,4 ≈ 1,49: quem tem a característica tem taxa de risco 49% maior em qualquer momento, mantidas as demais variáveis.
+Q552 [3] Para verificar o pressuposto de riscos proporcionais no modelo de Cox, usam-se:
+A) Resíduos de Schoenfeld
+B) O R²
+C) O teste de Durbin-Watson
+D) A AUC
+R: A
+E: Se os resíduos de Schoenfeld de uma covariável mostram tendência no tempo, o efeito dela muda com o tempo e o pressuposto falha.
+Q553 [3] Para comparar as curvas de sobrevivência de dois planos de assinatura, o teste usual é:
+A) Log-rank
+B) Teste t
+C) Qui-quadrado de aderência
+D) Shapiro-Wilk
+R: A
+E: O log-rank compara, a cada tempo de evento, os eventos observados e esperados em cada grupo, somando ao longo do tempo.
+Q554 [3] Ao calcular a taxa de cancelamento em 12 meses tratando assinantes que entraram há só 3 meses como "não cancelaram", o resultado:
+A) Fica correto
+B) Superestima o cancelamento
+C) Subestima o cancelamento, porque esses assinantes não tiveram tempo completo de exposição
+D) Não muda
+R: C
+E: Um assinante observado por 3 meses conta como sobrevivente de 12. Kaplan-Meier e modelos de sobrevivência usam só o tempo realmente observado.
+Q555 [3] As taxas de cancelamento mensais (risco discreto) nos meses 1, 2 e 3 são 1%, 2% e 3%. A probabilidade acumulada de cancelar em 3 meses é aproximadamente:
+A) 5,89%
+B) 6,00%
+C) 3,00%
+D) 0,0006%
+R: A
+E: Sobrevivência = 0,99 × 0,98 × 0,97 = 0,9411. Probabilidade acumulada = 1 − 0,9411 ≈ 5,89%. Somar as taxas (6%) superestima, pois quem já cancelou não pode cancelar de novo.
+Q556 [3] Pacientes podem morrer da doença estudada ou de outras causas, e uma impede a outra. Para estimar a probabilidade acumulada de morte pela doença, o adequado é:
+A) 1 − Kaplan-Meier tratando as outras causas como censura
+B) Média simples
+C) Ignorar as outras causas
+D) Função de incidência acumulada de riscos competitivos (Aalen-Johansen ou Fine-Gray)
+R: D
+E: Riscos competitivos = eventos mutuamente excludentes. Tratar as outras causas como censura supõe que o paciente ainda poderia morrer da doença depois, o que superestima a probabilidade.
+Q557 [3] A mediana do tempo de sobrevivência é:
+A) O tempo em que S(t) cai para 0,5
+B) A média dos tempos observados
+C) O maior tempo observado
+D) O tempo da primeira censura
+R: A
+E: Lê-se na curva de Kaplan-Meier. Com muita censura, a média é difícil de estimar, mas a mediana costuma ser possível.
+Q558 [4] Com 5 eventos entre 100 em risco no tempo 1 e 9 eventos entre 90 em risco no tempo 2, o estimador de Nelson-Aalen do risco acumulado H(2) é:
+A) 0,150
+B) 0,145
+C) 0,140
+D) 0,855
+R: A
+E: Nelson-Aalen soma eventos ÷ em risco em cada tempo: 5/100 + 9/90 = 0,05 + 0,10 = 0,15. A sobrevivência associada é e^(−0,15) ≈ 0,861, próxima do Kaplan-Meier (0,855).
+Q559 [2] A variável "número de logins no mês", que muda ao longo do tempo de assinatura, entra num modelo de sobrevivência como:
+A) Covariável dependente do tempo
+B) Variável censurada
+C) Risco basal
+D) Variável constante
+R: A
+E: Exige reorganizar a base em intervalos (uma linha por assinante e mês), no formato "contagem de processos" do Cox estendido.
+Q560 [4] A taxa de cancelamento é constante em 0,02 por mês (tempo contínuo). A probabilidade acumulada de cancelar em 12 meses é aproximadamente:
+A) 24,0%
+B) 2,0%
+C) 78,7%
+D) 21,3%
+R: D
+E: S(12) = e^(−0,02 × 12) = e^(−0,24) ≈ 0,787. Probabilidade = 1 − 0,787 ≈ 21,3%. Multiplicar 2% por 12 (24%) ignora que a população em risco diminui.
+# Estatística | Sobrevivência e Séries | Séries Temporais e Previsão
+Q561 [1] Os componentes clássicos de uma série temporal são:
+A) Média, mediana e moda
+B) Tendência, sazonalidade, ciclo e componente irregular
+C) Treino, validação e teste
+D) Viés e variância
+R: B
+E: Tendência = direção de longo prazo; sazonalidade = padrão de calendário; ciclo = oscilações longas sem período fixo (econômicas); irregular = ruído.
+Q562 [2] A média móvel de 3 períodos da série 10, 12, 14, 16 gera os valores:
+A) 12 e 14
+B) 13 e 15
+C) 10 e 12
+D) 36 e 42
+R: A
+E: (10 + 12 + 14) ÷ 3 = 12; (12 + 14 + 16) ÷ 3 = 14. Suaviza oscilações e perde as pontas da série.
+Q563 [2] Na suavização exponencial simples com α = 0,3, a previsão anterior era 100 e o valor observado foi 110. A nova previsão é:
+A) 110
+B) 107
+C) 103
+D) 100
+R: C
+E: Nova = α × observado + (1 − α) × previsão anterior = 0,3 × 110 + 0,7 × 100 = 33 + 70 = 103. α alto reage rápido; α baixo suaviza mais.
+Q564 [3] O método de Holt-Winters estende a suavização exponencial simples ao incluir:
+A) Variáveis explicativas
+B) Redes neurais
+C) Componentes de tendência e de sazonalidade
+D) Diferenciação
+R: C
+E: Simples = só nível; Holt = nível + tendência; Holt-Winters = nível + tendência + sazonalidade, cada um com seu parâmetro de suavização.
+Q565 [3] O teste de Ljung-Box aplicado aos resíduos de um ARIMA deu p-valor 0,002. Isso indica:
+A) Modelo adequado
+B) Resíduos normais
+C) Série estacionária
+D) Autocorrelação remanescente nos resíduos; o modelo não capturou toda a estrutura
+R: D
+E: H0 do Ljung-Box = autocorrelações dos resíduos até o lag k são zero. Resíduo bom é ruído branco (sem autocorrelação).
+Q566 [3] Duas séries não estacionárias têm uma combinação linear estacionária. Elas são:
+A) Independentes
+B) Sazonais
+C) Ruído branco
+D) Cointegradas
+R: D
+E: Cointegração = relação de equilíbrio de longo prazo. Exemplo: os preços de dois combustíveis substitutos podem vagar juntos, mas a diferença entre eles é estável.
+Q567 [3] Regredir uma série não estacionária em outra independente (ambas passeios aleatórios) costuma gerar:
+A) R² alto e coeficiente "significativo" sem relação real: regressão espúria
+B) R² zero
+C) Coeficiente sempre negativo
+D) Resíduos de ruído branco
+R: A
+E: Granger e Newbold (1974) mostraram o problema. Diferenciar as séries ou testar cointegração evita conclusões falsas.
+Q568 [3] A amplitude da sazonalidade cresce junto com o nível da série. A decomposição mais adequada é:
+A) Aditiva
+B) Nenhuma
+C) Por média móvel de 2
+D) Multiplicativa, ou aditiva após aplicar logaritmo
+R: D
+E: Multiplicativa: y = tendência × sazonalidade × irregular. O logaritmo transforma produto em soma.
+Q569 [3] Num processo MA(1), a função de autocorrelação (ACF):
+A) Decai geometricamente
+B) É zero em todos os lags
+C) É significativa no lag 1 e corta (zera) a partir do lag 2
+D) Oscila sem decair
+R: C
+E: MA(1): yₜ = εₜ + θεₜ₋₁. Só choques vizinhos se compartilham. É o espelho do AR(1), cuja PACF corta no lag 1.
+Q570 [3] Um modelo VAR (vetor autorregressivo) com temperatura e consumo de energia permite testar se a temperatura passada ajuda a prever o consumo. Esse teste é o de:
+A) Shapiro-Wilk
+B) Causalidade de Granger
+C) Ljung-Box
+D) Levene
+R: B
+E: "Causalidade de Granger" significa precedência preditiva, não causalidade real. VAR = Vector AutoRegression, várias séries modeladas juntas.
+Q571 [2] Erros de previsão de 3 e −4. O RMSE é aproximadamente:
+A) 3,54
+B) 3,50
+C) 0,50
+D) 12,5
+R: A
+E: RMSE (Root Mean Squared Error, raiz do erro quadrático médio) = √[(9 + 16) ÷ 2] = √12,5 ≈ 3,54. O MAE (erro absoluto médio) seria 3,5.
+Q572 [3] Para remover sazonalidade anual de uma série mensal, aplica-se:
+A) A primeira diferença yₜ − yₜ₋₁
+B) Logaritmo
+C) A média geral
+D) A diferença sazonal yₜ − yₜ₋₁₂
+R: D
+E: Compara cada mês com o mesmo mês do ano anterior, eliminando o padrão de calendário.
+Q573 [4] Para prever vendas diárias incluindo o efeito de feriados e promoções como variáveis explicativas, além da estrutura autorregressiva da série, usa-se:
+A) SARIMAX (ARIMA sazonal com variáveis exógenas)
+B) Média móvel simples
+C) Kaplan-Meier
+D) K-means
+R: A
+E: O "X" indica regressoras externas. Para prever o futuro, é preciso conhecer ou projetar essas variáveis (o calendário de feriados é conhecido; promoções, planejadas).
+Q574 [3] A previsão de um passeio aleatório (random walk) para o próximo período é:
+A) A média histórica
+B) Zero
+C) O último valor observado
+D) A tendência linear
+R: C
+E: Passeio aleatório: yₜ = yₜ₋₁ + εₜ. Como o choque futuro tem média zero, a melhor previsão é o valor atual. É o benchmark ingênuo para séries financeiras.
+Q575 [4] A variância de uma série cresce com seu nível. Uma transformação que estabiliza a variância é:
+A) Somar uma constante
+B) Box-Cox, que inclui o logaritmo como caso particular
+C) Diferenciação sazonal
+D) Média móvel
+R: B
+E: Box-Cox: (y^λ − 1) ÷ λ; com λ = 0, vira ln(y). Estabilizar a variância melhora o ajuste de modelos lineares como o ARIMA.
+# Estatística | Amostragem | Amostragem e Planejamento
+Q591 [1] Na amostragem aleatória simples:
+A) Todos os elementos da população têm a mesma probabilidade de seleção
+B) Escolhem-se os elementos mais acessíveis
+C) Sorteiam-se grupos inteiros
+D) Seleciona-se um a cada k
+R: A
+E: Base de quase todas as fórmulas de erro-padrão. Outros desenhos (estratificado, conglomerados) ajustam essas fórmulas.
+Q592 [2] Um questionário com pergunta mal formulada gera respostas distorcidas. Esse é um erro:
+A) Amostral
+B) Não amostral (de mensuração)
+C) Aleatório que diminui com n
+D) De arredondamento
+R: B
+E: Erro amostral vem de observar só parte da população e diminui com n. Erros não amostrais (não resposta, mensuração, cobertura) não diminuem com amostras maiores.
+Q593 [2] Para reduzir a margem de erro à metade, o tamanho da amostra precisa ser multiplicado por:
+A) 2
+B) 8
+C) √2
+D) 4
+R: D
+E: Margem ∝ 1 ÷ √n. Para dividir por 2, √n precisa dobrar: n × 4.
+Q594 [3] Numa população de 1.000 peças, sorteiam-se 500 sem reposição. O fator de correção para população finita aplicado ao erro-padrão é aproximadamente:
+A) 0,707
+B) 0,500
+C) 1,000
+D) 0,250
+R: A
+E: FPC = √[(N − n) ÷ (N − 1)] = √(500 ÷ 999) ≈ 0,707. Quando a amostra é parte grande da população, a incerteza é menor do que a fórmula usual indica.
+Q595 [3] Na alocação ótima de Neyman, a amostra de cada estrato é proporcional a:
+A) Apenas o tamanho do estrato
+B) Apenas a média do estrato
+C) O tamanho do estrato vezes seu desvio-padrão (N_h × σ_h)
+D) O inverso do tamanho do estrato
+R: C
+E: Estratos grandes e heterogêneos recebem mais amostra. Exemplo: o segmento de alto risco, mais variável, é sobreamostrado em relação à alocação proporcional.
+Q596 [3] Numa amostragem por conglomerados com 20 alunos por turma e correlação intraclasse ρ = 0,05, o efeito do desenho (deff) é:
+A) 1,00
+B) 2,00
+C) 0,95
+D) 1,95
+R: D
+E: deff = 1 + (m − 1) × ρ = 1 + 19 × 0,05 = 1,95. A amostra equivale a quase metade de uma aleatória simples do mesmo tamanho, porque alunos da mesma turma se parecem.
+Q597 [3] Uma pesquisa feita apenas com clientes que responderam voluntariamente no aplicativo tende a:
+A) Ser representativa
+B) Ter viés de seleção (autosseleção), pois quem responde difere de quem não responde
+C) Ter variância zero
+D) Ser estratificada
+R: B
+E: Amostragem por conveniência não tem probabilidades de seleção conhecidas; não dá para corrigir o viés com fórmulas de erro amostral.
+Q598 [3] Clientes de alto risco foram sorteados com probabilidade 0,1 e os demais com 0,01. Para estimar totais da população, cada cliente de alto risco recebe peso:
+A) 0,1
+B) 10
+C) 100
+D) 1
+R: B
+E: Peso amostral = 1 ÷ probabilidade de seleção = 1 ÷ 0,1 = 10: cada cliente sorteado representa 10 da população. Os demais pesam 100.
+Q599 [3] O estimador de Horvitz-Thompson do total populacional é:
+A) A média simples × n
+B) O maior valor amostral
+C) Σ (yᵢ ÷ πᵢ), somando cada valor dividido por sua probabilidade de inclusão
+D) A mediana
+R: C
+E: πᵢ = probabilidade de o elemento i entrar na amostra. O estimador é não viesado para qualquer desenho com πᵢ conhecidas e positivas.
+Q600 [4] A amostragem por cotas (preencher 50% homens e 50% mulheres, por exemplo) difere da estratificada porque:
+A) Dentro de cada cota a escolha não é aleatória, então não há base probabilística para o erro amostral
+B) São idênticas
+C) Cotas usam pesos de Neyman
+D) Estratificada não usa grupos
+R: A
+E: As cotas reproduzem proporções, mas o entrevistador escolhe quem incluir, o que introduz viés. Na estratificada, sorteia-se dentro de cada estrato.

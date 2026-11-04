@@ -1,0 +1,284 @@
+# Estatística | Estatística Básica | Estatística Descritiva
+Q61 [1] Para os valores 2, 9, 4, 20, 5, a mediana e a média são:
+A) 5 e 8
+B) 4 e 8
+C) 5 e 5
+D) 9 e 8
+R: A
+E: Ordenando: 2, 4, 5, 9, 20 → o valor do meio é 5. Média = (2 + 9 + 4 + 20 + 5) ÷ 5 = 40 ÷ 5 = 8. O valor 20 puxa a média para cima, mas não mexe na mediana.
+Q62 [1] A moda de 1, 2, 2, 3, 3, 3, 4 é:
+A) 2
+B) 2,5
+C) 4
+D) 3
+R: D
+E: Moda é o valor mais frequente: o 3 aparece três vezes.
+Q63 [2] A renda de clientes costuma ter assimetria à direita (cauda longa de rendas altas). Nesse caso, em geral:
+A) Média < mediana
+B) Média = mediana
+C) Média > mediana
+D) Não há relação
+R: C
+E: Poucos valores muito altos puxam a média para cima, enquanto a mediana fica no centro das observações. Exemplo: rendas 2, 3, 3, 4, 50 mil → mediana 3 mil, média 12,4 mil.
+Q64 [2] A variância amostral de 2, 4, 6 é:
+A) 8/3
+B) 4
+C) 2
+D) 8
+R: B
+E: Média = 4. Desvios: −2, 0, 2. Quadrados: 4, 0, 4; soma 8. Variância amostral divide por n − 1 = 2 → 8 ÷ 2 = 4 (desvio-padrão 2). Dividir por n (opção A) dá a variância populacional; o n − 1 é a correção de Bessel, que remove o viés de estimar a média com os mesmos dados.
+Q65 [2] Com primeiro quartil Q1 = 10 e terceiro quartil Q3 = 30, a amplitude interquartil (IQR, interquartile range) é:
+A) 20
+B) 40
+C) 10
+D) 30
+R: A
+E: IQR = Q3 − Q1 = 30 − 10 = 20. Ela mede a dispersão dos 50% centrais dos dados e não é afetada por extremos.
+Q66 [2] Loja A: ticket médio R$ 1.000, desvio R$ 200. Loja B: ticket médio R$ 50, desvio R$ 20. Qual é relativamente mais dispersa?
+A) A, com CV de 20%
+B) São iguais
+C) Não dá para comparar
+D) B, com CV de 40%
+R: D
+E: CV (coeficiente de variação) = desvio ÷ média. A: 200 ÷ 1.000 = 20%. B: 20 ÷ 50 = 40%. O CV permite comparar dispersão entre escalas diferentes.
+Q67 [3] Correlação de Pearson igual a zero significa:
+A) As variáveis são independentes
+B) Não há relação linear, mas pode haver relação não linear
+C) Uma variável é constante
+D) Há relação perfeita negativa
+R: B
+E: Exemplo: x = −2, −1, 0, 1, 2 e y = x² = 4, 1, 0, 1, 4. Y depende totalmente de x, mas a correlação de Pearson dá 0 porque a relação é em forma de U, não reta.
+Q68 [3] Se y = eˣ para x = 1, 2, …, 10, o que se espera das correlações?
+A) Pearson = 1 e Spearman < 1
+B) Spearman = 1 e Pearson < 1
+C) Ambas iguais a 0
+D) Ambas iguais a −1
+R: B
+E: Spearman calcula a correlação dos postos (ordens); como y cresce sempre com x, os postos coincidem e dá 1. Pearson mede ajuste a uma reta, e a exponencial curva, então fica abaixo de 1.
+Q69 [3] Curtose em excesso positiva (leptocúrtica) indica:
+A) Distribuição mais achatada que a normal
+B) Assimetria à esquerda
+C) Caudas mais pesadas que a normal, com mais valores extremos
+D) Média igual a zero
+R: C
+E: Curtose em excesso = curtose − 3 (a normal tem curtose 3). Positiva indica mais eventos extremos do que a normal prevê, algo comum em retornos de ações e em tempos de resposta de servidores.
+Q70 [4] A taxa de conversão de cada canal caiu (celular: 2,0% → 1,8%; computador: 10% → 9%), mas a taxa geral do site subiu. O tráfego passou de 80% celular / 20% computador para 50% / 50%. Isso é:
+A) Erro de cálculo
+B) Sazonalidade
+C) Regressão à média
+D) Paradoxo de Simpson causado por mudança de composição
+R: D
+E: Antes: 0,8 × 2,0% + 0,2 × 10% = 1,6% + 2,0% = 3,6%. Depois: 0,5 × 1,8% + 0,5 × 9% = 0,9% + 4,5% = 5,4%. Cada canal piorou, mas cresceu o peso do canal que converte mais. Sempre olhe os resultados por subgrupo além do agregado.
+# Estatística | Estatística Básica | Distribuições de Probabilidade
+Q71 [1] O número de compras entre 100 visitantes independentes, cada um com probabilidade 5% de comprar, segue qual distribuição?
+A) Poisson
+B) Normal
+C) Binomial
+D) Uniforme
+R: C
+E: Binomial(n, p) conta sucessos em n tentativas independentes com a mesma probabilidade p. Aqui n = 100 e p = 0,05.
+Q72 [2] Para essa Binomial(100; 0,05), a média e a variância são:
+A) 5 e 5
+B) 0,05 e 0,0475
+C) 5 e 4,75
+D) 95 e 4,75
+R: C
+E: Média = n × p = 100 × 0,05 = 5. Variância = n × p × (1 − p) = 5 × 0,95 = 4,75. Desvio-padrão ≈ 2,18.
+Q73 [2] Numa distribuição normal, a proporção aproximada entre μ − 2σ e μ + 2σ é:
+A) 68%
+B) 99,7%
+C) 95%
+D) 50%
+R: C
+E: Regra 68-95-99,7: ±1σ (desvio-padrão) ≈ 68%, ±2σ ≈ 95% (exatamente 95,45%), ±3σ ≈ 99,7%. μ é a média.
+Q74 [2] Uma central recebe em média 3 chamadas por hora (processo de Poisson). A probabilidade de nenhuma chamada numa hora é:
+A) ≈ 0,050
+B) ≈ 0,149
+C) ≈ 0,224
+D) 0
+R: A
+E: P(X = k) = e^(−λ) λ^k ÷ k!. Com λ = 3 e k = 0: e^(−3) ≈ 0,0498. A opção B é P(X = 1) = 3e^(−3) ≈ 0,149.
+Q75 [2] O tempo até a falha de um componente eletrônico, supondo taxa de falha constante (sem memória), segue:
+A) Binomial
+B) Normal
+C) Uniforme
+D) Exponencial
+R: D
+E: A exponencial é a única contínua sem memória: a chance de falhar na próxima hora não depende de quanto tempo o componente já funcionou. Peças com desgaste têm taxa crescente e pedem distribuições como a Weibull.
+Q76 [3] A população tem desvio-padrão 20. Pelo TCL, o erro-padrão da média de uma amostra de 100 é:
+A) 20
+B) 0,2
+C) 2
+D) 4
+R: C
+E: TCL (Teorema Central do Limite): a média amostral tende à normal com desvio σ ÷ √n. Erro-padrão = 20 ÷ √100 = 20 ÷ 10 = 2.
+Q77 [3] Qual distribuição é natural para modelar uma taxa contínua entre 0 e 1, como a taxa de cliques de anúncios?
+A) Poisson
+B) Exponencial
+C) Beta
+D) Qui-quadrado
+R: C
+E: A Beta é definida em [0, 1] e assume formas variadas (simétrica, assimétrica, em U). Também é a prior conjugada de proporções na inferência bayesiana.
+Q78 [3] Renda média R$ 5.000, desvio R$ 1.500. O z-score de um cliente com R$ 8.000 é:
+A) 2,0
+B) 1,5
+C) 3,0
+D) 0,5
+R: A
+E: z = (x − média) ÷ desvio = (8.000 − 5.000) ÷ 1.500 = 3.000 ÷ 1.500 = 2. O cliente está 2 desvios acima da média.
+Q79 [3] Se ln(X) ~ Normal(μ, σ²), então X é log-normal e sua mediana é:
+A) μ
+B) e^(μ + σ²/2)
+C) σ
+D) e^μ
+R: D
+E: A mediana de ln(X) é μ; como a exponencial preserva a ordem, a mediana de X é e^μ. A média de X é e^(μ + σ²/2), maior que a mediana, refletindo a assimetria à direita.
+Q80 [4] A soma dos quadrados de k variáveis normais padrão independentes segue:
+A) t de Student com k graus de liberdade
+B) F de Snedecor
+C) Qui-quadrado com k graus de liberdade
+D) Normal(0, k²)
+R: C
+E: Por definição, Z₁² + … + Z_k² ~ χ²(k). É a base do teste qui-quadrado e da distribuição da variância amostral. A t surge de Z ÷ √(χ²/k); a F, da razão de dois qui-quadrados divididos pelos graus de liberdade.
+# Estatística | Estatística Básica | Análise de Outliers
+Q81 [1] Com Q1 = 10 e Q3 = 30, os limites de Tukey para outliers são:
+A) −20 e 60
+B) 0 e 40
+C) 10 e 30
+D) −10 e 50
+R: A
+E: IQR = 20. Limite inferior = Q1 − 1,5 × IQR = 10 − 30 = −20. Limite superior = Q3 + 1,5 × IQR = 30 + 30 = 60. Um valor 65 seria outlier. É a regra usada pelo boxplot.
+Q82 [2] Por que a regra |z| > 3 pode falhar em amostras pequenas com um valor extremo?
+A) Porque o z-score só vale para dados categóricos
+B) Porque o próprio outlier infla a média e o desvio, reduzindo seu z-score (efeito de mascaramento)
+C) Porque o z-score sempre dá zero
+D) Porque exige normalidade perfeita
+R: B
+E: Exemplo: 1, 2, 3, 4, 100 → média 22, desvio ≈ 43,6; o z do 100 é (100 − 22) ÷ 43,6 ≈ 1,79, abaixo de 3, embora seja claramente anômalo.
+Q83 [2] O MAD (Median Absolute Deviation, desvio absoluto mediano) de 1, 2, 3, 4, 100 é:
+A) 1
+B) 2
+C) 19,6
+D) 97
+R: A
+E: Mediana = 3. Desvios absolutos: 2, 1, 0, 1, 97. Ordenados: 0, 1, 1, 2, 97 → mediana 1. O z-score robusto 0,6745 × (100 − 3) ÷ 1 ≈ 65 sinaliza o outlier que o z-score comum mascarou.
+Q84 [2] Winsorizar uma variável nos percentis 1% e 99% significa:
+A) Remover as linhas abaixo de 1% e acima de 99%
+B) Aplicar logaritmo
+C) Substituir os valores além desses percentis pelos próprios percentis
+D) Padronizar com z-score
+R: C
+E: Nenhuma linha é removida. Exemplo: se o percentil 99 da renda é R$ 40.000, uma renda de R$ 900.000 passa a valer R$ 40.000. Remover as linhas seria aparar (trimming).
+Q85 [3] O Isolation Forest identifica anomalias porque elas:
+A) Têm rótulos de fraude
+B) São isoladas com menos partições aleatórias, ou seja, caminho mais curto na árvore
+C) Ficam no centro dos clusters
+D) Têm variância zero
+R: B
+E: O algoritmo corta os dados aleatoriamente. Um ponto raro e distante fica sozinho após poucos cortes; um ponto típico precisa de muitos. A média do comprimento do caminho vira o score de anomalia.
+Q86 [3] Um cliente de 19 anos com renda de R$ 60.000: idade e renda isoladamente estão dentro do comum, mas a combinação é rara. A técnica que detecta isso é:
+A) Regra de Tukey em cada variável
+B) Média móvel
+C) Teste de unicidade
+D) Distância de Mahalanobis
+R: D
+E: A distância de Mahalanobis mede o afastamento do ponto em relação ao centro levando em conta a covariância (como as variáveis andam juntas). Combinações improváveis ficam longe mesmo com cada variável normal.
+Q87 [3] Numa base de vendas de um e-commerce de roupas aparece um pedido de R$ 1 bilhão. A primeira ação correta é:
+A) Remover a linha sem registro
+B) Investigar a origem: erro de unidade (centavos) ou de digitação, antes de decidir tratar
+C) Manter, pois o modelo é robusto
+D) Substituir pela média
+R: B
+E: Outlier pode ser erro, evento raro legítimo ou fraude, e cada caso pede tratamento diferente. Remover sem investigar esconde problemas de qualidade na origem.
+Q88 [3] Para 10, 12, 14 acrescenta-se o valor 1.000. Média e mediana passam a ser:
+A) 12 e 12
+B) 259 e 259
+C) 259 e 13
+D) 13 e 259
+R: C
+E: Média = (10 + 12 + 14 + 1.000) ÷ 4 = 1.036 ÷ 4 = 259. Mediana = média dos dois do meio de 10, 12, 14, 1.000 = (12 + 14) ÷ 2 = 13. A mediana é robusta; a média, não.
+Q89 [4] No DBSCAN, um ponto classificado como ruído (noise) é aquele que:
+A) Tem mais de minPts vizinhos
+B) Não é ponto central (core) nem está no raio ε de algum ponto central
+C) Fica na fronteira de um cluster
+D) Tem valor nulo
+R: B
+E: DBSCAN (Density-Based Spatial Clustering of Applications with Noise) agrupa por densidade. Core = ponto com pelo menos minPts vizinhos no raio ε; border = vizinho de um core; noise = o resto, tratado como outlier.
+Q90 [4] Um LOF (Local Outlier Factor) bem acima de 1 indica que o ponto:
+A) Tem densidade local menor que a de seus vizinhos, sendo outlier local
+B) Está no centro de um cluster denso
+C) É duplicado
+D) Tem distância zero aos vizinhos
+R: A
+E: O LOF compara a densidade ao redor do ponto com a densidade ao redor dos k vizinhos. LOF ≈ 1 = densidade parecida; LOF = 3 = o ponto está numa região três vezes mais rarefeita que a dos vizinhos.
+# Estatística | Estatística Básica | Técnicas de Amostragem
+Q91 [1] Amostragem estratificada consiste em:
+A) Sortear grupos inteiros
+B) Pegar os primeiros registros
+C) Dividir a população em estratos e sortear dentro de cada um
+D) Escolher por conveniência
+R: C
+E: Garante representação de cada estrato (ex.: produto, região, faixa de score) e reduz a variância das estimativas quando os estratos são homogêneos por dentro.
+Q92 [2] Os usuários de um app são 70% de celular e 30% de computador. Numa amostra estratificada proporcional de 1.000, quantos de cada?
+A) 500 e 500
+B) 300 e 700
+C) 900 e 100
+D) 700 e 300
+R: D
+E: Proporcional = mesma participação da população: 0,7 × 1.000 = 700 de celular; 0,3 × 1.000 = 300 de computador.
+Q93 [2] Para tirar 500 de 10.000 registros por amostragem sistemática, o intervalo k é:
+A) 50
+B) 5
+C) 500
+D) 20
+R: D
+E: k = N ÷ n = 10.000 ÷ 500 = 20. Sorteia-se um início entre 1 e 20 e pega-se um a cada 20. Cuidado: se a lista tem padrão periódico de 20, a amostra fica viesada.
+Q94 [2] Uma pesquisa de satisfação é enviada só para quem ainda usa o aplicativo; quem cancelou não é ouvido. O resultado sofre de:
+A) Viés de seleção (de sobrevivência): os insatisfeitos que saíram ficam fora da amostra
+B) Excesso de dados
+C) Multicolinearidade
+D) Erro de arredondamento
+R: A
+E: A amostra só contém quem "sobreviveu" ao processo, o que tende a superestimar a satisfação. É o mesmo raciocínio dos aviões da Segunda Guerra que voltavam com furos só onde não eram fatais.
+Q95 [2] Bootstrap é:
+A) Amostragem sem reposição de metade dos dados
+B) Divisão em k partes
+C) Reamostragem com reposição, do mesmo tamanho da amostra original, repetida muitas vezes
+D) Seleção dos registros mais recentes
+R: C
+E: Cada réplica estima a estatística (média, mediana, AUC); a dispersão entre réplicas dá o erro-padrão e o intervalo de confiança sem supor distribuição.
+Q96 [3] Num bootstrap com n grande, a probabilidade de uma observação específica não ser sorteada em nenhuma das n retiradas é aproximadamente:
+A) 0%
+B) 36,8%
+C) 50%
+D) 63,2%
+R: B
+E: P = (1 − 1/n)^n → e^(−1) ≈ 0,368. Portanto cerca de 63,2% das observações distintas aparecem em cada réplica, e as 36,8% restantes formam a amostra out-of-bag (fora da bolsa), usada no Random Forest para avaliação.
+Q97 [3] Quantos clientes pesquisar para estimar uma proporção com margem de erro de 3 pontos e 95% de confiança, no pior caso (p = 0,5)?
+A) 385
+B) 1.068
+C) 2.401
+D) 600
+R: B
+E: n = z² × p × (1 − p) ÷ E² = 1,96² × 0,25 ÷ 0,03² = 3,8416 × 0,25 ÷ 0,0009 = 0,9604 ÷ 0,0009 ≈ 1.067,1 → 1.068. Com margem de 5 pontos daria 385 (opção A).
+Q98 [3] Um modelo de cancelamento (churn) foi treinado com undersampling (subamostragem) dos clientes que não cancelaram. As probabilidades previstas ficam:
+A) Corretas, sem ajuste
+B) Subestimadas
+C) Superestimadas, exigindo recalibração para a taxa real
+D) Iguais a zero
+R: C
+E: O modelo vê mais cancelamentos do que existem na população, então estima probabilidades maiores. A ordenação (AUC) se mantém, mas o nível precisa ser corrigido antes de usar as probabilidades em decisões.
+Q99 [3] Sortear 20 escolas e entrevistar todos os alunos delas é amostragem:
+A) Estratificada
+B) Por conglomerados (cluster)
+C) Sistemática
+D) Aleatória simples
+R: B
+E: Sorteiam-se grupos inteiros. É mais barato operacionalmente, mas menos preciso se as escolas forem diferentes entre si, porque alunos da mesma escola se parecem.
+Q100 [4] A taxa real de cancelamento é 5%. O treino usou todos os que cancelaram e 1 de cada 19 que não cancelaram (β = 1/19 ≈ 0,0526), ficando 50/50. O modelo prevê 0,50 para um cliente. A probabilidade corrigida é:
+A) 0,50
+B) 0,25
+C) 0,026
+D) 0,05
+R: D
+E: Correção: p_real = p × β ÷ (p × β + 1 − p) = 0,5 × 0,0526 ÷ (0,0263 + 0,5) = 0,0263 ÷ 0,5263 ≈ 0,05. Um cliente médio no treino balanceado (0,50) corresponde ao cliente médio da população (5%).

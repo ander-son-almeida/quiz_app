@@ -1,0 +1,285 @@
+# Ciência de Dados | Otimização | Otimização Linear Contínua
+Q161 [1] Um problema de programação linear (PL) tem:
+A) Função objetivo quadrática e variáveis inteiras
+B) Restrições não lineares
+C) Função objetivo e restrições lineares, com variáveis contínuas
+D) Nenhuma restrição
+R: C
+E: Exemplo: maximizar 3x + 2y sujeito a x + y ≤ 4. Linear = sem produtos entre variáveis, sem potências.
+Q162 [2] Se uma PL tem ótimo finito, ele sempre ocorre:
+A) Num vértice da região viável (podendo haver empate ao longo de uma aresta)
+B) No centro da região viável
+C) Fora da região viável
+D) Na origem
+R: A
+E: A região viável de uma PL é um poliedro convexo, e a função linear cresce numa direção constante; o máximo fica num canto. Essa é a base do método simplex.
+Q163 [2] Maximize 3x + 2y sujeito a x + y ≤ 4, x ≤ 3, x ≥ 0, y ≥ 0. O valor ótimo é:
+A) 12
+B) 11
+C) 9
+D) 8
+R: B
+E: Vértices: (0, 0) → 0; (3, 0) → 9; (3, 1) → 9 + 2 = 11; (0, 4) → 8. O ótimo é x = 3, y = 1, com valor 11. O ponto (4, 0) daria 12, mas viola x ≤ 3.
+Q164 [2] O método simplex:
+A) Testa todos os pontos da região
+B) Usa gradiente estocástico
+C) Sorteia soluções
+D) Caminha de vértice em vértice adjacente, melhorando o objetivo até não haver melhora
+R: D
+E: No problema "max 3x + 2y, x + y ≤ 4, x ≤ 3", poderia ir de (0, 0) → (3, 0) → (3, 1). Métodos de pontos interiores são a alternativa que atravessa o interior da região.
+Q165 [3] No problema "max 3x + 2y sujeito a x + y ≤ 4, x ≤ 3, x, y ≥ 0" (ótimo 11), se a restrição x + y ≤ 4 virasse x + y ≤ 5, o ótimo subiria quanto? (Isto é, qual o preço-sombra dessa restrição?)
+A) 3
+B) 0
+C) 2
+D) 1
+R: C
+E: Novo ótimo: (3, 2) → 9 + 4 = 13. Ganho = 13 − 11 = 2. Preço-sombra (variável dual) = quanto o objetivo melhora por unidade a mais de recurso. Faz sentido: a unidade extra só pode ir para y, que vale 2.
+Q166 [3] Pela folga complementar, uma restrição que não está ativa no ótimo (sobra recurso) tem preço-sombra:
+A) Zero
+B) Infinito
+C) Negativo
+D) Igual ao objetivo
+R: A
+E: Se o recurso já sobra, ganhar mais uma unidade dele não muda nada. Exemplo: com a restrição extra y ≤ 10 e y = 1 no ótimo, seu preço-sombra seria 0.
+Q167 [3] Uma PL é inviável quando:
+A) O objetivo cresce sem limite
+B) Nenhum ponto satisfaz todas as restrições ao mesmo tempo
+C) Há várias soluções ótimas
+D) Há variáveis demais
+R: B
+E: Exemplo: x ≥ 5 e x ≤ 3. Já o caso A é PL ilimitada (unbounded): faltam restrições que segurem o objetivo.
+Q168 [4] Ao usar `scipy.optimize.linprog`, que minimiza por padrão, para maximizar o retorno 3x + 2y, deve-se:
+A) Passar `maximize=True`
+B) Usar `bounds=None`
+C) Inverter as restrições
+D) Passar os coeficientes negados, c = [−3, −2], e trocar o sinal do resultado
+R: D
+E: max f = −min(−f). O `linprog` não tem opção de maximização; a convenção é negar o vetor de custos.
+# Ciência de Dados | Otimização | Otimização Linear Discreta
+Q169 [1] Programação linear inteira (PLI) difere da PL porque:
+A) O objetivo é não linear
+B) Não tem restrições
+C) Algumas ou todas as variáveis só podem assumir valores inteiros ou binários
+D) É sempre mais fácil
+R: C
+E: Exemplo: abrir ou não um centro de distribuição (0 ou 1). PLI com variáveis contínuas e inteiras é chamada de MILP (Mixed-Integer Linear Programming).
+Q170 [2] Arredondar a solução contínua de uma PL para obter uma solução inteira:
+A) Pode gerar solução inviável ou bem pior que o ótimo inteiro
+B) Sempre dá o ótimo inteiro
+C) Sempre é inviável
+D) É o método do branch and bound
+R: A
+E: Exemplo: a PL diz abrir 2,6 centros de distribuição; arredondar para 3 pode estourar o orçamento, e para 2 pode deixar demanda sem atendimento.
+Q171 [2] Problema da mochila 0/1 com capacidade 10. Itens (peso, valor): A (5, 10), B (4, 40), C (6, 30), D (3, 50). O valor máximo é:
+A) 80
+B) 100
+C) 90
+D) 130
+R: C
+E: B + D: peso 7, valor 90. Outras combinações viáveis: C + D = 80; B + C = 70; A + D = 60; A + B = 50. Somar A a B + D daria peso 12 > 10. A opção D soma tudo e ignora a capacidade.
+Q172 [2] O branch and bound (ramificar e limitar) resolve PLI:
+A) Testando todas as combinações
+B) Arredondando a PL
+C) Usando gradiente
+D) Dividindo o problema em subproblemas e descartando ramos cuja relaxação linear já é pior que a melhor solução inteira conhecida
+R: D
+E: A relaxação linear (permitir valores fracionários) dá um limite otimista para cada ramo. Se esse limite já perde para a melhor solução encontrada, o ramo inteiro é podado.
+Q173 [3] Com yⱼ binária indicando se o armazém j abre e xⱼ a quantidade de pedidos atendidos por ele (capacidade 100), a restrição correta é:
+A) xⱼ ≥ 100 yⱼ
+B) xⱼ + yⱼ ≤ 100
+C) xⱼ × yⱼ ≤ 100
+D) xⱼ ≤ 100 yⱼ
+R: D
+E: Se yⱼ = 0, força xⱼ ≤ 0 (não atende); se yⱼ = 1, permite até 100. A opção C é não linear. É a técnica do "big-M" com M = 100.
+Q174 [3] Um solver de MILP reporta gap de otimalidade de 2%. Isso significa:
+A) A solução tem 2% de erro de arredondamento
+B) 2% das restrições foram violadas
+C) A melhor solução encontrada está no máximo 2% distante do melhor limite possível
+D) O solver falhou
+R: C
+E: Gap = |limite − melhor solução| ÷ |melhor solução|. Exemplo: solução 98, limite 100 → gap ≈ 2%. Pode-se parar aí se a precisão bastar.
+Q175 [3] Distribuir 5 modelos entre 5 validadores, um para cada, minimizando o tempo total, é um problema de:
+A) Mochila
+B) Designação (assignment), resolvível pelo algoritmo húngaro
+C) Caixeiro-viajante
+D) Programação quadrática
+R: B
+E: A estrutura especial (matriz totalmente unimodular) faz a relaxação linear já dar solução inteira, por isso é resolvido rapidamente apesar de ser discreto.
+Q176 [4] Para escolher exatamente k variáveis de um modelo de regressão de forma ótima (best subset selection), formula-se:
+A) Uma PL contínua
+B) Um gradiente descendente
+C) Um k-means
+D) Um problema inteiro misto com binárias zⱼ, Σzⱼ = k e coeficiente βⱼ forçado a zero quando zⱼ = 0
+R: D
+E: Com |βⱼ| ≤ M × zⱼ, o coeficiente só pode ser diferente de zero se a variável foi escolhida. Como o objetivo é quadrático (soma dos erros ao quadrado), vira um MIQP (Mixed-Integer Quadratic Program). O Lasso é a alternativa convexa aproximada.
+# Ciência de Dados | Otimização | Otimização Não Linear Convexa
+Q177 [1] A principal vantagem de um problema convexo é que:
+A) Todo mínimo local é também mínimo global
+B) Não precisa de restrições
+C) Sempre tem solução inteira
+D) Não tem mínimo
+R: A
+E: Função convexa tem forma de "tigela": qualquer descida leva ao fundo. Não há armadilhas de mínimos locais.
+Q178 [2] O mínimo de f(x) = (x − 3)² + 1 é:
+A) x = 0, f = 10
+B) x = −3, f = 1
+C) x = 3, f = 1
+D) x = 1, f = 5
+R: C
+E: f'(x) = 2(x − 3) = 0 → x = 3. f(3) = 0 + 1 = 1. f''(x) = 2 > 0 confirma que é mínimo.
+Q179 [2] Gradiente descendente em f(x) = x², com x₀ = 4 e taxa de aprendizado η = 0,1. Quanto vale x₁?
+A) 4,8
+B) 3,2
+C) 0
+D) 3,6
+R: B
+E: Gradiente f'(x) = 2x = 8. x₁ = x₀ − η × f'(x₀) = 4 − 0,1 × 8 = 4 − 0,8 = 3,2. O passo é no sentido contrário ao gradiente (direção de descida).
+Q180 [2] No mesmo f(x) = x², com η = 1,1, o gradiente descendente:
+A) Converge mais rápido
+B) Para em x = 0 no primeiro passo
+C) Converge lentamente
+D) Diverge, oscilando com amplitude crescente
+R: D
+E: xₖ₊₁ = xₖ − 1,1 × 2xₖ = −1,2 xₖ. De 4: −4,8; 5,76; −6,91… O sinal alterna e o módulo cresce 20% por passo. Para x², é preciso η < 1.
+Q181 [3] Uma função duas vezes diferenciável é estritamente convexa se sua matriz Hessiana for:
+A) Positiva definida em todo o domínio
+B) Nula
+C) Negativa definida
+D) Diagonal
+R: A
+E: Hessiana = matriz das segundas derivadas. Positiva definida = curvatura para cima em todas as direções. Exemplo: f(x, y) = x² + y² tem Hessiana [[2, 0], [0, 2]].
+Q182 [3] A função de perda da regressão logística (log-loss) em relação aos coeficientes é:
+A) Não convexa, com muitos mínimos
+B) Linear
+C) Convexa, com mínimo global único quando as classes não são perfeitamente separáveis
+D) Descontínua
+R: C
+E: Por isso qualquer solver bem configurado chega aos mesmos coeficientes. Se as classes forem perfeitamente separáveis, os coeficientes crescem sem limite, e a regularização resolve.
+Q183 [3] Minimize x² + y² sujeito a x + y = 2. Pelos multiplicadores de Lagrange, o valor mínimo é:
+A) 4
+B) 2
+C) 1
+D) 0
+R: B
+E: L = x² + y² − λ(x + y − 2). Derivadas: 2x = λ, 2y = λ → x = y. Com x + y = 2: x = y = 1. Valor: 1 + 1 = 2, com λ = 2. Geometricamente, é o ponto da reta mais próximo da origem.
+Q184 [4] As condições KKT:
+A) Só valem para PL
+B) São heurísticas
+C) Substituem o gradiente
+D) Generalizam Lagrange para restrições de desigualdade e, em problemas convexos com condição de Slater, são necessárias e suficientes para o ótimo
+R: D
+E: KKT (Karush-Kuhn-Tucker): estacionariedade, viabilidade primal e dual, e folga complementar. A condição de Slater exige um ponto estritamente viável. São a base teórica do SVM (Support Vector Machine).
+# Ciência de Dados | Otimização | Otimização Não Linear Não Convexa
+Q185 [1] (Adaptada — OpenGenus) A principal característica de uma função não convexa é:
+A) Ter um único mínimo
+B) Poder ter vários mínimos locais além do global
+C) Ser sempre crescente
+D) Ser sempre decrescente
+R: B
+E: Um método de descida pode parar num mínimo local, que é o melhor ponto da vizinhança mas não do domínio todo.
+Q186 [2] O treinamento de redes neurais é um problema:
+A) Não convexo; o SGD encontra bons mínimos locais ou regiões planas, sem garantia de ótimo global
+B) Convexo, com solução fechada
+C) Linear
+D) Inteiro
+R: A
+E: SGD (Stochastic Gradient Descent, gradiente descendente estocástico) usa lotes pequenos de dados a cada passo. Na prática, os mínimos encontrados costumam generalizar bem.
+Q187 [2] A estratégia multistart consiste em:
+A) Usar vários computadores
+B) Reiniciar o computador
+C) Rodar um otimizador local a partir de vários pontos iniciais e ficar com o melhor resultado
+D) Aumentar a taxa de aprendizado
+R: C
+E: Aumenta a chance de encontrar o mínimo global. O k-means com `n_init=10` faz isso: roda 10 inicializações e guarda a de menor inércia.
+Q188 [2] Em f(x, y) = x² − y², o ponto (0, 0) é:
+A) Mínimo global
+B) Máximo global
+C) Mínimo local
+D) Ponto de sela: gradiente zero, mas sobe numa direção e desce na outra
+R: D
+E: Ao longo de x, a função sobe (x²); ao longo de y, desce (−y²). Em redes neurais de alta dimensão, pontos de sela são mais comuns que mínimos locais ruins.
+Q189 [3] (Adaptada — OpenGenus) O gradiente com momentum (momento) é usado principalmente para:
+A) Eliminar a taxa de aprendizado
+B) Reduzir oscilações e atravessar regiões planas, acumulando a direção dos passos anteriores
+C) Tornar a função convexa
+D) Calcular a Hessiana
+R: B
+E: v ← βv + ∇f; x ← x − ηv. Com β = 0,9, o passo é uma média dos gradientes recentes: oscilações se cancelam e a direção persistente se reforça.
+Q190 [3] Ajustar hiperparâmetros de um LightGBM (número de folhas, taxa de aprendizado) é um problema de otimização:
+A) Não convexo e caixa-preta, adequado a otimização bayesiana como o TPE do Optuna
+B) Linear
+C) Convexo com gradiente analítico
+D) Inteiro puro resolvível por simplex
+R: A
+E: Caixa-preta = só se conhece o valor da métrica após treinar, sem gradiente. TPE (Tree-structured Parzen Estimator) modela onde estão as boas regiões e propõe o próximo ponto a testar.
+Q191 [3] Os mínimos globais de f(x) = x⁴ − 4x² são:
+A) x = 0, f = 0
+B) x = ±2, f = 0
+C) x = ±√2, f = −4
+D) x = 1, f = −3
+R: C
+E: f'(x) = 4x³ − 8x = 4x(x² − 2) = 0 → x = 0 ou x = ±√2. f(±√2) = 4 − 8 = −4; f(0) = 0 é máximo local. Dois mínimos globais simétricos: a função é não convexa.
+Q192 [4] Sobre garantias em otimização não convexa:
+A) Gradiente descendente sempre acha o ótimo global
+B) Basta usar taxa de aprendizado pequena
+C) Não existe nenhum método com garantia
+D) Métodos locais não garantem o ótimo global; solvers globais (branch and bound espacial) garantem, a um custo que pode crescer exponencialmente
+R: D
+E: Solvers como o SCIP ou o BARON dividem o domínio e calculam limites em cada parte, como o branch and bound da PLI. Viáveis para dimensões pequenas.
+# Ciência de Dados | Otimização | Heurísticas e Meta-heurísticas
+Q193 [1] Uma heurística é:
+A) Um procedimento que encontra boa solução rapidamente, sem garantia de ótimo
+B) Um método exato
+C) Um teste estatístico
+D) Uma linguagem de programação
+R: A
+E: Meta-heurística é uma estratégia geral que guia heurísticas (ex.: simulated annealing, algoritmo genético) e serve para vários problemas.
+Q194 [2] No simulated annealing (recozimento simulado), uma solução pior em Δ = 2 com temperatura T = 1 é aceita com probabilidade:
+A) 0
+B) 1
+C) e^(−2) ≈ 0,135
+D) 0,5
+R: C
+E: P = e^(−Δ/T). Aceitar pioras de vez em quando permite escapar de mínimos locais. Com T = 0,1, a mesma piora teria P = e^(−20), praticamente zero.
+Q195 [2] Os operadores típicos de um algoritmo genético são:
+A) Gradiente e Hessiana
+B) Seleção, cruzamento (crossover) e mutação
+C) Simplex e dual
+D) Bagging e boosting
+R: B
+E: Exemplo em seleção de variáveis: cada indivíduo é um vetor binário (1 = variável no modelo); os melhores, por AUC, cruzam e sofrem mutações aleatórias.
+Q196 [2] A busca tabu evita ciclos por meio de:
+A) Temperatura
+B) População
+C) Gradiente
+D) Uma memória de movimentos recentes proibidos por algumas iterações
+R: D
+E: A lista tabu impede voltar imediatamente a soluções já visitadas, forçando a exploração de novas regiões.
+Q197 [3] Moedas de valores 1, 3 e 4. Para dar troco de 6, o algoritmo guloso (sempre a maior moeda possível) usa quantas moedas, e o ótimo usa quantas?
+A) Guloso 3 (4 + 1 + 1); ótimo 2 (3 + 3)
+B) Ambos 2
+C) Guloso 2; ótimo 3
+D) Ambos 3
+R: A
+E: Guloso (greedy) escolhe o melhor passo imediato. Funciona para algumas estruturas (moedas brasileiras), mas falha em outras. Programação dinâmica dá o ótimo.
+Q198 [3] No PSO, cada partícula atualiza sua velocidade com base em:
+A) Só na mutação
+B) Na temperatura
+C) Em sua melhor posição já visitada e na melhor posição do enxame
+D) Na Hessiana
+R: C
+E: PSO (Particle Swarm Optimization, otimização por enxame de partículas). v ← w·v + c₁·r₁·(melhor_própria − x) + c₂·r₂·(melhor_global − x).
+Q199 [3] No simulated annealing, começar com temperatura alta e resfriar aos poucos serve para:
+A) Acelerar o cálculo
+B) Explorar amplamente no início (aceitando pioras) e refinar no fim (aceitando quase só melhoras)
+C) Garantir o ótimo global em poucos passos
+D) Evitar a função objetivo
+R: B
+E: É o equilíbrio entre exploração (procurar em regiões novas) e explotação (refinar a melhor região). Resfriamento rápido demais prende a busca num mínimo local.
+Q200 [4] Um problema de alocação de estoque entre 500 lojas tem formulação linear inteira com 5.000 variáveis. Usar um solver MILP em vez de algoritmo genético é preferível porque:
+A) Algoritmos genéticos não funcionam com números
+B) MILP é sempre mais rápido
+C) Algoritmos genéticos exigem convexidade
+D) O MILP entrega solução com prova de qualidade (gap); meta-heurísticas compensam quando o objetivo é caixa-preta ou não linear
+R: D
+E: O teorema "No Free Lunch" (não há almoço grátis) diz que nenhum algoritmo é melhor em todos os problemas. Se há estrutura linear, um solver exato a explora; meta-heurística fica para quando não há.

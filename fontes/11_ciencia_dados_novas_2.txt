@@ -1,0 +1,432 @@
+# Ciência de Dados | Modelagem | Machine Learning Supervisionado
+Q700 [3] Um modelo de previsão de cancelamento de assinatura apresenta AUC de 0,99 no teste. A primeira suspeita deve ser:
+A) O modelo é excelente e pode ir para produção
+B) A amostra de teste é pequena demais para medir
+C) A AUC está sendo calculada ao contrário
+D) Vazamento de dados: alguma variável carrega informação do próprio desfecho ou do futuro
+R: D
+E: Exemplo: a variável "data do último acesso" calculada depois do cancelamento. Investigue as variáveis mais importantes e confira se todas estariam disponíveis no momento da previsão.
+# Ciência de Dados | Modelagem | Engenharia de Features e Dados
+Q721 [1] Criar uma variável binária "renda_ausente" antes de imputar a renda serve para:
+A) Apagar a informação
+B) Aumentar o número de linhas
+C) Calcular a média
+D) Preservar a informação de que o valor faltava, que pode ser preditiva
+R: D
+E: Clientes que não informam renda podem ter risco diferente. A imputação sozinha esconderia isso.
+Q722 [2] A variável "valor gasto no mês" tem forte assimetria à direita (poucos valores muito grandes). Uma transformação comum é:
+A) Elevar ao quadrado
+B) Multiplicar por 1.000
+C) Logaritmo, por exemplo ln(1 + valor)
+D) Inverter o sinal
+R: C
+E: O log comprime a cauda direita e aproxima a distribuição da simetria. O "+1" evita ln(0). No NumPy: `np.log1p`.
+Q723 [2] A partir da data de abertura da conta e da data de referência, a variável derivada mais comum é:
+A) Tempo de relacionamento em meses (data de referência − data de abertura)
+B) O dia da semana da abertura
+C) O ano de nascimento
+D) A data em formato texto
+R: A
+E: Datas cruas não entram em modelos; transformam-se em durações ou indicadores relativos à data de referência.
+Q724 [2] Um pedido teve frete de R$ 1.200 e valor total de R$ 4.000. A participação do frete no valor total é:
+A) 33%
+B) 3,3%
+C) 300%
+D) 30%
+R: D
+E: Razão = 1.200 ÷ 4.000 = 0,30. Razões entre variáveis costumam ser mais informativas do que os valores absolutos isolados.
+Q725 [3] A variável "média de gasto nos últimos 3 meses ÷ média dos últimos 12 meses" captura:
+A) O nível absoluto do gasto
+B) A tendência recente do comportamento em relação ao padrão de longo prazo
+C) A idade do cliente
+D) O número de cartões
+R: B
+E: Valor acima de 1 indica aumento recente; abaixo de 1, queda. Esse tipo de razão é comum em modelos de cancelamento e de recomendação.
+Q726 [3] Ao discretizar uma variável numérica em faixas (binning) para um modelo linear, busca-se que as faixas:
+A) Tenham sempre o mesmo número de observações, sem outra exigência
+B) Sejam definidas em ordem alfabética
+C) Tenham taxa do evento monotônica (crescente ou decrescente) e população mínima por faixa
+D) Sejam o maior número possível
+R: C
+E: Monotonicidade facilita a interpretação e evita padrões causados por ruído. Faixas com poucas observações geram estimativas instáveis. No scikit-learn: `KBinsDiscretizer`.
+Q727 [3] Ao imputar valores ausentes com a mediana, a mediana deve ser calculada:
+A) Só na base de treino, e o mesmo valor aplicado depois a teste e produção
+B) Em toda a base, incluindo o teste
+C) Separadamente no teste
+D) Na produção, a cada dia
+R: A
+E: Calcular com o teste vaza informação. Em produção, o valor deve ser o mesmo do treino, guardado junto com o modelo.
+Q728 [3] A distribuição de uma variável de entrada mudou em produção, mas a relação dela com o alvo se manteve. Isso é:
+A) Mudança de conceito (concept drift)
+B) Vazamento
+C) Overfitting
+D) Mudança nos dados (data drift ou covariate shift)
+R: D
+E: Exemplo: a idade média dos usuários sobe, mas a relação entre idade e compra continua igual. Concept drift seria a própria relação mudar.
+Q729 [3] Duas variáveis candidatas têm correlação de 0,97. A conduta usual é:
+A) Manter ambas sempre
+B) Manter uma delas, preferindo a de melhor interpretação, qualidade de dado ou poder preditivo
+C) Multiplicar as duas
+D) Remover ambas
+R: B
+E: Variáveis quase redundantes inflam a variância dos coeficientes e dividem a importância. Em árvores o problema é menor, mas a explicabilidade piora.
+Q730 [3] Uma categoria de uma variável tem apenas 0,4% das observações. Antes de aplicar one-hot encoding, o tratamento recomendado é:
+A) Agrupá-la com categorias raras ou com a categoria de comportamento mais parecido (ex.: "Outros")
+B) Mantê-la, pois traz mais detalhe
+C) Excluir as observações
+D) Atribuir valor zero sem análise
+R: A
+E: Categorias raras geram colunas quase vazias e coeficientes instáveis. No scikit-learn, `OneHotEncoder(min_frequency=...)` agrupa as categorias raras automaticamente.
+Q731 [3] Ao juntar a tabela de cadastro de usuários à base de treino, deve-se usar a versão do cadastro vigente:
+A) Hoje
+B) Na data da primeira compra do usuário
+C) Na data de referência de cada observação (junção com corretude temporal, point-in-time)
+D) Qualquer uma
+R: C
+E: Usar o cadastro de hoje traz informação que não existia no momento da previsão (vazamento). Feature stores oferecem junções point-in-time para isso.
+Q732 [3] Uma variável categórica tem 200 categorias, das quais 150 com menos de 30 clientes cada. Uma abordagem comum é:
+A) One-hot com 200 colunas
+B) Remover os clientes dessas categorias
+C) Ordenar alfabeticamente
+D) Agrupar as categorias raras numa categoria "outros" antes de codificar
+R: D
+E: Categorias raras não têm amostra para estimar efeito estável. Também se pode agrupar por risco semelhante ou por hierarquia (setor → grupo de setores).
+Q733 [4] O campo "cidade" do cadastro é atualizado quando o usuário pede o cancelamento e informa o novo endereço. Usar esse campo "atual" num modelo de cancelamento treinado com dados antigos causa:
+A) Melhora legítima do modelo
+B) Vazamento: o campo dos usuários que cancelaram foi alterado por causa do próprio evento
+C) Nenhum efeito
+D) Apenas aumento de variância
+R: B
+E: O modelo aprende "mudou de cidade recentemente → cancelou", mas em produção o campo só muda depois do cancelamento. A métrica no teste fica alta e o desempenho real, baixo.
+Q734 [2] A padronização z-score de uma renda de R$ 7.000, numa base com média R$ 5.000 e desvio R$ 2.000, resulta em:
+A) 1,0
+B) 2,0
+C) 3,5
+D) 0,5
+R: A
+E: z = (7.000 − 5.000) ÷ 2.000 = 1. As estatísticas (média e desvio) vêm só do treino.
+Q735 [4] Para transformar descrições de transações em variáveis de modelo, uma abordagem viável é:
+A) Usar o texto bruto como variável categórica com milhões de valores
+B) Contar caracteres
+C) Gerar embeddings das descrições com um modelo de linguagem, reduzir a dimensão (ex.: PCA) e agregar por cliente
+D) Ignorar o texto sempre
+R: C
+E: Embedding = vetor numérico que representa o significado. Agregar por cliente (média ou proporção por categoria de gasto) gera variáveis tabulares utilizáveis em LightGBM.
+# Ciência de Dados | IA Generativa | Aplicações de LLMs
+Q756 [1] Em inglês, um token de LLM corresponde em média a cerca de:
+A) Uma frase
+B) Um parágrafo
+C) Uma página
+D) 4 caracteres, ou cerca de três quartos de uma palavra
+R: D
+E: É uma regra prática para estimar custo e tamanho de contexto. Em português, a mesma frase costuma gerar mais tokens.
+Q757 [2] Pedir a um LLM que classifique reclamações em categorias, sem fornecer exemplos, é chamado de:
+A) Classificação zero-shot
+B) Fine-tuning
+C) Few-shot
+D) RAG
+R: A
+E: O modelo usa só a descrição das categorias. Se a qualidade não bastar, acrescentam-se exemplos (few-shot) ou ajusta-se o modelo.
+Q758 [2] Para extrair campos de notas fiscais (fornecedor, valor, data) com um LLM e gravar numa tabela, o recomendado é:
+A) Temperatura alta
+B) Texto livre
+C) Saída estruturada em JSON com esquema definido, validada antes da gravação
+D) Pedir um resumo
+R: C
+E: O esquema (ex.: JSON Schema ou Pydantic) garante tipos e campos obrigatórios. A validação pega respostas malformadas antes de chegarem ao banco.
+Q759 [2] Num RAG, pedaços (chunks) de texto muito pequenos tendem a:
+A) Melhorar sempre a qualidade
+B) Aumentar o custo do LLM
+C) Eliminar a necessidade de embeddings
+D) Perder o contexto necessário para responder, embora a busca fique mais precisa
+R: D
+E: Pedaços grandes demais diluem o tema e consomem contexto. O tamanho ideal é escolhido testando com perguntas reais.
+Q760 [3] O manual interno de procedimentos de uma empresa muda todo mês. Para um assistente responder com base na versão vigente, é mais adequado:
+A) Ajuste fino (fine-tuning) mensal
+B) RAG sobre a base de documentos atualizada
+C) Aumentar a temperatura
+D) Usar um modelo maior sem documentos
+R: B
+E: RAG (Retrieval-Augmented Generation) busca os trechos relevantes no momento da pergunta. Atualizar o índice é barato; o fine-tuning ensina estilo e formato, não fatos que mudam com frequência.
+Q761 [3] Quantizar um modelo de 16 bits para 4 bits por parâmetro reduz a memória dos pesos para aproximadamente:
+A) A metade
+B) Um oitavo
+C) Um quarto
+D) Não muda
+R: C
+E: 4 ÷ 16 = 1/4. Um modelo de 7 bilhões de parâmetros passa de cerca de 14 GB para cerca de 3,5 GB, com pequena perda de qualidade.
+Q762 [3] Estudos mostram que LLMs tendem a usar pior a informação posicionada no meio de contextos muito longos. Esse efeito é conhecido como:
+A) Alucinação
+B) Overfitting
+C) Prompt injection
+D) "Perdido no meio" (lost in the middle)
+R: D
+E: Liu et al. (2023). Mitigações: colocar a informação crítica no início ou no fim, ou recuperar menos trechos e mais relevantes.
+Q763 [3] Para tarefas de extração ou classificação em que se quer a mesma resposta para a mesma entrada, a temperatura recomendada é:
+A) Próxima de 0
+B) 1,0
+C) 2,0
+D) Aleatória
+R: A
+E: Temperatura baixa concentra a escolha no token mais provável. Mesmo assim, alguns provedores não garantem determinismo absoluto.
+Q764 [3] Com vetores de embedding normalizados (norma 1), o produto escalar entre dois vetores é igual a:
+A) A distância euclidiana
+B) A similaridade de cosseno
+C) Zero sempre
+D) A soma dos vetores
+R: B
+E: cos = (a · b) ÷ (‖a‖ ‖b‖); com normas iguais a 1, cos = a · b. Bancos vetoriais exploram isso para acelerar a busca.
+Q765 [3] Métricas como BLEU e ROUGE, baseadas em sobreposição de palavras com uma resposta de referência, têm a limitação de:
+A) Exigir GPU
+B) Funcionar só em inglês
+C) Penalizar respostas corretas escritas com outras palavras e premiar respostas parecidas mas erradas
+D) Não produzir número
+R: C
+E: Por isso avaliações de LLM combinam métricas automáticas, avaliador LLM com rubrica e amostras revisadas por especialistas.
+Q766 [3] Um agente com acesso a ferramentas deve receber permissões:
+A) Mínimas necessárias para a tarefa (menor privilégio), com ações de escrita sujeitas a aprovação
+B) De administrador, para não falhar
+C) Iguais às do usuário mais experiente
+D) Nenhuma, sempre
+R: A
+E: Se o agente for manipulado por injeção de prompt, o dano fica limitado ao que ele pode fazer.
+Q767 [4] Uma aplicação envia a uma API de LLM perguntas de usuários com 2.000 tokens de entrada em média, e a resposta tem 500 tokens. O custo é de US$ 3 por milhão de tokens de entrada e US$ 15 por milhão de saída. O custo por pergunta é:
+A) US$ 0,0135
+B) US$ 0,0090
+C) US$ 0,0375
+D) US$ 0,0060
+R: A
+E: Entrada: 2.000 × 3 ÷ 1.000.000 = US$ 0,006. Saída: 500 × 15 ÷ 1.000.000 = US$ 0,0075. Total = US$ 0,0135. Tokens de saída costumam custar mais, e cache de prompt reduz o custo da parte fixa da entrada.
+Q768 [3] Na destilação (distillation) de modelos:
+A) Um modelo menor (aluno) é treinado para imitar as saídas de um modelo maior (professor)
+B) Um modelo é dividido ao meio
+C) Os pesos são arredondados
+D) Remove-se o tokenizador
+R: A
+E: O aluno aprende com as probabilidades do professor, que carregam mais informação que o rótulo correto sozinho. Resultado: modelo mais barato com boa parte da qualidade.
+Q769 [4] Um LLM obtém nota muito alta num benchmark público, mas desempenho fraco em perguntas novas do mesmo tipo. Uma explicação provável é:
+A) Temperatura baixa
+B) Contaminação: as questões do benchmark estavam nos dados de treino
+C) Janela de contexto pequena
+D) Excesso de RAG
+R: B
+E: O modelo pode ter memorizado as respostas. Por isso avaliações internas com dados próprios e inéditos são essenciais.
+Q770 [3] Reutilizar o mesmo prefixo longo de prompt (instruções e documentos fixos) entre várias chamadas pode reduzir custo e latência por meio de:
+A) Aumento da temperatura
+B) Remoção do system prompt
+C) Cache de prompt, que evita reprocessar o trecho repetido
+D) Quantização
+R: C
+E: O provedor guarda o processamento do prefixo; chamadas seguintes pagam menos por esses tokens. Funciona quando o trecho fixo vem antes da parte variável.
+# Ciência de Dados | Engenharia de Software e DevOps | MLOps e Produção
+Q771 [1] A diferença entre data drift e concept drift é:
+A) São sinônimos
+B) Data drift muda a relação entre variáveis e alvo
+C) Concept drift só ocorre em imagens
+D) Data drift é mudança na distribuição das entradas; concept drift é mudança na relação entre entradas e alvo
+R: D
+E: Exemplo de concept drift: depois de uma mudança no site, o mesmo número de visitas passa a gerar menos compras. Exemplo de data drift: o site passa a receber mais visitantes de celular.
+Q772 [2] Calcular a recomendação de produtos de todos os usuários uma vez por noite num job agendado é um exemplo de:
+A) Escoragem em lote (batch)
+B) Escoragem em tempo real
+C) Treinamento online
+D) Aprendizado por reforço
+R: A
+E: Em lote, as previsões são calculadas antes e gravadas numa tabela. Em tempo real, o modelo é chamado no momento da requisição, geralmente por uma API.
+Q773 [2] O MLflow Tracking registra, para cada execução de treino:
+A) Apenas o código-fonte
+B) Somente o tempo de execução
+C) Parâmetros, métricas, artefatos (modelo, gráficos) e o ambiente
+D) Os dados de produção
+R: C
+E: Permite comparar experimentos e reproduzir o modelo escolhido. Os artefatos podem ser registrados depois no registro de modelos.
+Q774 [2] Empacotar o modelo e suas dependências num contêiner Docker serve para:
+A) Treinar mais rápido
+B) Garantir que o mesmo ambiente (sistema, bibliotecas, versões) rode igual em desenvolvimento e produção
+C) Aumentar a AUC
+D) Substituir o controle de versão
+R: B
+E: Contêiner = pacote isolado e portátil com tudo o que a aplicação precisa para rodar.
+Q775 [3] Rodar o modelo atual e um modelo novo em produção, cada um atendendo uma fração aleatória dos usuários, e comparar os resultados, é:
+A) Implantação em sombra
+B) Um teste A/B (champion-challenger) com divisão aleatória
+C) Backtesting
+D) Retreino
+R: B
+E: Na implantação em sombra, o modelo novo só calcula previsões, sem afetar decisões. No teste A/B, ele decide de fato para parte dos usuários, o que permite medir o efeito real.
+Q776 [3] Um serviço de escoragem tem SLA de latência p95 de 200 ms. Isso significa que:
+A) A média de latência deve ser 200 ms
+B) Todas as respostas devem ter exatamente 200 ms
+C) 95% das requisições devem ser respondidas em até 200 ms
+D) 5% das requisições podem falhar
+R: C
+E: SLA (Service Level Agreement, acordo de nível de serviço). p95 = percentil 95. A média esconde respostas lentas que afetam parte dos usuários.
+Q777 [3] Numa feature store, os armazenamentos offline e online servem, respectivamente, para:
+A) Histórico para treino e consultas de baixa latência para escoragem em tempo real
+B) Backup e restauração
+C) Dados de teste e dados de produção
+D) Modelos e métricas
+R: A
+E: Os dois são alimentados pela mesma definição de feature, evitando que treino e produção calculem valores diferentes.
+Q778 [3] Registrar a assinatura (signature) do modelo — nomes e tipos esperados das colunas de entrada e da saída — permite:
+A) Treinar mais rápido
+B) Aumentar a AUC
+C) Dispensar testes
+D) Rejeitar na escoragem entradas com colunas faltantes ou tipos errados, antes de produzir resultados incorretos
+R: D
+E: Exemplo: uma coluna de renda que chega como texto seria convertida silenciosamente ou causaria previsões erradas.
+Q779 [3] Antes de colocar uma nova versão de modelo em produção, deve existir um plano de reversão (rollback) que:
+A) Apague a versão anterior
+B) Permita voltar rapidamente à versão anterior, que continua registrada e testada
+C) Dependa de retreinar o modelo antigo
+D) Exija aprovação do cliente
+R: B
+E: Com registro de modelos e apelidos, reverter é apontar o apelido "produção" de volta para a versão anterior.
+Q780 [3] Para garantir reprodutibilidade de um ambiente Python, a prática recomendada é:
+A) Instalar sempre a última versão de cada biblioteca
+B) Fixar as versões das dependências (ex.: requirements com `pandas==2.2.3`) ou usar um arquivo de bloqueio
+C) Não registrar dependências
+D) Usar versões diferentes em cada máquina
+R: B
+E: Mudanças de versão alteram padrões de funções e até resultados numéricos. O arquivo de bloqueio (lock) registra também as dependências indiretas.
+Q781 [3] Num modelo que prevê se um cliente fará uma nova compra em 6 meses, o rótulo real só aparece meio ano depois. Para detectar problemas mais cedo, monitoram-se:
+A) Apenas a métrica final
+B) Nada até completar 6 meses
+C) Indicadores antecedentes: PSI das previsões e das variáveis, taxa de dados ausentes e o desfecho em janelas curtas (ex.: compra em 30 dias)
+D) O número de linhas de código
+R: C
+E: PSI (Population Stability Index) mede mudança de distribuição. Desfechos de janela curta correlacionados com o alvo dão um sinal precoce antes do rótulo completo.
+Q782 [4] Para poder reconstruir exatamente a base de treino usada há 18 meses, a prática adequada é:
+A) Versionar os dados: registrar a versão da tabela Delta (time travel) ou usar ferramentas como DVC, e guardar a referência junto ao modelo
+B) Confiar que a tabela não mudou
+C) Guardar só o código
+D) Exportar um resumo em PDF
+R: A
+E: Delta mantém versões por um período de retenção configurável; para prazos longos, salva-se uma cópia ou snapshot. DVC = Data Version Control.
+Q783 [3] Um pipeline de retreino é configurado para iniciar quando o PSI das previsões passar de 0,25. Esse tipo de disparo é:
+A) Retreino agendado
+B) Retreino manual
+C) Retreino orientado a gatilho (evento de monitoramento)
+D) Aprendizado online
+R: C
+E: O agendado roda em intervalos fixos (ex.: todo mês). O orientado a gatilho reage a sinais de degradação. Muitas equipes combinam os dois.
+Q784 [4] Numa esteira de MLOps, o que permite reproduzir exatamente um modelo que está em produção há seis meses?
+A) Apenas guardar o arquivo do modelo
+B) Guardar só o código-fonte
+C) Anotar a acurácia num documento
+D) Versionar juntos dados de treino, código, dependências, hiperparâmetros e artefato, ligados ao registro da implantação (ex.: MLflow com DVC e Git)
+R: D
+E: Sem os dados e o ambiente exatos, o mesmo código gera outro modelo. Ferramentas de rastreamento de experimentos guardam esses vínculos automaticamente.
+Q785 [3] Para verificar se a escoragem em produção replica a de desenvolvimento, compara-se:
+A) O score calculado em produção e o score recalculado no ambiente de desenvolvimento para os mesmos registros e a mesma data
+B) A AUC de dois anos diferentes
+C) O número de clientes
+D) Os hiperparâmetros
+R: A
+E: Diferenças indicam erros de implementação: variável calculada de outra forma, ordem de colunas trocada, tratamento de nulos diferente.
+# Ciência de Dados | Comunicação de Resultados | Visualização de Dados
+Q786 [1] Para mostrar a distribuição de uma variável contínua como a renda, o gráfico mais indicado é:
+A) Gráfico de pizza
+B) Gráfico de linha
+C) Histograma
+D) Mapa
+R: C
+E: O histograma agrupa os valores em faixas e mostra quantos caem em cada uma, revelando assimetria, picos e caudas.
+Q787 [1] Para mostrar a evolução mensal das vendas ao longo de três anos, o gráfico mais indicado é:
+A) Pizza
+B) Linha, com o tempo no eixo horizontal
+C) Histograma
+D) Dispersão sem ordem
+R: B
+E: O gráfico de linha mostra tendência e sazonalidade. A pizza mostra composição num único momento.
+Q788 [2] Um boxplot mostra:
+A) A média e o desvio-padrão
+B) Apenas os outliers
+C) A frequência de cada valor
+D) Mediana, quartis (caixa), extensão dos dados (bigodes) e outliers
+R: D
+E: A caixa vai de Q1 a Q3; os bigodes vão até 1,5 × IQR além da caixa; pontos fora são candidatos a outlier.
+Q789 [2] Para examinar a relação entre área e preço de 5.000 imóveis, o gráfico mais indicado é:
+A) Barras empilhadas
+B) Pizza
+C) Dispersão (scatter), possivelmente com transparência nos pontos
+D) Histograma de uma das variáveis
+R: C
+E: A dispersão mostra a relação entre duas variáveis numéricas. Com muitos pontos, transparência (alpha) ou gráfico de densidade (hexbin) evitam a sobreposição.
+Q790 [2] Para comparar a participação de 8 produtos no faturamento, um gráfico de barras é preferível à pizza porque:
+A) Pizza não mostra porcentagens
+B) Comparar comprimentos é mais preciso para o olho humano do que comparar ângulos e áreas
+C) Barras são mais coloridas
+D) Pizza exige mais dados
+R: B
+E: Estudos de percepção (Cleveland e McGill, 1984) mostram que posição e comprimento são lidos com mais precisão do que ângulo e área. Ordenar as barras ajuda ainda mais.
+Q791 [2] Num gráfico de barras da taxa de conversão por região, o eixo vertical começa em 4,5% em vez de 0%. O problema é:
+A) Nenhum
+B) O gráfico fica mais preciso
+C) As diferenças parecem muito maiores do que são, porque o comprimento das barras deixa de ser proporcional ao valor
+D) O eixo deveria ser logarítmico
+R: C
+E: Em barras, o comprimento codifica o valor, então o eixo deve começar em zero. Em gráficos de linha, cortar o eixo é aceitável, desde que indicado.
+Q792 [3] Valores de exposição variam de R$ 100 a R$ 100 milhões. Para visualizá-los num mesmo gráfico, é indicado:
+A) Escala logarítmica no eixo
+B) Escala linear
+C) Remover os maiores
+D) Gráfico de pizza
+R: A
+E: Na escala log, cada marca representa um fator de 10; valores de ordens de grandeza diferentes ficam visíveis ao mesmo tempo.
+Q793 [3] Para mostrar a taxa de retenção por coorte de entrada (linhas) e por mês desde a entrada (colunas) num único gráfico, é indicado:
+A) Pizza
+B) Histograma
+C) Boxplot
+D) Mapa de calor (heatmap), com a cor representando a taxa
+R: D
+E: É o gráfico clássico de análise de coortes. Cada linha é um grupo de clientes que entrou no mesmo mês; a cor permite ver de relance coortes piores e o decaimento ao longo do tempo.
+Q794 [3] Para comparar a curva de vendas mensais de 12 produtos sem sobrepor 12 linhas num só gráfico, usa-se:
+A) Um gráfico de pizza por produto
+B) Pequenos múltiplos (small multiples): uma grade de gráficos iguais, um por produto, com os mesmos eixos
+C) 12 cores diferentes na mesma área
+D) Uma tabela de 1.000 linhas
+R: B
+E: Termo popularizado por Edward Tufte. Eixos iguais permitem comparar formas e níveis. No seaborn: `relplot(..., col="produto", col_wrap=4)`.
+Q795 [3] Para mostrar a variação percentual das vendas de cada região em relação ao ano anterior, com valores positivos e negativos em torno de zero, a paleta de cores mais adequada é:
+A) Sequencial de uma cor
+B) Categórica com cores aleatórias
+C) Divergente, com cor neutra no zero e cores contrastantes nos dois sentidos
+D) Escala de cinza única
+R: C
+E: Paleta sequencial serve para valores que só crescem (ex.: volume); a divergente destaca desvios para cima e para baixo de um ponto de referência.
+Q796 [3] Para mostrar como o lucro passou de R$ 4,0 milhões para R$ 5,2 milhões, decomposto em efeito de preço, de volume e de custo, o gráfico mais indicado é:
+A) Pizza
+B) Histograma
+C) Dispersão
+D) Cascata (waterfall), partindo do valor inicial e somando cada efeito até o valor final
+R: D
+E: Cada barra flutuante mostra a contribuição positiva ou negativa de um fator. É a forma usual de explicar a ponte entre dois valores.
+Q797 [3] Gráficos com dois eixos verticais (duas escalas diferentes) exigem cuidado porque:
+A) A escolha arbitrária das escalas pode criar ou esconder relações aparentes entre as séries
+B) Não podem ser desenhados em Python
+C) Sempre mostram correlação verdadeira
+D) Exigem dados categóricos
+R: A
+E: Mudando o mínimo e o máximo de um dos eixos, duas linhas podem parecer andar juntas ou separadas. Alternativa: dois painéis alinhados ou séries normalizadas.
+Q798 [3] Num gráfico de calibração (reliability plot) de um classificador, um modelo bem calibrado aparece:
+A) Como uma linha horizontal
+B) Com os pontos (probabilidade média prevista × frequência observada por faixa) próximos da diagonal
+C) Como uma curva acima da diagonal
+D) Como uma linha vertical
+R: B
+E: Se o modelo prevê 30% para um grupo, cerca de 30% dele deve ter o evento. No scikit-learn: `CalibrationDisplay.from_estimator`.
+Q799 [3] Na curva ROC, os eixos horizontal e vertical são, respectivamente:
+A) Taxa de falsos positivos e taxa de verdadeiros positivos
+B) Precisão e recall
+C) Score e probabilidade
+D) Tempo e taxa do evento
+R: A
+E: Cada ponto corresponde a um corte de score. A curva de precisão × recall é outra, mais informativa quando a classe positiva é rara.
+Q800 [4] O quarteto de Anscombe mostra quatro conjuntos de dados com mesma média, variância, correlação e reta de regressão, mas formatos completamente diferentes. A lição é:
+A) A correlação é suficiente para descrever a relação
+B) Estatísticas resumo bastam
+C) Os dados estão errados
+D) É indispensável visualizar os dados, porque resumos numéricos podem esconder curvas, outliers e grupos
+R: D
+E: Anscombe (1973). Um dos conjuntos é uma curva, outro uma reta com um outlier, outro um único ponto de alavancagem.

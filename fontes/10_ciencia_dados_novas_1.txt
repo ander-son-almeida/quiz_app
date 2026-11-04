@@ -1,0 +1,714 @@
+# Ciência de Dados | Programação para Dados | Python e pandas
+Q601 [1] Qual é a saída de `print(len("dados"))`?
+A) 4
+B) 6
+C) Erro
+D) 5
+R: D
+E: `len` conta os caracteres da string: d, a, d, o, s = 5.
+Q602 [1] Em Python 3, qual é o tipo do resultado de `3 / 2`?
+A) int
+B) float
+C) str
+D) bool
+R: B
+E: `/` sempre devolve float (1.5). Para divisão inteira usa-se `//`, que dá 1.
+Q603 [1] Qual é a saída de `print([10, 20, 30, 40, 50][1:4])`?
+A) [10, 20, 30, 40]
+B) [20, 30, 40, 50]
+C) [20, 30, 40]
+D) [10, 20, 30]
+R: C
+E: Fatiamento [início:fim] inclui o índice inicial e exclui o final. Índices 1, 2 e 3 → 20, 30, 40. Os índices começam em 0.
+Q604 [2] Com `d = {"a": 1}`, qual é a saída de `print(d.get("x", 0))`?
+A) None
+B) Erro KeyError
+C) "x"
+D) 0
+R: D
+E: `get` devolve o valor padrão (segundo argumento) quando a chave não existe. `d["x"]` daria KeyError.
+Q605 [2] Qual é a saída de `print(len("a,b,,c".split(",")))`?
+A) 4
+B) 3
+C) 5
+D) 2
+R: A
+E: O resultado é ['a', 'b', '', 'c']: a vírgula dupla gera uma string vazia entre elas. Quatro elementos.
+Q606 [2] Qual é a saída de `print(f"{0.12345:.2%}")`?
+A) 0.12%
+B) 12.35%
+C) 12.34%
+D) 0.1235
+R: B
+E: O formato `.2%` multiplica por 100, arredonda com 2 casas e acrescenta %: 12,345 → 12.35%. (A representação binária de 0.12345 fica levemente acima, então arredonda para cima.)
+Q607 [2] O que acontece ao executar `t = (1, 2, 3); t[0] = 9`?
+A) t vira (9, 2, 3)
+B) t vira [9, 2, 3]
+C) Nada muda, sem erro
+D) TypeError, porque tuplas são imutáveis
+R: D
+E: Tupla = sequência imutável. Para "alterar", cria-se outra: `t = (9,) + t[1:]`.
+Q608 [2] Qual é a saída de `print(sum([i for i in range(5)]))`?
+A) 15
+B) 5
+C) 10
+D) 4
+R: C
+E: `range(5)` gera 0, 1, 2, 3, 4. Soma = 10. O 5 não entra.
+Q609 [2] Qual é a saída de `print(dict(zip(["a", "b"], [1, 2])))`?
+A) {'a': 1, 'b': 2}
+B) [('a', 1), ('b', 2)]
+C) {'a': 'b', 1: 2}
+D) Erro
+R: A
+E: `zip` emparelha os elementos das duas listas; `dict` transforma os pares em chave: valor.
+Q610 [2] Qual é a saída de `print(list(enumerate(["x", "y"], start=1)))`?
+A) [(0, 'x'), (1, 'y')]
+B) [('x', 1), ('y', 2)]
+C) [1, 2]
+D) [(1, 'x'), (2, 'y')]
+R: D
+E: `enumerate` devolve pares (índice, valor); `start=1` faz a contagem começar em 1.
+Q611 [3] Qual é a saída?
+```python
+import copy
+a = [[1, 2], [3]]
+b = copy.copy(a)
+b[0].append(9)
+print(a)
+```
+A) [[1, 2], [3]]
+B) [[1, 2, 9], [3]]
+C) [[9], [3]]
+D) Erro
+R: B
+E: Cópia rasa (shallow copy) cria uma lista nova, mas as listas internas são as mesmas. Alterar `b[0]` altera `a[0]`. `copy.deepcopy` copiaria também os níveis internos.
+Q612 [3] Numa função `def f(*args, **kwargs)`, a chamada `f(1, 2, x=3)` produz:
+A) args = (1, 2) e kwargs = {'x': 3}
+B) args = [1, 2, 3] e kwargs = {}
+C) args = (1, 2, 3) e kwargs = {}
+D) Erro
+R: A
+E: `*args` recolhe os argumentos posicionais numa tupla; `**kwargs` recolhe os nomeados num dicionário.
+Q613 [3] Qual é a saída?
+```python
+try:
+    print("A")
+    1 / 0
+except ZeroDivisionError:
+    print("B")
+finally:
+    print("C")
+```
+A) A
+B) A C
+C) A B C
+D) B C
+R: C
+E: Imprime A, a divisão por zero dispara a exceção, o bloco except imprime B e o finally sempre executa, imprimindo C.
+Q614 [3] Qual é a saída de `print([1] == [1], [1] is [1])`?
+A) True True
+B) False False
+C) False True
+D) True False
+R: D
+E: `==` compara conteúdo; `is` compara identidade (mesmo objeto na memória). São duas listas distintas com o mesmo conteúdo.
+Q615 [2] Um DataFrame pandas com 1.000 linhas e 12 colunas tem `df.shape` igual a:
+A) 12.000
+B) (1000, 12)
+C) (12, 1000)
+D) 1000
+R: B
+E: `shape` devolve a tupla (linhas, colunas).
+Q616 [2] `df["produto"].value_counts(normalize=True)` devolve:
+A) A proporção de cada categoria, somando 1
+B) A contagem absoluta de cada categoria
+C) A coluna ordenada
+D) O número de categorias distintas
+R: A
+E: Sem `normalize`, devolve contagens. Com `normalize=True`, divide pelo total: útil para ver a distribuição do mix.
+Q617 [2] A tabela `clientes` tem 100 linhas com `id` único. A tabela `pedidos` tem 150 linhas e todo `id_cliente` existe em `clientes`. Quantas linhas tem `clientes.merge(pedidos, left_on="id", right_on="id_cliente", how="left")`?
+A) 100
+B) 250
+C) 150, mais uma linha para cada cliente sem pedido
+D) 15.000
+R: C
+E: Na junção à esquerda, cada cliente aparece uma vez para cada pedido seu (150 linhas no total) e os clientes sem pedido aparecem uma vez, com colunas de pedido em NaN. Se todos tiverem pedido, o resultado é exatamente 150.
+Q618 [3] Para preencher valores ausentes da coluna renda pela mediana, o código correto é:
+A) `df["renda"].fillna(df["renda"].median())`, atribuindo o resultado de volta à coluna
+B) `df["renda"].dropna()`
+C) `df["renda"].isna().median()`
+D) `df.fillna("mediana")`
+R: A
+E: `fillna` devolve uma nova Series; atribui-se com `df["renda"] = ...`. `isna().sum()` conta quantos faltam. Em modelos, calcule a mediana só no treino para não vazar informação do teste.
+Q619 [3] A diferença entre `pd.cut` e `pd.qcut` é:
+A) São iguais
+B) `qcut` cria faixas de largura igual
+C) `cut` usa quantis
+D) `cut` cria faixas por limites de valor; `qcut` cria faixas por quantis, com quantidades aproximadamente iguais de observações
+R: D
+E: Exemplo: `pd.qcut(score, 10)` gera decis com 10% da base em cada um; `pd.cut(idade, [18, 30, 50, 100])` usa limites fixos.
+Q620 [3] Qual é o resultado de `df.groupby("loja").agg({"valor": "sum", "devolvido": "mean"})`?
+A) Uma Series
+B) Um DataFrame com uma linha por loja, com a soma de `valor` e a média de `devolvido`
+C) A soma de todas as colunas
+D) Erro, pois só se pode agregar uma coluna
+R: B
+E: `agg` com dicionário aplica uma função por coluna. A loja vira o índice. Se `devolvido` for 0/1, a média é a taxa de devolução da loja.
+Q621 [3] Para calcular `df["preco_unitario"] = df["valor_total"] / df["quantidade"]` em 10 milhões de linhas, a forma mais rápida é:
+A) `df.apply(lambda r: r["valor_total"] / r["quantidade"], axis=1)`
+B) Um laço `for` sobre as linhas
+C) A operação vetorizada `df["valor_total"] / df["quantidade"]`
+D) `iterrows()`
+R: C
+E: A operação vetorizada roda em código compilado (NumPy) sobre a coluna inteira. `apply` com `axis=1`, laços e `iterrows` executam Python linha a linha e podem ser centenas de vezes mais lentos.
+Q622 [3] Em `pd.pivot_table(df, values="nota", index="turma", columns="disciplina")`, sem informar `aggfunc`, cada célula contém:
+A) A média das notas
+B) A soma das notas
+C) A contagem
+D) O primeiro valor
+R: A
+E: O `aggfunc` padrão de `pivot_table` é a média. Para somar, use `aggfunc="sum"`; para contar, `aggfunc="count"`.
+Q623 [3] Qual é a saída de `import numpy as np; print(np.nan == np.nan)`?
+A) True
+B) None
+C) Erro
+D) False
+R: D
+E: Pelo padrão IEEE 754 de ponto flutuante, NaN (Not a Number) não é igual a nada, nem a si mesmo. Para testar, use `np.isnan(x)` ou `pd.isna(x)`.
+Q624 [4] Qual é a saída de `print(0.1 + 0.2 == 0.3)` e qual a forma correta de comparar?
+A) True; `==` funciona
+B) False; usar `math.isclose(0.1 + 0.2, 0.3)`
+C) False; usar `is`
+D) Erro de tipo
+R: B
+E: 0,1 e 0,2 não têm representação binária exata; a soma dá 0.30000000000000004. `math.isclose` compara com tolerância relativa.
+Q625 [4] Para criar uma coluna com a nota média da turma de cada aluno, mantendo o número de linhas do DataFrame, usa-se:
+A) `df.groupby("turma")["nota"].agg("mean")`
+B) `df.groupby("turma")["nota"].sum()`
+C) `df["nota"].mean()`
+D) `df.groupby("turma")["nota"].transform("mean")`
+R: D
+E: `transform` devolve um resultado do mesmo tamanho do DataFrame original, repetindo a média da turma em cada linha. `agg` devolve uma linha por turma.
+# Ciência de Dados | Programação para Dados | SQL Avançado
+Q626 [1] Qual comando retorna as cidades da tabela `STATION` sem repetição?
+A) `SELECT UNIQUE CITY FROM STATION`
+B) `SELECT CITY FROM STATION GROUP`
+C) `SELECT DISTINCT CITY FROM STATION`
+D) `SELECT ONE CITY FROM STATION`
+R: C
+E: `DISTINCT` elimina linhas repetidas. É o padrão do exercício "Weather Observation Station 3" do HackerRank. `UNIQUE` existe só no Oracle como sinônimo; não é o padrão SQL.
+Q627 [1] Qual condição filtra corretamente as linhas com data de quitação ausente?
+A) `WHERE data_quitacao = NULL`
+B) `WHERE data_quitacao == NULL`
+C) `WHERE data_quitacao IS NULL`
+D) `WHERE data_quitacao = ''`
+R: C
+E: Qualquer comparação com NULL usando = dá desconhecido (nem verdadeiro nem falso), então nenhuma linha passa. Usa-se IS NULL ou IS NOT NULL.
+Q628 [2] A tabela `clientes` tem os ids (A, B, C) e a tabela `pedidos` tem os id_cliente (A, A, B). Um INNER JOIN entre elas retorna quantas linhas?
+A) 3
+B) 2
+C) 4
+D) 6
+R: A
+E: A casa com 2 pedidos, B com 1 e C com nenhum. O INNER JOIN mantém só as combinações com correspondência: 2 + 1 = 3 linhas.
+Q629 [2] `SELECT COALESCE(limite, 0) FROM cartoes` devolve:
+A) Só as linhas com limite nulo
+B) O limite, trocando nulos por 0
+C) Erro
+D) Zero em todas as linhas
+R: B
+E: COALESCE devolve o primeiro argumento não nulo da lista.
+Q630 [2] Qual expressão classifica triângulos pelo tamanho dos lados, como no exercício "Type of Triangle" do HackerRank?
+A) `IF A = B THEN 'Isosceles'`
+B) `SWITCH A, B, C`
+C) `WHEN A = B 'Isosceles'`
+D) `CASE WHEN A + B <= C THEN 'Not A Triangle' WHEN A = B AND B = C THEN 'Equilateral' WHEN A = B OR B = C OR A = C THEN 'Isosceles' ELSE 'Scalene' END`
+R: D
+E: `CASE WHEN ... THEN ... ELSE ... END` avalia as condições em ordem e devolve o primeiro resultado verdadeiro. Por isso a verificação "não é triângulo" vem primeiro.
+Q631 [2] A consulta `SELECT produto, regiao, SUM(valor) FROM vendas GROUP BY produto` dá erro na maioria dos SGBDs porque:
+A) SUM não aceita números
+B) `regiao` não está no GROUP BY nem dentro de uma agregação
+C) Falta ORDER BY
+D) GROUP BY exige DISTINCT
+R: B
+E: Cada produto pode ter várias regiões, e o banco não sabe qual mostrar. Toda coluna do SELECT deve estar no GROUP BY ou dentro de uma agregação. SGBD = sistema gerenciador de banco de dados.
+Q632 [2] A diferença entre UNION e UNION ALL é:
+A) UNION remove linhas duplicadas; UNION ALL mantém todas e é mais rápido
+B) São iguais
+C) UNION ALL remove duplicatas
+D) UNION exige o mesmo número de linhas
+R: A
+E: Remover duplicatas exige ordenação ou hash, o que custa tempo. Se as fontes já são disjuntas, prefira UNION ALL.
+Q633 [2] Qual filtro seleciona os nomes que começam com "Ana"?
+A) `WHERE nome = 'Ana%'`
+B) `WHERE nome LIKE '%Ana'`
+C) `WHERE nome IN ('Ana')`
+D) `WHERE nome LIKE 'Ana%'`
+R: D
+E: `%` representa qualquer sequência de caracteres e `_` um único caractere. '%Ana' encontraria nomes terminados em Ana.
+Q634 [3] Para calcular a variação das vendas de cada loja em relação ao mês anterior, usa-se:
+A) `vendas - LAG(vendas) OVER (PARTITION BY loja ORDER BY mes)`
+B) `vendas - LEAD(vendas) OVER (ORDER BY loja)`
+C) `vendas - MAX(vendas)`
+D) `vendas - SUM(vendas) OVER ()`
+R: A
+E: `LAG` pega o valor da linha anterior dentro da partição, na ordem indicada. `LEAD` pega o da linha seguinte. Sem `PARTITION BY loja`, o mês anterior poderia ser de outra loja.
+Q635 [3] Para atribuir a cada cliente o decil do score, usa-se:
+A) `RANK() OVER (ORDER BY score)`
+B) `NTILE(10) OVER (ORDER BY score)`
+C) `COUNT(*) / 10`
+D) `PERCENT(score)`
+R: B
+E: NTILE(n) divide as linhas ordenadas em n grupos de tamanho o mais igual possível, numerados de 1 a n.
+Q636 [3] (Adaptada — padrão clássico de entrevistas SQL) Qual consulta retorna o segundo maior salário distinto?
+A) `SELECT salario FROM t ORDER BY salario LIMIT 2`
+B) `SELECT MAX(salario) - 1 FROM t`
+C) `SELECT MAX(salario) FROM t WHERE salario < (SELECT MAX(salario) FROM t)`
+D) `SELECT MIN(salario) FROM t`
+R: C
+E: A subconsulta acha o maior; o filtro exclui esse valor e o MAX do que sobra é o segundo maior. Alternativa: DENSE_RANK() = 2.
+Q637 [3] A subconsulta `SELECT id FROM bloqueados` contém um valor NULL. O que retorna `SELECT * FROM clientes WHERE id NOT IN (SELECT id FROM bloqueados)`?
+A) Todos os clientes não bloqueados
+B) Todos os clientes
+C) Erro
+D) Nenhuma linha
+R: D
+E: `id NOT IN (1, 2, NULL)` equivale a `id <> 1 AND id <> 2 AND id <> NULL`; a última comparação é desconhecida, então nada passa. NOT EXISTS ou LEFT JOIN ... IS NULL evitam a armadilha.
+Q638 [3] Uma CTE (Common Table Expression), escrita com `WITH base AS (...)`, serve para:
+A) Criar uma tabela permanente
+B) Nomear uma subconsulta e reutilizá-la na consulta principal, deixando o código legível
+C) Criar índices
+D) Acelerar sempre a consulta
+R: B
+E: A CTE existe só durante a consulta. CTEs recursivas também percorrem hierarquias (ex.: grupo econômico).
+Q639 [3] No exercício "The Blunder" do HackerRank e em SGBDs como SQL Server e PostgreSQL, com colunas inteiras, `SELECT 3 / 2` retorna:
+A) 1
+B) 1.5
+C) 2
+D) Erro
+R: A
+E: Divisão entre inteiros trunca o resultado. Para obter 1,5, converta um dos operandos: `3 * 1.0 / 2` ou `CAST(3 AS DECIMAL) / 2`. No MySQL, `/` já devolve decimal.
+Q640 [3] Qual janela calcula a média móvel de 3 meses (mês atual e dois anteriores) por cliente?
+A) `AVG(x) OVER (PARTITION BY cliente)`
+B) `AVG(x) OVER (PARTITION BY cliente ORDER BY mes ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)`
+C) `AVG(x) OVER (ORDER BY mes ROWS 3)`
+D) `AVG(x) GROUP BY mes`
+R: B
+E: ROWS BETWEEN 2 PRECEDING AND CURRENT ROW cobre três linhas. Nos dois primeiros meses a média usa menos linhas.
+Q641 [3] (Adaptada — padrão "funcionários que ganham mais que o gerente") Tabela `func(id, nome, salario, id_gerente)`. A consulta correta é:
+A) `SELECT nome FROM func WHERE salario > id_gerente`
+B) `SELECT nome FROM func GROUP BY id_gerente`
+C) `SELECT f.nome FROM func f JOIN func g ON f.id_gerente = g.id WHERE f.salario > g.salario`
+D) `SELECT MAX(salario) FROM func`
+R: C
+E: Auto-junção (self join): a mesma tabela aparece duas vezes com apelidos diferentes, uma no papel de funcionário e outra no de gerente.
+Q642 [3] A tabela de cadastro tem várias versões por cliente. Para manter só a mais recente, usa-se:
+A) `ROW_NUMBER() OVER (PARTITION BY cliente ORDER BY data_atualizacao DESC)` e filtrar o número 1
+B) `SELECT DISTINCT cliente`
+C) `MAX(*)`
+D) `GROUP BY data_atualizacao`
+R: A
+E: A numeração recomeça em cada cliente e a linha 1 é a mais recente. DISTINCT não escolhe qual versão manter.
+Q643 [4] Um índice B-tree na coluna `email` da tabela de usuários acelera principalmente:
+A) Consultas que leem a tabela inteira
+B) Inserções em massa
+C) Buscas e filtros por igualdade ou intervalo em `email`
+D) Agregações sem filtro
+R: C
+E: A B-tree mantém os valores ordenados e permite achar uma chave em tempo logarítmico. Em inserções, o índice tem custo extra de manutenção; em leituras completas, não ajuda.
+Q644 [4] Para encontrar sequências de dias consecutivos de acesso por cliente (gaps and islands), a técnica clássica é:
+A) Usar DISTINCT nas datas
+B) Contar acessos por mês
+C) Usar UNION ALL
+D) Subtrair da data um ROW_NUMBER ordenado por data: dias consecutivos geram o mesmo valor, que vira a chave do grupo
+R: D
+E: Exemplo: dias 1, 2, 3, 7, 8 com números 1, 2, 3, 4, 5 → diferenças 0, 0, 0, 3, 3: duas "ilhas", de 3 e de 2 dias.
+Q645 [3] (Adaptada — padrão de pivotamento do HackerRank) Para contar, numa única linha por produto, quantos pedidos foram entregues no prazo e quantos com atraso, usa-se:
+A) `SUM(CASE WHEN dias_atraso = 0 THEN 1 ELSE 0 END) AS no_prazo, SUM(CASE WHEN dias_atraso > 0 THEN 1 ELSE 0 END) AS atrasados ... GROUP BY produto`
+B) Duas consultas sem relação
+C) `COUNT(DISTINCT dias_atraso)`
+D) `ORDER BY dias_atraso`
+R: A
+E: Soma condicional com CASE transforma categorias em colunas (pivotamento). É o mesmo padrão do exercício "Occupations" do HackerRank.
+# Ciência de Dados | Programação para Dados | PySpark e Big Data
+Q646 [1] Um DataFrame do Spark é imutável. Isso significa que:
+A) Não pode ser lido
+B) `withColumn` altera o DataFrame original
+C) Não aceita colunas novas
+D) Toda transformação devolve um novo DataFrame, sem alterar o original
+R: D
+E: Por isso escreve-se `df = df.withColumn(...)`. A imutabilidade permite ao Spark recompor partições perdidas a partir do plano.
+Q647 [2] `df.withColumn("renda_mil", F.col("renda") / 1000)`:
+A) Remove a coluna renda
+B) Cria a coluna renda_mil (ou a substitui, se já existir)
+C) Filtra linhas
+D) Agrupa por renda
+R: B
+E: `F` é o apelido usual de `pyspark.sql.functions`.
+Q648 [2] Qual expressão PySpark cria uma coluna que vale 1 quando a temperatura passa de 30 graus e 0 caso contrário?
+A) `F.when(F.col("temp") > 30, 1).otherwise(0)`
+B) `if temp > 30: 1`
+C) `F.case(temp > 30)`
+D) `df.temp > 30 ? 1 : 0`
+R: A
+E: `F.when(condição, valor).otherwise(valor)` é o equivalente ao `CASE WHEN` em PySpark (`F` = `pyspark.sql.functions`). `if` do Python não opera sobre colunas distribuídas.
+Q649 [2] Chamar `df.cache()` é útil quando:
+A) O DataFrame é usado uma única vez
+B) Se quer gravar em disco permanentemente
+C) O mesmo DataFrame será reutilizado em várias ações, evitando recomputá-lo
+D) Se quer reduzir colunas
+R: C
+E: Sem cache, cada ação reexecuta todo o plano desde a leitura. O cache ocupa memória do cluster; libere com `unpersist()`.
+Q650 [2] A diferença entre `repartition(n)` e `coalesce(n)` é:
+A) São iguais
+B) `coalesce` faz shuffle completo
+C) `repartition` só reduz partições
+D) `repartition` faz shuffle completo e pode aumentar ou reduzir; `coalesce` só reduz, juntando partições sem shuffle completo
+R: D
+E: Para gravar poucos arquivos ao fim de um job, `coalesce` é mais barato. Para rebalancear dados enviesados, `repartition`.
+Q651 [2] Em `df.filter(F.col("uf") == "SP").count()`, qual parte dispara a execução?
+A) `count()`, que é uma ação
+B) `filter`, que é uma ação
+C) `F.col`
+D) Nenhuma
+R: A
+E: `filter` é transformação (preguiçosa); `count` é ação. Outras ações: `show`, `collect`, `write`.
+Q652 [3] Ler uma tabela em formato Parquet selecionando só 3 de 200 colunas é eficiente porque o Parquet:
+A) Comprime em texto
+B) É colunar e permite ler só as colunas pedidas (column pruning) e pular blocos pelo filtro (predicate pushdown)
+C) Guarda tudo em memória
+D) Não tem esquema
+R: B
+E: Formato colunar armazena cada coluna separadamente, com estatísticas por bloco (mínimo, máximo). Delta Lake usa Parquet por baixo.
+Q653 [3] Uma tabela Delta de eventos particionada por `data_evento` e consultada com `WHERE data_evento = '2026-10-31'` se beneficia de:
+A) Broadcast
+B) Partition pruning: só os arquivos daquela partição são lidos
+C) Cache automático
+D) Shuffle
+R: B
+E: Partition pruning (poda de partições) descarta as pastas que não atendem ao filtro. Particionar por uma coluna de alta cardinalidade, como o id do usuário, criaria milhões de arquivos pequenos.
+Q654 [3] O risco de chamar `df.collect()` num DataFrame de 500 milhões de linhas é:
+A) Nenhum
+B) Trazer todos os dados para a memória do driver, causando estouro de memória
+C) Apagar a tabela
+D) Gerar shuffle infinito
+R: B
+E: Driver = processo que coordena o job; tem memória limitada. Para inspecionar, use `show`, `limit` ou `take`; para salvar, `write`.
+Q655 [3] `df.dropDuplicates(["id_pedido"])` mantém, para cada pedido repetido:
+A) A linha mais recente
+B) A primeira linha do arquivo
+C) Uma linha qualquer, sem garantia de qual
+D) Todas as linhas
+R: C
+E: Em processamento distribuído não há ordem garantida. Para manter a mais recente, use `row_number()` sobre uma janela ordenada pela data e filtre a linha 1.
+Q656 [3] Para obter os clientes da base A que não aparecem na base B, em PySpark, usa-se:
+A) `a.join(b, "id", "inner")`
+B) `a.union(b)`
+C) `a.join(b, "id", "outer")`
+D) `a.join(b, "id", "left_anti")`
+R: D
+E: Left anti join devolve as linhas da esquerda sem correspondência na direita, só com as colunas da esquerda. É o equivalente ao NOT EXISTS do SQL.
+Q657 [3] Para obter a leitura do sensor no instante anterior, por sensor, em PySpark:
+A) `F.lag("leitura", 1).over(Window.partitionBy("sensor").orderBy("ts"))`
+B) `F.lead("leitura")`
+C) `F.max("leitura")`
+D) `df.shift(1)`
+R: A
+E: Funções de janela em PySpark seguem a mesma lógica do SQL: `partitionBy` separa os grupos e `orderBy` define o que é "anterior". `shift` é do pandas.
+Q658 [3] O comando `MERGE INTO` do Delta Lake serve para:
+A) Juntar dois clusters
+B) Apagar a tabela
+C) Atualizar linhas existentes e inserir novas numa única operação atômica (upsert), pela chave
+D) Criar uma visão
+R: C
+E: Atômica = acontece por inteiro ou não acontece. Usado para cargas incrementais idempotentes.
+Q659 [3] Uma tabela Delta acumulou milhares de arquivos pequenos e as consultas ficaram lentas. A ação recomendada é:
+A) Aumentar o número de partições
+B) Apagar o log
+C) Desligar o cluster
+D) Rodar `OPTIMIZE` (compactação), opcionalmente com `ZORDER BY` nas colunas mais filtradas
+R: D
+E: Cada arquivo exige abertura e leitura de metadados. OPTIMIZE junta arquivos em blocos maiores; Z-ORDER agrupa valores próximos para pular mais blocos.
+Q660 [3] Qual filtro PySpark seleciona corretamente as linhas com renda nula?
+A) `df.filter(F.col("renda") == None)`
+B) `df.filter(F.col("renda").isNull())`
+C) `df.filter(F.col("renda") == "null")`
+D) `df.filter(renda is None)`
+R: B
+E: Como no SQL, comparar com nulo usando igualdade dá desconhecido e não retorna linhas.
+Q661 [3] Na interface do Spark (Spark UI), os limites entre estágios (stages) de um job correspondem a:
+A) Ações
+B) Leituras de arquivo
+C) Shuffles
+D) Colunas novas
+R: C
+E: Transformações estreitas são encadeadas no mesmo estágio. Cada transformação larga (groupBy, join) exige redistribuição e abre um novo estágio.
+Q662 [4] O valor padrão de `spark.sql.shuffle.partitions` é:
+A) 8
+B) 64
+C) 1.000
+D) 200
+R: D
+E: Para volumes pequenos, 200 gera tarefas minúsculas; para volumes enormes, partições grandes demais. O AQE (Adaptive Query Execution) ajusta isso em tempo de execução.
+Q663 [3] Por padrão, o Spark faz broadcast automático de uma tabela num join quando ela tem até cerca de:
+A) 10 MB, configurável por `spark.sql.autoBroadcastJoinThreshold`
+B) 1 GB
+C) 1 KB
+D) Nunca faz automaticamente
+R: A
+E: Acima do limite, usa sort-merge join com shuffle dos dois lados. Pode-se forçar com `F.broadcast(df)` quando se sabe que a tabela cabe na memória.
+Q664 [4] Na Spark UI, 199 tarefas de um estágio levam 20 segundos e uma leva 25 minutos. O diagnóstico mais provável é:
+A) Rede lenta em todo o cluster
+B) Desbalanceamento de chave (data skew): uma partição concentra muitos dados
+C) Excesso de cache
+D) Erro de esquema
+R: B
+E: Exemplo: chave "cliente_id = 0" usada como padrão para não identificados. Soluções: tratar a chave separadamente, salting ou AQE com skew join.
+Q665 [4] DataFrames e Spark SQL costumam ser mais rápidos que RDDs com funções Python porque:
+A) RDDs não são distribuídos
+B) DataFrames rodam só no driver
+C) RDDs não aceitam filtros
+D) O otimizador Catalyst reescreve o plano declarativo e o motor Tungsten gera código eficiente, sem serializar cada linha para Python
+R: D
+E: RDD (Resilient Distributed Dataset) é a API de baixo nível; com lambdas Python, o Spark não enxerga a lógica e não consegue otimizá-la.
+# Ciência de Dados | Modelagem | Machine Learning Supervisionado
+Q666 [1] Um modelo tem acurácia de 99% no treino e 70% no teste. O sinal mais provável é:
+A) Sobreajuste (overfitting)
+B) Subajuste (underfitting)
+C) Modelo ideal
+D) Vazamento no teste
+R: A
+E: Overfitting = o modelo decorou particularidades do treino que não se repetem. Subajuste teria erro alto nos dois conjuntos.
+Q667 [1] Prever o preço de venda de um imóvel em reais é uma tarefa de:
+A) Classificação
+B) Clusterização
+C) Regressão
+D) Redução de dimensionalidade
+R: C
+E: O alvo é contínuo. Classificação prevê categorias (ex.: o imóvel será vendido em 30 dias, sim ou não).
+Q668 [2] Os papéis dos conjuntos de treino, validação e teste são, respectivamente:
+A) Testar, treinar, validar
+B) Ajustar os parâmetros; escolher hiperparâmetros e modelo; medir o desempenho final uma única vez
+C) Todos servem para ajustar o modelo
+D) Treino e teste são a mesma base
+R: B
+E: Se o teste for usado para escolher o modelo, deixa de ser uma estimativa honesta do desempenho futuro.
+Q669 [2] Uma árvore de decisão sem limite de profundidade tende a ter:
+A) Alto viés e baixa variância
+B) Baixo viés e baixa variância
+C) Alto viés e alta variância
+D) Baixo viés e alta variância
+R: D
+E: Ela pode criar uma folha por observação, acertando todo o treino e mudando muito com pequenas alterações nos dados.
+Q670 [2] Qual destes modelos não precisa de padronização das variáveis para funcionar bem?
+A) KNN
+B) SVM
+C) Regressão logística com regularização
+D) Árvore de decisão
+R: D
+E: Árvores dividem por limiares em cada variável separadamente; mudar a escala não muda a ordem. KNN e SVM dependem de distâncias; a regularização penaliza coeficientes que dependem da escala.
+Q671 [2] Na validação cruzada com k = 5, em cada rodada a fração de dados usada para avaliação é:
+A) 5%
+B) 20%
+C) 50%
+D) 80%
+R: B
+E: Os dados são divididos em 5 dobras; cada dobra é avaliada uma vez (20%) enquanto as outras 4 (80%) treinam. O resultado final é a média das 5 avaliações.
+Q672 [2] Numa base com 2% de transações fraudulentas, a validação cruzada estratificada garante que:
+A) Cada dobra tenha aproximadamente a mesma proporção de fraudes
+B) As dobras tenham o mesmo número de variáveis
+C) O tempo seja respeitado
+D) Não haja overfitting
+R: A
+E: Sem estratificar, uma dobra pode ficar com quase nenhuma fraude e a métrica oscila muito. No scikit-learn: `StratifiedKFold`.
+Q673 [3] Atribuir peso 10 à classe positiva (rara) na função de perda (class weight) tem efeito parecido com:
+A) Remover os negativos
+B) Replicar cada positivo 10 vezes no treino (oversampling)
+C) Aumentar a taxa de aprendizado
+D) Remover variáveis
+R: B
+E: Nos dois casos, cada erro na classe positiva pesa 10 vezes mais na perda. O peso evita duplicar dados. Ambos distorcem as probabilidades previstas, que precisam ser recalibradas se forem usadas como probabilidade.
+Q674 [3] Sobre o SMOTE (Synthetic Minority Over-sampling Technique), é correto:
+A) Gera exemplos sintéticos da classe rara interpolando vizinhos e deve ser aplicado só no treino, depois da divisão
+B) Duplica exemplos exatamente
+C) Deve ser aplicado antes da divisão treino/teste
+D) Remove exemplos da classe majoritária
+R: A
+E: Aplicar antes da divisão vaza informação: pontos sintéticos do treino nascem de pontos que estão no teste, inflando a métrica.
+Q675 [3] No gradient boosting, reduzir a taxa de aprendizado (learning_rate) de 0,1 para 0,01 em geral exige:
+A) Menos árvores
+B) Remover a validação
+C) Aumentar a profundidade para 50
+D) Mais árvores (n_estimators), geralmente com melhor generalização e mais tempo de treino
+R: D
+E: Cada árvore contribui com uma fração menor; são precisos mais passos para chegar ao mesmo ajuste. Combine com early stopping.
+Q676 [3] No stacking (empilhamento), o metamodelo deve ser treinado com:
+A) As previsões fora da dobra (out-of-fold) dos modelos base
+B) As previsões dos modelos base no próprio treino
+C) Os rótulos do teste
+D) Apenas a primeira variável
+R: A
+E: Previsões no próprio treino são otimistas demais; o metamodelo aprenderia a confiar no modelo mais sobreajustado.
+Q677 [3] Um modelo ordena bem os clientes, mas as probabilidades previstas não batem com as taxas observadas. Técnicas para corrigir são:
+A) Aumentar a AUC
+B) Remover variáveis
+C) Calibração por Platt scaling (logística sobre o score) ou regressão isotônica
+D) Mudar o corte de decisão
+R: C
+E: Calibração altera o nível das probabilidades sem mudar a ordenação. A isotônica é mais flexível, mas precisa de mais dados.
+Q678 [4] Num detector de fraude, investigar uma transação legítima custa R$ 1 e deixar passar uma fraude custa R$ 9. O corte de probabilidade que minimiza o custo esperado é:
+A) 0,50
+B) 0,90
+C) 0,10
+D) 0,01
+R: C
+E: Bloqueia-se quando p × 9 > (1 − p) × 1, ou seja, p > 1 ÷ (1 + 9) = 0,10. Em geral, o corte ótimo é custo do falso positivo ÷ (custo do FP + custo do FN), supondo probabilidades calibradas.
+Q679 [3] Sobre bagging e boosting, é correto afirmar:
+A) Ambos reduzem principalmente o viés
+B) Bagging reduz principalmente a variância; boosting reduz principalmente o viés
+C) Bagging reduz o viés; boosting reduz a variância
+D) Nenhum afeta viés ou variância
+R: B
+E: Bagging faz média de modelos complexos e instáveis. Boosting soma modelos simples em sequência, corrigindo o que os anteriores erraram.
+Q680 [3] O LightGBM acelera o treino em grandes bases principalmente por:
+A) Usar redes neurais
+B) Não usar árvores
+C) Discretizar as variáveis em histogramas, avaliando cortes por faixa em vez de por valor único
+D) Treinar só com 1% dos dados
+R: C
+E: Com 255 faixas por variável, cada corte candidato é testado em 255 pontos, não em milhões. Também usa amostragem por gradiente (GOSS) e agrupamento de variáveis esparsas (EFB).
+Q681 [3] Ajustar um polinômio de grau 15 a 20 pontos tende a produzir:
+A) Subajuste
+B) Um modelo linear
+C) Erro de treino alto
+D) Sobreajuste: curva que passa perto de todos os pontos e oscila muito entre eles
+R: D
+E: Com quase tantos parâmetros quanto pontos, o modelo acompanha o ruído. Regularização ou grau menor resolve.
+Q682 [3] Para prever o percentil 90 da perda, em vez da média, usa-se:
+A) Regressão quantílica, que minimiza a perda pinball
+B) Regressão linear comum
+C) Regressão logística
+D) K-means
+R: A
+E: A perda pinball pesa erros abaixo e acima de forma assimétrica: para o quantil 0,9, subestimar custa 9 vezes mais que superestimar.
+Q683 [2] Uma curva de aprendizado mostra erro de treino baixo e erro de validação alto, com distância diminuindo conforme a base cresce. A ação mais promissora é:
+A) Aumentar a complexidade do modelo
+B) Remover dados
+C) Obter mais dados ou regularizar mais
+D) Reduzir a validação
+R: C
+E: É o quadro de alta variância. Se os dois erros fossem altos e próximos (alto viés), mais dados ajudariam pouco.
+Q684 [4] Num modelo de previsão de demanda treinado com dados de 2023 a 2025, por que validar também numa amostra fora do tempo (out-of-time, OOT), além da validação cruzada aleatória?
+A) Porque a validação cruzada não funciona com árvores
+B) Porque é exigência do scikit-learn
+C) Porque o OOT tem mais dados
+D) Porque a relação entre variáveis e alvo muda com o tempo; só uma amostra posterior ao treino mostra como o modelo se comporta com dados futuros
+R: D
+E: A validação aleatória mistura passado e futuro e tende a otimismo. O OOT simula o uso real. Em séries temporais, `TimeSeriesSplit` faz algo parecido dentro do treino.
+# Ciência de Dados | Modelagem | Deep Learning
+Q685 [1] Um neurônio artificial calcula:
+A) Uma soma ponderada das entradas mais um viés, seguida de uma função de ativação
+B) A média das entradas
+C) Apenas o máximo das entradas
+D) Um índice de Gini
+R: A
+E: Saída = ativação(w₁x₁ + w₂x₂ + … + b). Os pesos w e o viés b são aprendidos no treino.
+Q686 [2] Qual é o valor de ReLU(−3)?
+A) −3
+B) 3
+C) 0
+D) 1
+R: C
+E: ReLU (Rectified Linear Unit) = max(0, x). Valores negativos viram 0; positivos passam inalterados.
+Q687 [2] Para classificação binária (e-mail é spam ou não), a camada de saída de uma rede neural costuma usar:
+A) ReLU
+B) Softmax com 10 neurônios
+C) Nenhuma ativação
+D) Um neurônio com ativação sigmoide
+R: D
+E: A sigmoide leva a saída para (0, 1), interpretada como probabilidade, e combina com a perda de entropia cruzada binária.
+Q688 [2] Uma época (epoch) no treinamento de redes neurais é:
+A) Uma passada completa por todos os exemplos de treino
+B) Um único exemplo
+C) Um lote (batch)
+D) Uma camada
+R: A
+E: Com 10.000 exemplos e lotes de 100, uma época tem 100 passos de atualização.
+Q689 [2] Uma camada densa recebe 10 entradas e tem 5 neurônios. Quantos parâmetros treináveis ela tem?
+A) 50
+B) 55
+C) 15
+D) 60
+R: B
+E: Pesos = 10 × 5 = 50; vieses = 5 (um por neurônio). Total = 55.
+Q690 [3] Em redes profundas com ativação sigmoide, os gradientes das primeiras camadas ficam muito pequenos. Esse problema é chamado de:
+A) Overfitting
+B) Explosão de gradiente
+C) Desvanecimento do gradiente (vanishing gradient), mitigado com ReLU, conexões residuais e boa inicialização
+D) Dropout
+R: C
+E: A derivada da sigmoide é no máximo 0,25; multiplicada camada após camada, tende a zero, e as primeiras camadas quase não aprendem.
+Q691 [3] A normalização em lote (batch normalization):
+A) Remove neurônios
+B) Padroniza as ativações de cada camada usando média e variância do lote, estabilizando e acelerando o treino
+C) Normaliza os rótulos
+D) Substitui a função de perda
+R: B
+E: Reduz a sensibilidade à inicialização e permite taxas de aprendizado maiores. Na inferência, usa médias acumuladas no treino.
+Q692 [3] O otimizador Adam combina:
+A) Momento (média dos gradientes passados) e taxa de aprendizado adaptativa por parâmetro (média dos gradientes ao quadrado)
+B) Gradiente e Hessiana exatos
+C) Algoritmo genético e SGD
+D) Dropout e batch normalization
+R: A
+E: Adam = Adaptive Moment Estimation. Parâmetros com gradientes grandes recebem passos menores, e vice-versa.
+Q693 [3] Redes convolucionais (CNN) são eficientes em imagens porque:
+A) Usam uma conexão por pixel sem compartilhamento
+B) Ignoram a posição dos pixels
+C) Exigem dados tabulares
+D) Aplicam o mesmo filtro em todas as posições (compartilhamento de pesos), detectando padrões locais com poucos parâmetros
+R: D
+E: Um filtro 3 × 3 tem 9 pesos e percorre a imagem inteira. Uma camada densa na mesma imagem teria milhões de pesos.
+Q694 [3] Redes LSTM foram criadas para:
+A) Classificar imagens
+B) Lidar com dependências de longo prazo em sequências, usando portas que controlam o que guardar e o que esquecer
+C) Reduzir dimensionalidade
+D) Calcular PCA
+R: B
+E: LSTM (Long Short-Term Memory). Em séries de transações, permite que um evento de meses atrás ainda influencie a previsão. Transformers ocuparam boa parte desse espaço.
+Q695 [3] Para um rótulo y = 1 e probabilidade prevista 0,8, a perda de entropia cruzada binária é aproximadamente:
+A) 0,22
+B) 0,80
+C) 0,20
+D) 1,61
+R: A
+E: Perda = −[y ln p + (1 − y) ln(1 − p)] = −ln(0,8) ≈ 0,223. Se a previsão fosse 0,2, a perda seria −ln(0,2) ≈ 1,61.
+Q696 [3] Durante o treino, a perda sobe e desce de forma errática e às vezes vira NaN. A causa mais provável é:
+A) Taxa de aprendizado baixa demais
+B) Poucos neurônios
+C) Base grande demais
+D) Taxa de aprendizado alta demais
+R: D
+E: Passos grandes ultrapassam o mínimo e podem divergir. Reduzir a taxa, usar clipping de gradiente ou agendamento de taxa resolve.
+Q697 [3] Para usar a variável "código do estabelecimento" (50 mil valores) numa rede neural, uma abordagem eficiente é:
+A) One-hot com 50 mil colunas
+B) Uma camada de embedding que aprende um vetor denso curto para cada código
+C) Remover a variável sempre
+D) Usar o código como número contínuo
+R: B
+E: Embedding = tabela de vetores aprendidos (ex.: 16 dimensões por código). Códigos com comportamento parecido ficam próximos no espaço.
+Q698 [4] O algoritmo de retropropagação (backpropagation) calcula os gradientes aplicando:
+A) A regra da cadeia do cálculo, camada por camada, da saída para a entrada
+B) Diferenças finitas em cada peso
+C) Busca aleatória
+D) A inversa da Hessiana
+R: A
+E: O gradiente de cada camada reaproveita o da camada seguinte, por isso custa aproximadamente o mesmo que uma passada para frente.
+Q699 [4] No aprendizado por transferência (transfer learning) com pouca base rotulada, a prática comum é:
+A) Treinar do zero com pesos aleatórios
+B) Usar só a última camada de outro modelo
+C) Reaproveitar um modelo pré-treinado, congelar as camadas iniciais e treinar só as finais (ou ajustar tudo com taxa baixa)
+D) Ignorar o modelo pré-treinado
+R: C
+E: As camadas iniciais aprendem padrões genéricos (bordas, sintaxe) úteis em várias tarefas. Exemplo: ajustar um modelo de linguagem pré-treinado para classificar reclamações.

@@ -1,0 +1,568 @@
+# Ciência de Dados | Machine Learning | Aprendizado Supervisionado
+Q201 [1] (Adaptada — OpenGenus) Qual destes algoritmos é usado para classificação?
+A) Regressão linear
+B) Regressão polinomial
+C) Regressão de Poisson
+D) Regressão logística
+R: D
+E: Apesar do nome, a regressão logística estima uma probabilidade entre 0 e 1 e classifica por um corte (ex.: probabilidade > 0,5 → spam). As demais preveem valores numéricos.
+Q202 [2] Um nó de árvore de decisão tem 8 exemplos da classe A e 2 da classe B. O índice de Gini do nó é:
+A) 0,20
+B) 0,50
+C) 0,32
+D) 0,80
+R: C
+E: Gini = 1 − Σpᵢ² = 1 − (0,8² + 0,2²) = 1 − (0,64 + 0,04) = 0,32. Nó puro tem Gini 0; nó 50/50 tem 0,5. A árvore escolhe o corte que mais reduz a impureza ponderada.
+Q203 [2] (Adaptada — OpenGenus) Bagging, a técnica por trás do Random Forest, significa:
+A) Bootstrap aggregation: treinar modelos em amostras bootstrap e combinar suas previsões, reduzindo variância
+B) Bayesian aging
+C) Treinar modelos em sequência corrigindo erros
+D) Selecionar as melhores variáveis
+R: A
+E: Cada árvore vê uma reamostragem diferente; a média das previsões é mais estável que uma árvore isolada.
+Q204 [2] O gradient boosting (XGBoost, LightGBM) funciona assim:
+A) Treina árvores independentes em paralelo
+B) Treina uma única árvore profunda
+C) Agrupa clientes semelhantes
+D) Treina árvores em sequência, cada uma ajustando o gradiente (o erro) deixado pelas anteriores
+R: D
+E: Exemplo em regressão: previsão inicial 100, valor real 130 → resíduo 30; a próxima árvore tenta prever esses 30; soma-se uma fração (taxa de aprendizado) dela à previsão.
+Q205 [2] (Adaptada — OpenGenus) No KNN (k vizinhos mais próximos), qual valor de k tende a causar underfitting (modelo simples demais)?
+A) 1
+B) 3
+C) Muito grande, como 500 numa base de 1.000
+D) 5
+R: C
+E: Com k enorme, a previsão vira quase a média geral, ignorando o local. Com k = 1, o modelo decora o ruído (overfitting).
+Q206 [3] Numa regressão logística que prevê se o cliente vai comprar, a variável binária "recebeu cupom" tem coeficiente 0,7. A razão de chances (odds ratio) é aproximadamente:
+A) 0,7
+B) 1,7
+C) 0,5
+D) 2,0
+R: D
+E: Odds ratio = e^0,7 ≈ 2,01. Chance = p ÷ (1 − p). Receber o cupom dobra a chance de compra, mantidas as demais variáveis. Se a chance era 0,05 (p ≈ 4,8%), passa a ≈ 0,10 (p ≈ 9,1%).
+Q207 [3] No Random Forest, sortear um subconjunto de variáveis em cada divisão (max_features) serve para:
+A) Acelerar só o tempo de previsão
+B) Diminuir a correlação entre as árvores, tornando a média mais eficaz
+C) Aumentar o viés de propósito
+D) Eliminar a necessidade de bootstrap
+R: B
+E: Se uma variável é muito forte, todas as árvores a usariam no topo e ficariam parecidas. Média de árvores parecidas reduz pouco a variância.
+Q208 [3] No LightGBM, o hiperparâmetro que mais controla a complexidade de cada árvore, dado o crescimento por folha (leaf-wise), é:
+A) n_estimators
+B) learning_rate
+C) subsample
+D) num_leaves
+R: D
+E: O LightGBM divide sempre a folha com maior ganho, em qualquer profundidade. Sem limitar num_leaves (e min_data_in_leaf), as árvores ficam desbalanceadas e sobreajustam.
+Q209 [3] No SVM com kernel RBF, o kernel serve para:
+A) Reduzir o número de variáveis
+B) Normalizar os dados
+C) Calcular produtos internos num espaço de dimensão muito alta sem construí-lo, permitindo fronteiras não lineares
+D) Escolher o k
+R: C
+E: É o "truque do kernel". RBF (Radial Basis Function) = exp(−γ‖x − x'‖²): pontos próximos têm similaridade perto de 1.
+Q210 [4] (Adaptada — OpenGenus) O classificador Naive Bayes é tipicamente um modelo de:
+A) Alto viés e baixa variância
+B) Baixo viés e alta variância
+C) Baixo viés e baixa variância
+D) Alto viés e alta variância
+R: A
+E: A suposição de independência entre variáveis é forte (viés), mas o modelo tem poucos parâmetros e muda pouco entre amostras (variância baixa). Funciona bem com poucos dados e muitas variáveis, como em texto.
+# Ciência de Dados | Machine Learning | Aprendizado Não Supervisionado
+Q211 [1] O k-means minimiza:
+A) A distância entre centróides
+B) A soma das distâncias ao quadrado de cada ponto ao centróide do seu cluster (inércia)
+C) O número de clusters
+D) A acurácia
+R: B
+E: Alterna dois passos: atribuir cada ponto ao centróide mais próximo e recalcular cada centróide como a média dos pontos do grupo, até estabilizar.
+Q212 [2] (Adaptada — OpenGenus) Qual algoritmo de agrupamento é mais sensível a outliers?
+A) k-medoids
+B) k-medianas
+C) DBSCAN
+D) k-means
+R: D
+E: O centróide é uma média, puxada por valores extremos. O k-medoids usa um ponto real do grupo como centro e é mais robusto.
+Q213 [2] Um PCA tem autovalores 4, 3, 2 e 1. Que fração da variância os dois primeiros componentes explicam?
+A) 40%
+B) 50%
+C) 70%
+D) 90%
+R: C
+E: PCA (Principal Component Analysis, análise de componentes principais). Variância total = 4 + 3 + 2 + 1 = 10. Dois primeiros: (4 + 3) ÷ 10 = 70%. Autovalor = variância captada pelo componente.
+Q214 [2] No método do cotovelo para escolher k no k-means, observa-se:
+A) O ponto em que a queda da inércia com k desacelera bruscamente
+B) O k de menor inércia
+C) O k igual ao número de variáveis
+D) O k de maior inércia
+R: A
+E: A inércia sempre cai com mais clusters (com k = n, vale 0). O cotovelo marca onde clusters extras deixam de trazer ganho relevante.
+Q215 [2] (Adaptada — OpenGenus) Um ponto tem distância média 2 aos colegas do próprio cluster (a) e 6 ao cluster vizinho mais próximo (b). Seu coeficiente de silhueta é:
+A) 0,33
+B) 0,67
+C) −0,67
+D) 4
+R: B
+E: s = (b − a) ÷ max(a, b) = (6 − 2) ÷ 6 ≈ 0,67. Vai de −1 (ponto no cluster errado) a 1 (bem agrupado). A média de s orienta a escolha de k.
+Q216 [3] (Adaptada — OpenGenus) O agrupamento hierárquico divisivo:
+A) Começa com cada ponto isolado e junta os mais parecidos
+B) Usa centróides fixos
+C) Exige k definido antes
+D) Começa com todos num grupo e divide recursivamente (de cima para baixo)
+R: D
+E: O aglomerativo é o contrário (de baixo para cima) e é o mais usado. O resultado é um dendrograma (árvore de fusões), cortado na altura desejada.
+Q217 [3] Num k-means com renda (em reais, até 50.000) e idade (18 a 80), sem padronização:
+A) A renda domina a distância e a idade quase não influencia os grupos
+B) As duas pesam igual
+C) A idade domina
+D) O algoritmo não roda
+R: A
+E: Uma diferença de R$ 1.000 pesa mais que 60 anos de idade na distância euclidiana. Padronizar (z-score) põe as variáveis na mesma escala.
+Q218 [3] O GMM difere do k-means porque:
+A) Não usa iterações
+B) Exige rótulos
+C) Dá a cada ponto uma probabilidade de pertencer a cada cluster e admite clusters elípticos
+D) Só funciona em uma dimensão
+R: C
+E: GMM (Gaussian Mixture Model, mistura de gaussianas) é ajustado pelo algoritmo EM (Expectation-Maximization). É agrupamento "suave" (soft); o k-means é "duro" (hard).
+Q219 [3] Num gráfico t-SNE de clientes, dois grupos aparecem bem distantes. Pode-se concluir que:
+A) São exatamente tão diferentes quanto a distância mostra
+B) Pouco sobre a distância global; o t-SNE preserva vizinhanças locais, não distâncias entre grupos
+C) Devem ser modelados separadamente
+D) Há erro nos dados
+R: B
+E: t-SNE (t-distributed Stochastic Neighbor Embedding) é ferramenta de visualização. Tamanho e distância entre grupos no gráfico mudam com o parâmetro perplexity.
+Q220 [4] Em 1.000 transações, o produto A aparece em 200, o B em 100, e ambos em 50. Para a regra A → B, a confiança e o lift são:
+A) 0,50 e 5,0
+B) 0,05 e 0,5
+C) 0,25 e 1,0
+D) 0,25 e 2,5
+R: D
+E: Confiança = P(B | A) = 50 ÷ 200 = 0,25. Lift = confiança ÷ P(B) = 0,25 ÷ 0,10 = 2,5: quem compra A tem 2,5 vezes mais chance de comprar B que a média. Suporte = 50 ÷ 1.000 = 5%.
+# Ciência de Dados | Machine Learning | Aprendizado por Reforço
+Q221 [1] Os elementos básicos do aprendizado por reforço são:
+A) Agente, ambiente, estado, ação e recompensa
+B) Rótulos, features e perda
+C) Clusters e centróides
+D) Treino, validação e teste
+R: A
+E: O agente observa o estado, escolhe uma ação, recebe uma recompensa e passa a outro estado; aprende uma política (regra de decisão) que maximiza a recompensa acumulada.
+Q222 [2] Com fator de desconto γ = 0,9 e recompensas 10, 10, 10 nos três próximos passos, o retorno descontado é:
+A) 30
+B) 24,3
+C) 27,1
+D) 10
+R: C
+E: G = 10 + 0,9 × 10 + 0,9² × 10 = 10 + 9 + 8,1 = 27,1. γ < 1 faz recompensas futuras valerem menos que as imediatas.
+Q223 [2] Na política ε-greedy com ε = 0,1, o agente:
+A) Sempre escolhe a melhor ação conhecida
+B) Escolhe a melhor ação em 90% das vezes e uma ação aleatória em 10%
+C) Escolhe aleatoriamente sempre
+D) Escolhe a pior ação em 10%
+R: B
+E: Equilibra explotação (usar o que já sabe) e exploração (testar ações que podem ser melhores).
+Q224 [2] No Q-learning, com Q(s, a) = 5, recompensa r = 2, γ = 0,9, max Q(s', ·) = 10 e taxa α = 0,5, o novo Q(s, a) é:
+A) 11
+B) 6
+C) 5,5
+D) 8
+R: D
+E: Alvo = r + γ × max Q' = 2 + 0,9 × 10 = 11. Erro = 11 − 5 = 6. Novo Q = 5 + 0,5 × 6 = 8. Q(s, a) = valor esperado de tomar a ação a no estado s.
+Q225 [3] A diferença entre Q-learning e SARSA é:
+A) Q-learning é off-policy (usa a melhor ação seguinte no alvo); SARSA é on-policy (usa a ação que de fato será tomada)
+B) SARSA não usa recompensa
+C) Q-learning não tem taxa de aprendizado
+D) São idênticos
+R: A
+E: SARSA = State-Action-Reward-State-Action. Por considerar a exploração real, o SARSA tende a aprender políticas mais cautelosas.
+Q226 [3] Escolher entre 4 versões de banner na página inicial, aprendendo com a taxa de cliques de cada uma, sem estados encadeados, é um problema de:
+A) Clusterização
+B) Regressão
+C) Série temporal
+D) Multi-armed bandit (bandido de múltiplos braços)
+R: D
+E: Cada versão é um "braço" de caça-níqueis com taxa de retorno desconhecida. Algoritmos como Thompson Sampling mandam mais tráfego para os banners melhores enquanto ainda exploram os outros.
+Q227 [3] Métodos de gradiente de política (policy gradient):
+A) Estimam só a função de valor
+B) Otimizam diretamente os parâmetros da política, subindo o gradiente da recompensa esperada
+C) Não usam recompensa
+D) São supervisionados
+R: B
+E: Exemplo: REINFORCE e PPO (Proximal Policy Optimization). Funcionam com ações contínuas, onde maximizar Q sobre todas as ações seria difícil.
+Q228 [3] A equação de Bellman de otimalidade expressa que:
+A) A recompensa é constante
+B) O valor é aleatório
+C) A política é fixa
+D) O valor ótimo de um estado é a melhor ação em recompensa imediata mais o valor descontado do estado seguinte
+R: D
+E: V*(s) = maxₐ [R(s, a) + γ Σ P(s' | s, a) V*(s')]. Decompõe um problema longo em um passo mais o resto.
+Q229 [3] No RLHF, usado no ajuste de LLMs:
+A) Um modelo de recompensa treinado com preferências humanas guia a otimização da política (o LLM)
+B) Humanos escrevem todo o texto
+C) Não há recompensa
+D) O modelo é treinado só com rótulos fixos
+R: A
+E: RLHF (Reinforcement Learning from Human Feedback). Avaliadores comparam pares de respostas; um modelo aprende a prever qual seria preferida; o LLM é ajustado (por exemplo com PPO) para maximizar essa nota.
+Q230 [4] Um agente de recomendação com recompensa = "número de cliques" passa a recomendar só manchetes sensacionalistas (clickbait), e a satisfação dos usuários cai. Isso ilustra:
+A) Convergência correta
+B) Especificação de recompensa falha (reward hacking): o agente otimiza a métrica, não o objetivo real
+C) Exploração excessiva
+D) Fator de desconto alto
+R: B
+E: A recompensa omitiu o que realmente importa (tempo de leitura, retorno do usuário, avaliações). Corrige-se com recompensas compostas e restrições.
+# Ciência de Dados | Machine Learning | Feature Engineering / Selection
+Q231 [1] Codificar com one-hot uma variável com as categorias {celular, tablet, computador} gera:
+A) Uma coluna com valores 1, 2, 3
+B) Uma coluna com a média do alvo
+C) Três colunas binárias (ou duas, se uma for retirada como referência)
+D) Nenhuma coluna
+R: C
+E: Feature engineering = criar e transformar variáveis. One-hot evita impor uma ordem falsa entre categorias. Em regressão com intercepto, retira-se uma categoria para evitar colinearidade perfeita.
+Q232 [2] A informação mútua entre uma variável e o alvo é zero. Isso indica que:
+A) São independentes: conhecer a variável não reduz a incerteza sobre o alvo
+B) Têm correlação perfeita
+C) A variável é categórica
+D) A variável tem muitos nulos
+R: A
+E: Informação mútua mede qualquer dependência, linear ou não, ao contrário da correlação de Pearson. No scikit-learn: `mutual_info_classif`. Valores maiores indicam variáveis mais informativas.
+Q233 [2] Ao usar `SelectKBest(chi2, k=10)` do scikit-learn, as variáveis de entrada precisam ser:
+A) Normalmente distribuídas
+B) Categóricas em texto
+C) Não negativas, como contagens ou frequências
+D) Padronizadas com média zero
+R: C
+E: O teste qui-quadrado compara frequências observadas e esperadas, e não aceita valores negativos. Variáveis padronizadas (com negativos) causam erro; nesse caso use `f_classif` ou `mutual_info_classif`.
+Q234 [2] No target encoding (substituir a categoria pela média do alvo), o principal risco é:
+A) Explosão de colunas
+B) Perda de ordem
+C) Lentidão
+D) Vazamento do alvo; deve-se calcular a média fora da dobra (out-of-fold) e com suavização
+R: D
+E: Se a média inclui a própria linha, a categoria com um único cliente mau recebe 100% e o modelo "decora" o alvo. Calcular em outras dobras da validação cruzada evita isso.
+Q235 [2] Num modelo de cancelamento com data de referência em janeiro, a variável "número de reclamações em fevereiro" causa:
+A) Melhora legítima
+B) Multicolinearidade
+C) Desbalanceamento
+D) Vazamento de dados (data leakage): usa informação que não existe no momento da previsão
+R: D
+E: O desempenho em teste fica irrealmente alto e despenca em produção. Toda variável deve usar só dados disponíveis até a data de referência.
+Q236 [3] A regressão com penalidade L1 (Lasso) é um método de seleção de variáveis do tipo:
+A) Embutido (embedded): a seleção acontece durante o treino
+B) Filtro
+C) Wrapper
+D) Manual
+R: A
+E: Filtro = avalia cada variável isoladamente (correlação, informação mútua, qui-quadrado); wrapper = testa subconjuntos treinando o modelo (RFE); embutido = o próprio treino zera variáveis (Lasso, importância de árvores).
+Q237 [3] O RFE (Recursive Feature Elimination):
+A) Calcula a correlação de cada variável com o alvo
+B) Usa PCA
+C) Remove variáveis aleatoriamente
+D) Treina o modelo, remove a variável menos importante e repete até o número desejado
+R: D
+E: É um método wrapper. Exemplo: de 200 variáveis, remove as 10 menos importantes por rodada até sobrarem 30. Custo alto: muitos treinos. No scikit-learn: `RFE` e `RFECV`.
+Q238 [3] Para criar "gasto máximo do cliente nos últimos 6 meses" em PySpark sem vazamento, a janela deve:
+A) Usar todos os meses disponíveis
+B) Incluir o mês seguinte para suavizar
+C) Ser particionada por cliente e cobrir só os 6 meses até a data de referência, inclusive
+D) Ser calculada sobre toda a base sem partição
+R: C
+E: Exemplo: `Window.partitionBy("cliente").orderBy("mes_ref").rowsBetween(-5, 0)` com `F.max("gasto")`. O intervalo −5 a 0 cobre o mês atual e os cinco anteriores.
+Q239 [3] Para usar o CEP (30.000 valores distintos) num modelo, a abordagem mais adequada é:
+A) One-hot com 30.000 colunas
+B) Converter para número inteiro e usar direto
+C) Agrupar em regiões ou usar target encoding regularizado
+D) Descartar sempre
+R: C
+E: Alta cardinalidade = muitos valores distintos. One-hot gera matriz enorme e esparsa; o número inteiro impõe ordem sem sentido. Atenção: CEP pode servir de proxy (substituto) de atributos sensíveis.
+Q240 [4] O método Boruta seleciona variáveis:
+A) Pela variância de cada coluna
+B) Comparando a importância de cada variável com a de cópias embaralhadas (shadow features)
+C) Pela correlação com o alvo
+D) Por PCA
+R: B
+E: Uma variável real que não supera, de forma consistente, a melhor variável embaralhada (que é puro ruído) é descartada. Usa Random Forest repetidas vezes.
+# Ciência de Dados | Machine Learning | Regularização e Tuning de Hiperparâmetros
+Q241 [1] (Adaptada — OpenGenus) A diferença entre a regularização L1 e a L2 está:
+A) Na função de perda dos dados
+B) Na taxa de aprendizado
+C) No número de variáveis
+D) No termo de penalidade: soma dos |β| (L1) contra soma dos β² (L2)
+R: D
+E: Regularização = penalizar coeficientes grandes para conter overfitting. Perda total = erro + λ × penalidade. L1 é o Lasso; L2 é o Ridge.
+Q242 [2] Qual o efeito típico de cada penalidade sobre os coeficientes?
+A) Ambas zeram coeficientes
+B) L1 zera alguns coeficientes (seleciona variáveis); L2 encolhe todos sem zerar
+C) L2 zera; L1 encolhe
+D) Nenhuma altera os coeficientes
+R: B
+E: A geometria da penalidade L1 (um losango) tem quinas sobre os eixos, onde coeficientes valem zero; a L2 (um círculo) não tem.
+Q243 [2] O Elastic Net:
+A) Combina as penalidades L1 e L2
+B) É uma rede neural
+C) Usa apenas L2
+D) Não tem hiperparâmetros
+R: A
+E: Útil quando há grupos de variáveis correlacionadas: o L1 sozinho escolhe uma do grupo arbitrariamente; a parte L2 distribui o peso entre elas.
+Q244 [2] Aumentar o λ (força da regularização) tende a:
+A) Reduzir viés e aumentar variância
+B) Não mudar nada
+C) Aumentar viés e reduzir variância
+D) Aumentar ambos
+R: C
+E: Viés = erro por simplificar demais; variância = sensibilidade a mudanças na amostra. λ alto deixa o modelo mais simples e estável; λ ótimo é escolhido por validação cruzada.
+Q245 [2] Um grid search com 3 valores de taxa de aprendizado, 4 de num_leaves e 5 de min_data_in_leaf, avaliado com validação cruzada de 5 dobras, exige quantos treinos?
+A) 60
+B) 300
+C) 12
+D) 17
+R: B
+E: Combinações = 3 × 4 × 5 = 60. Cada uma treinada 5 vezes: 60 × 5 = 300. O custo cresce de forma multiplicativa a cada hiperparâmetro acrescentado.
+Q246 [3] A busca aleatória (random search) costuma superar o grid search com o mesmo orçamento porque:
+A) Sempre testa mais pontos
+B) Usa gradiente
+C) Garante o ótimo
+D) Em geral poucos hiperparâmetros importam, e a busca aleatória testa mais valores distintos de cada um
+R: D
+E: Resultado de Bergstra e Bengio (2012). Com 9 tentativas, um grid 3×3 testa só 3 valores do hiperparâmetro importante; a aleatória testa 9.
+Q247 [3] O early stopping (parada antecipada) em boosting:
+A) Interrompe o treino quando a métrica na validação não melhora por N rodadas seguidas
+B) Para quando o treino atinge 100% de acerto
+C) Remove variáveis
+D) Reduz a base de treino
+R: A
+E: Exemplo: `early_stopping_rounds=50` com 5.000 árvores máximas; se a melhor AUC de validação foi na árvore 820 e nada melhorou até a 870, para e guarda 820. Funciona como regularização.
+Q248 [3] A validação cruzada aninhada (nested cross-validation) é usada para:
+A) Treinar mais rápido
+B) Reduzir o número de features
+C) Estimar sem viés o desempenho de um processo que inclui o tuning de hiperparâmetros
+D) Substituir o conjunto OOT
+R: C
+E: O laço interno escolhe os hiperparâmetros; o externo mede o desempenho em dados que o tuning nunca viu. Usar a mesma validação para escolher e para relatar superestima o resultado.
+Q249 [3] Em redes neurais, o dropout:
+A) Remove dados da base
+B) Desliga aleatoriamente uma fração dos neurônios a cada passo do treino, como forma de regularização
+C) Reduz a taxa de aprendizado
+D) Remove camadas permanentemente
+R: B
+E: Impede que neurônios dependam demais uns dos outros. Na inferência, todos ficam ligados.
+Q250 [4] Regressão Ridge com uma variável (sem intercepto): Σx² = 10, Σxy = 20 e λ = 10. Os coeficientes de mínimos quadrados (OLS) e de Ridge são:
+A) 2 e 2
+B) 1 e 2
+C) 2 e 0
+D) 2 e 1
+R: D
+E: OLS (Ordinary Least Squares): β = Σxy ÷ Σx² = 20 ÷ 10 = 2. Ridge: β = Σxy ÷ (Σx² + λ) = 20 ÷ (10 + 10) = 1. Na forma matricial, β = (XᵀX + λI)⁻¹Xᵀy; o λ somado à diagonal "encolhe" o coeficiente.
+# Ciência de Dados | Machine Learning | Métricas de Avaliação e Monitoramento
+Q251 [1] Matriz de confusão de um filtro de spam: verdadeiros positivos (VP) = 80, falsos positivos (FP) = 20, falsos negativos (FN) = 40, verdadeiros negativos (VN) = 860 (positivo = spam). A precisão (precision) é:
+A) 0,67
+B) 0,80
+C) 0,94
+D) 0,73
+R: B
+E: Precisão = VP ÷ (VP + FP) = 80 ÷ 100 = 0,80. Dos e-mails que o filtro marcou como spam, 80% eram spam.
+Q252 [2] Filtro de spam com VP = 80, FP = 20, FN = 40, VN = 860 (positivo = spam). O recall (sensibilidade) é:
+A) 0,80
+B) 0,94
+C) 0,98
+D) 0,67
+R: D
+E: Recall = VP ÷ (VP + FN) = 80 ÷ 120 ≈ 0,67. Dos spams que existiam, o filtro pegou 67%.
+Q253 [2] Com precisão 0,80 e recall 0,667, o F1-score é:
+A) 0,74
+B) 0,73
+C) 0,67
+D) 0,80
+R: B
+E: F1 = 2 × P × R ÷ (P + R) = 2 × 0,80 × 0,667 ÷ (0,80 + 0,667) = 1,067 ÷ 1,467 ≈ 0,727. É a média harmônica, que puxa para o menor dos dois. A média simples daria 0,733.
+Q254 [2] Um classificador tem AUC = 0,75. Seu coeficiente de Gini (accuracy ratio) é:
+A) 0,75
+B) 0,50
+C) 0,25
+D) 0,375
+R: B
+E: Gini = 2 × AUC − 1 = 1,50 − 1 = 0,50. AUC 0,5 (modelo aleatório) dá Gini 0; AUC 1 dá Gini 1. Não confundir com o índice de impureza de Gini das árvores.
+Q255 [2] Numa base com 2% de transações fraudulentas, um "modelo" que classifica todas como legítimas tem acurácia de:
+A) 2%
+B) 50%
+C) 98%, o que mostra que acurácia engana em bases desbalanceadas
+D) 100%
+R: C
+E: Acurácia = acertos ÷ total. Acerta todas as 98% legítimas e erra todas as fraudes (recall 0). Por isso se usam AUC, precisão, recall e F1 em bases desbalanceadas.
+Q256 [3] Numa faixa de score, a participação da população passou de 20% (desenvolvimento) para 30% (atual). A contribuição dessa faixa para o PSI é:
+A) 0,10
+B) 0,405
+C) 0,041
+D) 0,004
+R: C
+E: PSI (Population Stability Index) = Σ (atual − esperado) × ln(atual ÷ esperado). Faixa: (0,30 − 0,20) × ln(1,5) = 0,10 × 0,405 = 0,041. Somam-se todas as faixas. Regra usual: < 0,10 estável; 0,10–0,25 atenção; > 0,25 mudança relevante.
+Q257 [3] Duas previsões: 0,9 para um cliente que foi mau (y = 1) e 0,2 para um que foi bom (y = 0). O Brier score é:
+A) 0,15
+B) 0,025
+C) 0,05
+D) 0,10
+R: B
+E: Brier = média de (p − y)² = [(0,9 − 1)² + (0,2 − 0)²] ÷ 2 = (0,01 + 0,04) ÷ 2 = 0,025. Mede calibração e discriminação juntas; menor é melhor.
+Q258 [3] Prever 0,99 para um cliente que foi bom (y = 0) gera log-loss individual de:
+A) 0,01
+B) 0,99
+C) 1,0
+D) ≈ 4,6
+R: D
+E: Log-loss = −[y ln p + (1 − y) ln(1 − p)] = −ln(0,01) ≈ 4,6. Uma previsão confiante e errada é muito punida; prever 0,5 custaria só 0,69.
+Q259 [3] Num modelo de fraude com 0,1% de positivos, a curva precisão-recall (PR) é mais informativa que a ROC porque:
+A) A ROC pode parecer ótima por causa da enorme quantidade de negativos, enquanto a PR mostra a precisão real dos alertas
+B) A ROC não existe nesse caso
+C) A PR ignora os positivos
+D) São idênticas
+R: A
+E: ROC (Receiver Operating Characteristic) usa a taxa de falsos positivos, que fica pequena mesmo com muitos alarmes falsos em termos absolutos. Exemplo: 1% de FP sobre 1 milhão de transações = 10.000 alertas falsos contra 1.000 fraudes.
+Q260 [4] Num modelo de cancelamento em produção, a AUC se manteve em 0,78, mas a probabilidade média prevista é 3% e a taxa real de cancelamento é 5%. O diagnóstico é:
+A) Perda de discriminação; retreinar com novas variáveis
+B) Nenhum problema
+C) Vazamento de dados
+D) Problema de calibração (nível), não de ordenação; recalibrar as probabilidades
+R: D
+E: A AUC só mede ordem. O modelo continua separando quem cancela de quem fica, mas o nível mudou (sazonalidade, mudança de preço). Recalibrar corrige o nível sem refazer o modelo.
+# Ciência de Dados | Machine Learning | Explicabilidade
+Q261 [1] Qual modelo é interpretável por natureza, sem ferramenta adicional?
+A) Rede neural profunda
+B) Ensemble de 2.000 árvores
+C) Regressão logística com poucas variáveis
+D) SVM com kernel RBF
+R: C
+E: Cada coeficiente diz quanto a variável muda o log da chance, com sinal e magnitude legíveis. Árvores rasas também são interpretáveis.
+Q262 [2] Num modelo de probabilidade de compra, o valor base (média das previsões) é 0,10. Para um usuário, os valores SHAP são: tempo no site +0,08; idade −0,01; distância da loja −0,03. A previsão para esse usuário é:
+A) 0,04
+B) 0,10
+C) 0,22
+D) 0,14
+R: D
+E: SHAP (SHapley Additive exPlanations) reparte a previsão entre as variáveis: previsão = base + Σ SHAP = 0,10 + 0,08 − 0,01 − 0,03 = 0,14. Em modelos de árvore, os valores costumam estar em log-odds; a soma vale na mesma escala.
+Q263 [2] Ao embaralhar os valores da variável "tempo_no_site" na base de teste, a AUC cai de 0,80 para 0,72. A importância por permutação dessa variável é:
+A) 0,08
+B) 0,80
+C) 1,52
+D) 0,72
+R: A
+E: Importância = métrica original − métrica com a variável embaralhada = 0,80 − 0,72 = 0,08. Embaralhar quebra a relação da variável com o alvo, mantendo sua distribuição. No scikit-learn: `permutation_importance`.
+Q264 [2] O gráfico de dependência parcial (PDP) mostra:
+A) A importância de cada variável
+B) A correlação entre variáveis
+C) O efeito médio de uma variável sobre a previsão, variando-a e mantendo as outras como estão nos dados
+D) A matriz de confusão
+R: C
+E: PDP (Partial Dependence Plot). O ICE (Individual Conditional Expectation) mostra uma curva por cliente; o PDP é a média dessas curvas. Curvas ICE muito diferentes indicam interação.
+Q265 [3] O LIME explica uma previsão individual:
+A) Calculando valores de Shapley exatos
+B) Ajustando um modelo simples (linear) em perturbações ao redor do ponto, ponderadas pela proximidade
+C) Treinando uma rede neural
+D) Removendo a variável e retreinando
+R: B
+E: LIME (Local Interpretable Model-agnostic Explanations). Agnóstico = funciona com qualquer modelo. Limitação: resultados variam com a forma de perturbar.
+Q266 [3] A importância por ganho (gain) padrão das árvores:
+A) Tende a favorecer variáveis contínuas ou de muitas categorias, que oferecem mais pontos de corte
+B) É imune a viés
+C) Mede a causalidade
+D) É igual ao SHAP
+R: A
+E: Uma variável de ruído com muitos valores distintos pode ganhar importância por acaso. Importância por permutação ou SHAP médio são alternativas mais confiáveis.
+Q267 [3] Duas variáveis de um modelo, altura e envergadura, têm correlação de 0,95. No SHAP, o crédito pelo efeito do "tamanho corporal":
+A) Vai sempre todo para a primeira
+B) É zero para ambas
+C) Tende a ser dividido entre as duas, o que pode subestimar a importância de cada uma isoladamente
+D) Fica dobrado
+R: C
+E: É preciso analisar variáveis correlacionadas em grupo. A escolha entre TreeSHAP "interventional" e "path-dependent" também muda a distribuição do crédito.
+Q268 [3] Para explicar a um usuário por que sua transação específica foi marcada como suspeita, usa-se:
+A) A importância global média das variáveis
+B) A AUC do modelo
+C) A matriz de correlação
+D) As variáveis com maior contribuição individual (ex.: SHAP local) no sentido de aumentar o risco daquela transação
+R: D
+E: Explicação local, não global. Exemplo: para essa transação, "valor 10 vezes acima do usual" (+0,12) e "país diferente do habitual" (+0,07) são os dois principais motivos.
+Q269 [3] A explicação "se sua nota no teste de inglês fosse 30 pontos maior, a candidatura seria aceita" é chamada de:
+A) SHAP
+B) PDP
+C) Explicação contrafactual: a menor mudança na entrada que altera a decisão
+D) Importância por permutação
+R: C
+E: Contrafactual = "e se fosse diferente". Útil porque indica o que mudar. Deve respeitar plausibilidade: não sugerir mudar características que a pessoa não controla, como a idade.
+Q270 [4] Para garantir no LightGBM que o preço previsto de um imóvel nunca diminua quando a área aumenta (mantido o resto), usa-se:
+A) Mais árvores
+B) Remover a variável área
+C) Aumentar a taxa de aprendizado
+D) O parâmetro monotone_constraints com +1 nessa variável
+R: D
+E: Restrição monotônica: o modelo só pode criar cortes que respeitem o sentido. Melhora a coerência e a confiança no modelo, às vezes com pequena perda de desempenho.
+# Ciência de Dados | Machine Learning | Vieses Algorítmicos e IA Responsável
+Q271 [1] Viés algorítmico é:
+A) O intercepto da regressão
+B) O erro de arredondamento
+C) A taxa de aprendizado
+D) Um padrão sistemático de resultados desfavoráveis a um grupo, vindo dos dados, do desenho ou do uso do modelo
+R: D
+E: Não confundir com o "viés" estatístico da troca viés-variância. Fontes comuns: dados históricos com discriminação, amostras sub-representadas, variáveis proxy.
+Q272 [2] Num processo seletivo automatizado, a taxa de aprovação é 60% no grupo A e 45% no grupo B. Pela regra dos quatro quintos (80%):
+A) Não há indício de impacto desigual
+B) A regra não se aplica a modelos
+C) O grupo A é desfavorecido
+D) Há indício de impacto desigual: 45 ÷ 60 = 0,75 < 0,80
+R: D
+E: Razão de impacto = taxa do grupo menos favorecido ÷ taxa do mais favorecido. Abaixo de 0,8 é sinal de alerta que pede investigação, não prova de discriminação.
+Q273 [2] O critério de igualdade de oportunidade (equal opportunity) exige:
+A) Taxa de verdadeiros positivos igual entre grupos (entre os candidatos qualificados, a mesma chance de seleção)
+B) Taxa de seleção igual
+C) Mesma AUC
+D) Mesmo número de pessoas por grupo
+R: A
+E: Paridade demográfica olha só a taxa de seleção; igualdade de oportunidade condiciona ao desfecho real. Odds iguais (equalized odds) exige também taxa de falsos positivos igual.
+Q274 [2] Retirar a variável "sexo" de um modelo garante ausência de discriminação?
+A) Sim, sempre
+B) Sim, se a AUC não mudar
+C) Não; outras variáveis podem funcionar como proxies (substitutas) do atributo retirado
+D) Não, porque o modelo fica pior
+R: C
+E: Exemplo: profissão, CEP ou padrão de consumo podem carregar a informação. É preciso medir resultados por grupo, o que às vezes exige o atributo para auditoria.
+Q275 [3] Quando as taxas-base do desfecho diferem entre grupos, é impossível satisfazer ao mesmo tempo:
+A) AUC alta e baixa
+B) Treino e teste
+C) Calibração por grupo e igualdade das taxas de falso positivo e falso negativo
+D) Precisão e recall
+R: C
+E: Resultado de Kleinberg et al. (2016) e Chouldechova (2017). Taxa-base = proporção real de positivos no grupo. Escolher o critério de justiça é uma decisão que vai além da técnica.
+Q276 [3] Um sistema de recomendação mostra pouco os itens novos; sem exibição, eles não recebem cliques; o próximo modelo, treinado com esses cliques, aprende a mostrá-los ainda menos. Esse fenômeno é:
+A) Overfitting
+B) Regressão à média
+C) Paradoxo de Simpson
+D) Ciclo de retroalimentação (feedback loop)
+R: D
+E: O modelo influencia os dados que vai receber no futuro. Mitigações: reservar uma fração do tráfego para exploração aleatória e corrigir o viés de exposição.
+Q277 [3] Um model card (ficha do modelo) documenta:
+A) Uso pretendido, dados de treino, métricas por subgrupo, limitações e riscos conhecidos
+B) Só o código-fonte
+C) O salário do time
+D) As senhas de acesso
+R: A
+E: Proposto por Mitchell et al. (2019). Facilita que outras equipes entendam onde o modelo funciona e onde não deve ser usado.
+Q278 [3] Um grupo está sub-representado nos dados de treino (5% das linhas, contra 30% na população atendida). Uma técnica de mitigação de pré-processamento é:
+A) Remover o grupo da base
+B) Reponderar ou reamostrar os exemplos para que o grupo tenha peso proporcional à população
+C) Aumentar o número de árvores
+D) Baixar o limiar de decisão para todos
+R: B
+E: Pré-processamento altera os dados antes do treino. Com pesos amostrais (`sample_weight`), cada exemplo do grupo raro passa a contar mais no ajuste.
+Q279 [3] Um modelo de reconhecimento facial tem taxa de erro de 1% num grupo demográfico e de 12% em outro. A prática correta antes de colocá-lo em uso é:
+A) Reportar só a acurácia média
+B) Ignorar, pois a média é boa
+C) Avaliar e reportar métricas desagregadas por subgrupo e corrigir os dados ou o modelo antes do uso
+D) Aumentar a resolução das imagens apenas
+R: C
+E: Métricas agregadas escondem falhas concentradas em grupos menores. O estudo Gender Shades (Buolamwini e Gebru, 2018) mostrou diferenças desse tamanho em sistemas comerciais.
+Q280 [4] Ajustar o ponto de corte do score separadamente por grupo, após o treino, para igualar a taxa de verdadeiros positivos, é uma técnica de mitigação de:
+A) Pré-processamento
+B) Pós-processamento
+C) Durante o treino (in-processing)
+D) Coleta de dados
+R: B
+E: Pré-processamento altera dados (ex.: reponderação); in-processing altera o treino (ex.: restrição de justiça na perda); pós-processamento altera a decisão final. Cortes por grupo podem ter restrição legal, por usarem o atributo sensível na decisão.

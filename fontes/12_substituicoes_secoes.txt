@@ -1,0 +1,528 @@
+# Ciência de Dados | Fundamentos Gerais | Estruturas de Dados e Algoritmos
+
+Q9 [1] A busca binária numa lista ordenada de n elementos tem complexidade de tempo:
+A) O(n)
+B) O(n²)
+C) O(1)
+D) O(log n)
+R: D
+E: A cada passo, a busca descarta metade dos elementos restantes. Com 1.000.000 de itens, bastam cerca de 20 comparações (2²⁰ ≈ 1 milhão). Notação O ("big O") descreve como o custo cresce com n.
+
+Q10 [2] Qual é a saída?
+```python
+pilha = []
+pilha.append(1); pilha.append(2); pilha.append(3)
+pilha.pop()
+print(pilha.pop())
+```
+A) 1
+B) 2
+C) 3
+D) [1, 2]
+R: B
+E: Pilha (stack) segue LIFO (Last In, First Out, o último a entrar é o primeiro a sair). O primeiro `pop` remove o 3; o segundo remove e devolve o 2.
+
+Q11 [2] Qual é a saída?
+```python
+from collections import Counter
+print(Counter("banana").most_common(1))
+```
+A) [('a', 3)]
+B) [('b', 1)]
+C) [('n', 2)]
+D) {'a': 3}
+R: A
+E: `Counter` conta as ocorrências de cada elemento: a = 3, n = 2, b = 1. `most_common(1)` devolve uma lista com o par (elemento, contagem) mais frequente.
+
+Q12 [2] Qual é a saída?
+```python
+def fib(n):
+    return n if n < 2 else fib(n - 1) + fib(n - 2)
+print(fib(6))
+```
+A) 6
+B) 5
+C) 8
+D) 13
+R: C
+E: A sequência de Fibonacci a partir de fib(0) é 0, 1, 1, 2, 3, 5, 8. fib(6) = 8. Essa versão recursiva tem custo exponencial; com memorização (cache) cai para O(n).
+
+Q13 [3] O algoritmo de ordenação embutido no Python (`sorted`, `list.sort`) tem complexidade no pior caso e é estável. Estável significa que:
+A) Nunca usa memória extra
+B) Elementos com a mesma chave mantêm a ordem relativa original
+C) Sempre roda em O(n)
+D) Só ordena números
+R: B
+E: O Timsort tem custo O(n log n) no pior caso. Estabilidade permite ordenar em etapas: ordenar por nome e depois por nota mantém, entre notas iguais, a ordem alfabética.
+
+Q14 [3] Qual é a saída?
+```python
+d = {"a": 1, "b": 2, "c": 1}
+print({v: k for k, v in d.items()})
+```
+A) {1: 'a', 2: 'b'}
+B) {1: ['a', 'c'], 2: ['b']}
+C) Erro de chave duplicada
+D) {1: 'c', 2: 'b'}
+R: D
+E: Ao inverter, a chave 1 aparece duas vezes; a última atribuição ('c') sobrescreve a primeira ('a'). Dicionários não aceitam chaves repetidas, mas não dão erro.
+
+Q15 [3] Para descobrir se dois números de uma lista somam um valor alvo, a solução que percorre a lista uma única vez guardando os valores já vistos num set tem complexidade:
+A) O(n²)
+B) O(n log n)
+C) O(n) em média
+D) O(1)
+R: C
+E: Para cada x, testa-se se (alvo − x) já está no set, operação O(1) em média. A solução com dois laços aninhados testaria todos os pares, O(n²). É o problema clássico "Two Sum".
+
+# Estatística | Probabilidade e Distribuições | Problemas Clássicos
+
+Q576 [1] (Adaptada — HackerRank 10 Days of Statistics) Os valores 10, 40 e 30 têm pesos 1, 2 e 3. A média ponderada é:
+A) 26,7
+B) 30
+C) 35
+D) 80
+R: B
+E: Média ponderada = Σ(valor × peso) ÷ Σpesos = (10 + 80 + 90) ÷ 6 = 180 ÷ 6 = 30. A média simples seria 26,7.
+
+Q577 [2] (Adaptada — HackerRank 10 Days of Statistics) Para os dados 3, 7, 8, 5, 12, 14, 21, 13, 18, usando o método que exclui a mediana das metades, Q1, Q2 e Q3 são:
+A) 5, 12 e 18
+B) 7, 12 e 14
+C) 6, 12 e 16
+D) 6, 13 e 16
+R: C
+E: Ordenando: 3, 5, 7, 8, 12, 13, 14, 18, 21. Q2 (mediana) = 12. Metade inferior 3, 5, 7, 8 → Q1 = (5 + 7) ÷ 2 = 6. Metade superior 13, 14, 18, 21 → Q3 = (14 + 18) ÷ 2 = 16.
+
+Q578 [2] (Adaptada — HackerRank 10 Days of Statistics) O desvio-padrão populacional de 10, 40, 30, 50, 20 é aproximadamente:
+A) 14,1
+B) 15,8
+C) 200
+D) 30
+R: A
+E: Média = 30. Desvios ao quadrado: 400, 100, 0, 400, 100; soma 1.000. Variância populacional = 1.000 ÷ 5 = 200; desvio = √200 ≈ 14,14. A amostral (÷ 4) daria 15,8.
+
+Q579 [2] Uma moeda justa é lançada 4 vezes. A probabilidade de sair pelo menos 3 caras é:
+A) 0,25
+B) 0,50
+C) 0,0625
+D) 0,3125
+R: D
+E: P(3) = C(4,3) × 0,5⁴ = 4/16; P(4) = 1/16. Soma = 5/16 = 0,3125.
+
+Q580 [3] (Adaptada — HackerRank 10 Days of Statistics) Uma máquina produz 10% de peças defeituosas. Num lote de 10 peças, a probabilidade de no máximo 2 defeituosas é aproximadamente:
+A) 0,19
+B) 0,74
+C) 0,93
+D) 0,35
+R: C
+E: Binomial(10; 0,1): P(0) = 0,9¹⁰ = 0,349; P(1) = 10 × 0,1 × 0,9⁹ = 0,387; P(2) = 45 × 0,01 × 0,9⁸ = 0,194. Soma ≈ 0,930.
+
+Q581 [2] (Adaptada — HackerRank 10 Days of Statistics) A probabilidade de uma peça ter defeito é 1/3. A probabilidade de o primeiro defeito aparecer exatamente na 5ª inspeção é aproximadamente:
+A) 0,066
+B) 0,333
+C) 0,132
+D) 0,868
+R: A
+E: Geométrica: P(N = 5) = (2/3)⁴ × (1/3) = 16/243 ≈ 0,066. Quatro peças boas seguidas e depois uma defeituosa.
+
+Q582 [3] (Adaptada — HackerRank 10 Days of Statistics) Com probabilidade de defeito 1/3 por peça, a probabilidade de o primeiro defeito aparecer em alguma das 5 primeiras inspeções é aproximadamente:
+A) 0,066
+B) 0,333
+C) 0,500
+D) 0,868
+R: D
+E: Pelo complemento: P(nenhum defeito em 5) = (2/3)⁵ = 32/243 ≈ 0,132. Logo, 1 − 0,132 ≈ 0,868.
+
+Q583 [3] (Adaptada — HackerRank 10 Days of Statistics) O número diário de chamados X segue Poisson com λ = 2. O custo diário é C = 100 + 10X². O custo esperado é:
+A) 120
+B) 140
+C) 160
+D) 104
+R: C
+E: E[X²] = Var(X) + E[X]² = λ + λ² = 2 + 4 = 6. E[C] = 100 + 10 × 6 = 160. Usar E[X]² = 4 em vez de E[X²] daria 140, erro comum.
+
+Q584 [2] As notas de uma prova seguem Normal(70, 10²). A proporção de alunos com nota acima de 80 é aproximadamente:
+A) 15,9%
+B) 34,1%
+C) 2,3%
+D) 50%
+R: A
+E: z = (80 − 70) ÷ 10 = 1. P(Z > 1) ≈ 0,1587.
+
+Q585 [3] Com notas Normal(70, 10²), a proporção de alunos entre 60 e 80 é aproximadamente:
+A) 95,4%
+B) 50,0%
+C) 68,3%
+D) 84,1%
+R: C
+E: É o intervalo de ±1 desvio em torno da média: Φ(1) − Φ(−1) ≈ 0,8413 − 0,1587 = 0,6827.
+
+Q586 [3] (Adaptada — HackerRank 10 Days of Statistics) Um elevador suporta 5.150 kg. Cada caixa pesa em média 50 kg, com desvio de 10 kg. Com 100 caixas, a probabilidade de não exceder o limite é aproximadamente:
+A) 0,50
+B) 0,84
+C) 0,99
+D) 0,93
+R: D
+E: Pelo TCL (Teorema Central do Limite), a soma tem média 100 × 50 = 5.000 e desvio 10 × √100 = 100. z = (5.150 − 5.000) ÷ 100 = 1,5. Φ(1,5) ≈ 0,9332.
+
+Q587 [3] (Adaptada — HackerRank 10 Days of Statistics) Uma amostra de 100 observações tem média 500 e desvio 80. O intervalo que contém a média populacional com 95% de confiança é aproximadamente:
+A) [340,2; 659,8]
+B) [484,3; 515,7]
+C) [492,0; 508,0]
+D) [496,1; 503,9]
+R: B
+E: Erro-padrão = 80 ÷ √100 = 8. Margem = 1,96 × 8 = 15,68. Intervalo = 500 ± 15,68. A opção A usou o desvio no lugar do erro-padrão.
+
+Q588 [3] (Adaptada — HackerRank 10 Days of Statistics) Para x = 1, 2, 3, 4, 5 e y = 2, 4, 5, 4, 5, o coeficiente de correlação de Pearson é aproximadamente:
+A) 0,60
+B) 0,77
+C) 0,85
+D) 0,95
+R: B
+E: Médias 3 e 4. Σ(dx·dy) = 6; Σdx² = 10; Σdy² = 6. r = 6 ÷ √(10 × 6) = 6 ÷ 7,746 ≈ 0,775.
+
+Q589 [3] (Adaptada — HackerRank 10 Days of Statistics) Para x = 1, 2, 3, 4, 5 e y = 2, 4, 5, 4, 5, a reta de mínimos quadrados prevê, para x = 6:
+A) 5,8
+B) 6,0
+C) 5,0
+D) 6,8
+R: A
+E: Inclinação b = Σ(dx·dy) ÷ Σdx² = 6 ÷ 10 = 0,6. Intercepto a = 4 − 0,6 × 3 = 2,2. ŷ(6) = 2,2 + 0,6 × 6 = 5,8.
+
+Q590 [4] (Adaptada — HackerRank 10 Days of Statistics) Para x = 10, 20, 30, 40, 50 e y = 5, 3, 4, 1, 2 (sem empates), o coeficiente de Spearman é:
+A) 0,8
+B) −0,6
+C) −0,8
+D) −1,0
+R: C
+E: Postos de x: 1 a 5. Postos de y: 5, 3, 4, 1, 2. Diferenças: −4, −1, −1, 3, 3; soma dos quadrados = 36. ρ = 1 − 6 × 36 ÷ [5 × (25 − 1)] = 1 − 216/120 = −0,8.
+
+# Ciência de Dados | Modelagem | Avaliação e Validação de Modelos
+
+Q701 [1] Com 1.000 linhas, `train_test_split(X, y, test_size=0.25)` gera quantas linhas de teste?
+A) 25
+B) 750
+C) 250
+D) 1.000
+R: C
+E: `test_size=0.25` reserva 25% das linhas para teste: 0,25 × 1.000 = 250. As 750 restantes vão para treino.
+
+Q702 [2] `cross_val_score(modelo, X, y, cv=5)` retorna:
+A) Um único número com a média
+B) Um array com 5 valores, um por dobra
+C) O modelo treinado
+D) As previsões de cada linha
+R: B
+E: Calcula-se a média e o desvio desse array para resumir. Para obter previsões fora da dobra, usa-se `cross_val_predict`.
+
+Q703 [2] No scikit-learn, `confusion_matrix(y_true, y_pred)` para classes 0 e 1 é organizada como:
+A) [[VP, FN], [FP, VN]]
+B) [[VP, FP], [FN, VN]]
+C) [[VN, FN], [FP, VP]]
+D) [[VN, FP], [FN, VP]]
+R: D
+E: Linhas = classe real, colunas = classe prevista, na ordem 0, 1. VN (verdadeiro negativo) fica no canto superior esquerdo e VP no inferior direito.
+
+Q704 [2] Um classificador tem VN = 90 e FP = 10. A especificidade é:
+A) 0,90
+B) 0,10
+C) 0,11
+D) 1,00
+R: A
+E: Especificidade = VN ÷ (VN + FP) = 90 ÷ 100 = 0,90. É a taxa de acerto entre os negativos reais; o complemento (0,10) é a taxa de falsos positivos.
+
+Q705 [2] Os erros de previsão de um modelo de regressão foram 2, −2 e 4. O MAE é:
+A) 1,33
+B) 2,67
+C) 2,83
+D) 8,00
+R: B
+E: MAE (Mean Absolute Error, erro absoluto médio) = (2 + 2 + 4) ÷ 3 = 2,67. A média dos erros com sinal seria 1,33; o RMSE seria √(24 ÷ 3) ≈ 2,83.
+
+Q706 [3] Um modelo de regressão tem R² = −0,3 na base de teste. Isso significa que:
+A) Há erro de cálculo, pois o R² não pode ser negativo
+B) O modelo explica 30% da variância
+C) A correlação é negativa
+D) O modelo prevê pior do que simplesmente usar a média de y como previsão
+R: D
+E: Fora da amostra de treino, R² = 1 − SQ_resíduos ÷ SQ_total pode ser negativo quando os erros do modelo superam os de prever a média.
+
+Q707 [3] Ajustar o `StandardScaler` na base inteira antes de dividir em treino e teste causa:
+A) Vazamento de informação do teste para o treino; o correto é usar um `Pipeline`, ajustado só no treino
+B) Nenhum problema
+C) Erro de execução
+D) Perda de colunas
+R: A
+E: A média e o desvio do teste entram na transformação do treino. Com `Pipeline`, a validação cruzada reajusta o escalonador dentro de cada dobra.
+
+Q708 [3] Em `GridSearchCV`, o atributo `best_score_` é:
+A) O desempenho na base de teste final
+B) O desempenho no treino completo
+C) A média da métrica de validação cruzada da melhor combinação de hiperparâmetros
+D) O número de combinações testadas
+R: C
+E: Por ter sido usado para escolher a combinação, é otimista. O desempenho honesto vem de uma base de teste separada.
+
+Q709 [3] Para validar um modelo de previsão de vendas diárias, o divisor de validação cruzada adequado no scikit-learn é:
+A) KFold com shuffle=True
+B) StratifiedKFold
+C) LeaveOneOut
+D) TimeSeriesSplit
+R: D
+E: TimeSeriesSplit treina sempre no passado e valida no período seguinte, sem deixar o modelo ver o futuro.
+
+Q710 [3] Um sistema recomenda 10 produtos e 3 deles são relevantes para o usuário. A precision@10 é:
+A) 0,30
+B) 3
+C) 0,10
+D) 1,00
+R: A
+E: Precision@k = itens relevantes entre os k recomendados ÷ k = 3 ÷ 10. O recall@10 depende de quantos itens relevantes existem no total.
+
+Q711 [3] Num problema com 3 classes muito desbalanceadas, o F1 macro:
+A) Pondera cada classe pelo número de exemplos
+B) É sempre igual à acurácia
+C) Calcula o F1 de cada classe e tira a média simples, dando o mesmo peso às classes raras
+D) Ignora as classes raras
+R: C
+E: O F1 micro agrega todos os acertos e erros antes de calcular, sendo dominado pela classe grande. O macro revela desempenho ruim em classes pequenas.
+
+Q712 [3] Um classificador binário que sempre prevê probabilidade 0,5 tem log-loss de aproximadamente:
+A) 0
+B) 0,5
+C) 1,0
+D) 0,693
+R: D
+E: Log-loss = −ln(0,5) ≈ 0,693 para qualquer rótulo. É uma referência: um modelo útil precisa ficar abaixo disso (ou abaixo do log-loss de prever a taxa base).
+
+Q713 [3] Baixar o limiar de decisão de 0,5 para 0,3 num classificador binário tende a:
+A) Aumentar a precisão e reduzir o recall
+B) Aumentar o recall e reduzir a precisão
+C) Não alterar nenhuma métrica
+D) Aumentar a AUC
+R: B
+E: Mais casos passam a ser previstos como positivos: pegam-se mais positivos reais (recall), mas entram mais falsos positivos. A AUC não depende do limiar.
+
+Q714 [3] Para obter um intervalo de confiança para a AUC de um modelo na base de teste, uma técnica prática é:
+A) Bootstrap: reamostrar a base de teste com reposição, recalcular a AUC e usar os percentis 2,5% e 97,5%
+B) Rodar o modelo duas vezes
+C) Usar o R²
+D) Treinar com mais árvores
+R: A
+E: Com 1.000 réplicas, o intervalo vai da 25ª à 975ª AUC ordenada. Mostra se uma diferença entre modelos pode ser só variação amostral.
+
+Q715 [3] Numa curva de aprendizado, os erros de treino e de validação estão próximos e ambos altos. O diagnóstico e a ação são:
+A) Alta variância; obter mais dados
+B) Vazamento; remover variáveis
+C) Alto viés (subajuste); aumentar a complexidade do modelo ou criar variáveis melhores
+D) Modelo ideal
+R: C
+E: Mais dados ajudam pouco quando o modelo é simples demais para o padrão. Com alta variância, o erro de treino seria baixo e o de validação alto.
+
+Q716 [4] Aplicar o logaritmo às probabilidades previstas de um classificador (transformação monotônica crescente) altera a AUC?
+A) Sim, sempre aumenta
+B) Sim, sempre diminui
+C) Depende do limiar
+D) Não, porque a AUC depende só da ordenação dos scores
+R: D
+E: A AUC mede a probabilidade de um positivo receber score maior que um negativo. Qualquer transformação que preserve a ordem preserva a AUC; a calibração, porém, muda.
+
+Q717 [3] Antes de comemorar 92% de acurácia, deve-se comparar o modelo com o `DummyClassifier(strategy="most_frequent")` porque:
+A) Ele é sempre melhor
+B) Se a classe majoritária tem 92%, prever sempre ela já dá 92% de acurácia
+C) Ele usa redes neurais
+D) Ele calcula a AUC
+R: B
+E: Linha de base (baseline) = o resultado mínimo sem aprender nada. Um modelo só agrega valor se superar essa referência.
+
+Q718 [3] A validação cruzada leave-one-out (deixar um de fora) numa base de 100 linhas treina quantos modelos?
+A) 1
+B) 10
+C) 100
+D) 99
+R: C
+E: Cada linha é a validação uma vez, com as outras 99 no treino: 100 treinos. Tem baixo viés, mas é cara e com variância alta.
+
+Q719 [4] Uma base tem várias linhas por usuário (uma por sessão). Para que o mesmo usuário não apareça no treino e na validação, usa-se:
+A) KFold com shuffle
+B) TimeSeriesSplit
+C) StratifiedKFold
+D) GroupKFold, agrupando pelo id do usuário
+R: D
+E: Se sessões do mesmo usuário ficam nos dois lados, o modelo reconhece o usuário em vez de aprender o padrão, e a validação fica otimista.
+
+Q720 [3] O coeficiente de correlação de Matthews (MCC) é recomendado para classes desbalanceadas porque:
+A) Usa as quatro células da matriz de confusão e varia de −1 a 1, sendo 0 o desempenho aleatório
+B) Ignora os falsos positivos
+C) É igual à acurácia
+D) Só funciona com 3 classes
+R: A
+E: MCC = (VP·VN − FP·FN) ÷ √[(VP+FP)(VP+FN)(VN+FP)(VN+FN)]. Só fica alto quando o modelo acerta bem as duas classes.
+
+# Ciência de Dados | Programação para Dados | NumPy e scikit-learn
+
+Q736 [1] Qual é a saída de `print(np.arange(5))`?
+A) [1 2 3 4 5]
+B) [0 1 2 3 4 5]
+C) [0 1 2 3 4]
+D) 5
+R: C
+E: `np.arange(n)` gera inteiros de 0 até n − 1, como o `range` do Python, mas como array NumPy.
+
+Q737 [2] `np.arange(6).reshape(2, -1).shape` vale:
+A) (2, 3)
+B) (3, 2)
+C) (2, 6)
+D) (6,)
+R: A
+E: O −1 manda o NumPy calcular a dimensão restante: 6 elementos ÷ 2 linhas = 3 colunas.
+
+Q738 [2] Somar um array de forma (3, 1) com um de forma (1, 4) resulta num array de forma:
+A) Erro de dimensão
+B) (3, 1)
+C) (1, 4)
+D) (3, 4)
+R: D
+E: Broadcasting (difusão): dimensões de tamanho 1 são esticadas para combinar. 3 × 1 com 1 × 4 vira 3 × 4.
+
+Q739 [2] Para `a = np.array([[1, 2], [3, 4]])`, qual é a saída de `a.mean(axis=0)`?
+A) [1.5 3.5]
+B) [2. 3.]
+C) 2.5
+D) [4. 6.]
+R: B
+E: `axis=0` agrega ao longo das linhas, gerando um valor por coluna: (1 + 3) ÷ 2 = 2 e (2 + 4) ÷ 2 = 3. `axis=1` daria a média por linha [1.5 3.5].
+
+Q740 [2] Para `a = np.array([1, 2, 3, 4])`, qual é a saída de `a[a > 2]`?
+A) [3 4]
+B) [False False True True]
+C) [1 2]
+D) 2
+R: A
+E: Indexação booleana: a condição gera uma máscara e só os elementos marcados como True são devolvidos.
+
+Q741 [3] Qual é a saída?
+```python
+a = np.array([1, 2, 3])
+b = a[:2]
+b[0] = 99
+print(a)
+```
+A) [1 2 3]
+B) [99 2]
+C) Erro
+D) [99 2 3]
+R: D
+E: Fatiar um array NumPy cria uma visão (view) que compartilha a memória do original. Para uma cópia independente, use `a[:2].copy()`. Em listas Python, o fatiamento copia.
+
+Q742 [3] O produto matricial de uma matriz (2, 3) por uma (3, 2), `A @ B`, tem forma:
+A) (3, 3)
+B) (2, 3)
+C) (2, 2)
+D) Erro
+R: C
+E: Na multiplicação de matrizes, as dimensões internas (3 e 3) precisam coincidir e o resultado tem as externas: 2 × 2.
+
+Q743 [3] Para os dados [2, 4, 6], `np.std` e `pd.Series(...).std()` retornam valores diferentes porque:
+A) NumPy usa ddof=0 (divide por n) e pandas usa ddof=1 (divide por n − 1)
+B) Pandas ignora o primeiro valor
+C) NumPy arredonda
+D) São iguais
+R: A
+E: NumPy: √(8 ÷ 3) ≈ 1,633. Pandas: √(8 ÷ 2) = 2. ddof (delta degrees of freedom) define o divisor n − ddof.
+
+Q744 [2] Num pré-processamento com scikit-learn, o procedimento correto é:
+A) `fit_transform` no teste e `transform` no treino
+B) `fit_transform` no treino e `transform` no teste
+C) `fit` em ambos separadamente
+D) `predict` no treino
+R: B
+E: Os parâmetros (média, categorias, vocabulário) são aprendidos só no treino e reaplicados ao teste, simulando dados novos.
+
+Q745 [2] Após aplicar o `StandardScaler` no treino, cada coluna transformada do treino tem:
+A) Mínimo 0 e máximo 1
+B) Média 1 e desvio 0
+C) Mediana 0 e IQR 1
+D) Média 0 e desvio-padrão 1
+R: D
+E: Faz (x − média) ÷ desvio. O `MinMaxScaler` é que leva os valores para [0, 1]; o `RobustScaler` usa mediana e IQR.
+
+Q746 [3] O `OneHotEncoder(handle_unknown="ignore")` serve para:
+A) Remover colunas numéricas
+B) Ordenar as categorias
+C) Não dar erro quando aparece no teste uma categoria inexistente no treino, gerando zeros em todas as colunas dessa variável
+D) Codificar texto livre
+R: C
+E: Sem essa opção, `transform` falha ao ver uma categoria nova, situação comum em produção.
+
+Q747 [3] Usar `ColumnTransformer` dentro de um `Pipeline` permite:
+A) Treinar vários modelos ao mesmo tempo
+B) Aplicar transformações diferentes a colunas numéricas e categóricas e encadear tudo com o modelo num único objeto
+C) Paralelizar em GPU
+D) Dispensar a divisão treino/teste
+R: B
+E: O objeto único é ajustado com um `fit` e aplicado com um `predict`, evitando vazamento e facilitando salvar e implantar.
+
+Q748 [3] Num classificador binário do scikit-learn, `modelo.predict_proba(X)` devolve:
+A) Um array de forma (n, 2), em que a coluna 1 é a probabilidade da classe positiva
+B) Um vetor de 0 e 1
+C) A AUC
+D) Um array de forma (2, n)
+R: A
+E: As colunas seguem a ordem de `modelo.classes_`. Para a probabilidade da classe 1, usa-se `predict_proba(X)[:, 1]`.
+
+Q749 [3] Fixar `random_state=42` num `RandomForestClassifier` garante:
+A) Melhor desempenho
+B) Ausência de sobreajuste
+C) Que todas as árvores sejam iguais
+D) Resultados reproduzíveis entre execuções com os mesmos dados
+R: D
+E: O sorteio de amostras e variáveis passa a seguir a mesma sequência pseudoaleatória. O valor 42 não tem nada de especial.
+
+Q750 [3] Na `LogisticRegression` do scikit-learn, aumentar o parâmetro `C`:
+A) Aumenta a regularização
+B) Reduz a regularização, pois C é o inverso da força de regularização
+C) Muda o número de classes
+D) Não tem efeito
+R: B
+E: C = 1 ÷ λ. C pequeno = penalidade forte e coeficientes menores; C grande = ajuste mais livre aos dados.
+
+Q751 [3] Qual é a saída de `np.where(np.array([5, -2, 0, 7]) > 0, 1, 0)`?
+A) [1 0 0 1]
+B) [0 3]
+C) [5 0 0 7]
+D) [1 0 1 1]
+R: A
+E: `np.where(condição, x, y)` escolhe x onde a condição é verdadeira e y onde é falsa. Com um único argumento, devolveria os índices onde a condição vale.
+
+Q752 [3] Depois de `km = KMeans(n_clusters=3).fit(X)`, os atributos `labels_` e `inertia_` contêm:
+A) As variáveis mais importantes e a AUC
+B) O número de iterações e a semente
+C) Os centróides e a silhueta
+D) O cluster de cada linha e a soma das distâncias ao quadrado de cada ponto ao seu centróide
+R: D
+E: Os centróides ficam em `cluster_centers_`. A inércia é usada no método do cotovelo.
+
+Q753 [4] Qual é a saída de `np.argsort(np.array([30, 10, 20]))`?
+A) [10 20 30]
+B) [2 0 1]
+C) [1 2 0]
+D) [0 1 2]
+R: C
+E: `argsort` devolve os índices que ordenariam o array: o menor (10) está no índice 1, depois 20 no índice 2, depois 30 no índice 0.
+
+Q754 [3] Qual é a solução de `np.linalg.solve([[2, 1], [1, -1]], [5, 1])`?
+A) [1. 3.]
+B) [3. 2.]
+C) [2. 1.]
+D) [5. 1.]
+R: C
+E: O sistema é 2x + y = 5 e x − y = 1. Somando: 3x = 6 → x = 2; logo y = 1. `solve` é mais estável e rápido que calcular a inversa.
+
+Q755 [4] Um array NumPy com 10 milhões de números em float64 ocupa aproximadamente:
+A) 10 MB
+B) 40 MB
+C) 800 MB
+D) 80 MB
+R: D
+E: float64 usa 8 bytes por número: 10⁷ × 8 = 8 × 10⁷ bytes = 80 MB. Em float32 seriam 40 MB, com menos precisão.

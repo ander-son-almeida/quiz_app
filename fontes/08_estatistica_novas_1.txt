@@ -1,0 +1,705 @@
+# Estatística | Probabilidade e Distribuições | Probabilidade
+Q401 [1] Ao lançar um dado justo de seis faces, a probabilidade de sair um número par é:
+A) 1/6
+B) 1/3
+C) 2/3
+D) 1/2
+R: D
+E: Casos favoráveis: 2, 4 e 6 (três). Casos possíveis: seis. P = 3 ÷ 6 = 1/2.
+Q402 [1] A e B são mutuamente exclusivos (não podem ocorrer juntos), com P(A) = 0,3 e P(B) = 0,4. Então P(A ou B) é:
+A) 0,12
+B) 0,70
+C) 0,58
+D) 0,10
+R: B
+E: Mutuamente exclusivos → P(A ∩ B) = 0, logo P(A ∪ B) = 0,3 + 0,4 = 0,7. O valor 0,12 seria o produto, que vale para eventos independentes, não exclusivos.
+Q403 [2] P(A) = 0,5, P(B) = 0,4 e P(A ∩ B) = 0,2. Quanto vale P(A ∪ B)?
+A) 0,9
+B) 0,2
+C) 0,7
+D) 0,5
+R: C
+E: Regra da adição: P(A ∪ B) = P(A) + P(B) − P(A ∩ B) = 0,5 + 0,4 − 0,2 = 0,7. Subtrai-se a interseção porque ela foi contada duas vezes.
+Q404 [2] Com P(A) = 0,5, P(B) = 0,4 e P(A ∩ B) = 0,2, os eventos A e B são:
+A) Independentes, pois P(A) × P(B) = P(A ∩ B)
+B) Mutuamente exclusivos
+C) Dependentes, pois a interseção é positiva
+D) Impossíveis de classificar
+R: A
+E: Independência significa P(A ∩ B) = P(A) × P(B). Aqui 0,5 × 0,4 = 0,2, igual à interseção. Saber que B ocorreu não muda a chance de A: P(A | B) = 0,2 ÷ 0,4 = 0,5 = P(A).
+Q405 [2] Num aplicativo, 20% dos usuários têm plano premium e 6% são premium e cancelaram no mês. A probabilidade de cancelamento dado que o usuário é premium é:
+A) 30%
+B) 26%
+C) 1,2%
+D) 6%
+R: A
+E: Probabilidade condicional: P(Cancela | Premium) = P(Cancela ∩ Premium) ÷ P(Premium) = 0,06 ÷ 0,20 = 0,30. Em 1.000 usuários: 200 são premium, 60 deles cancelaram → 60 ÷ 200 = 30%.
+Q406 [2] Ao lançar dois dados justos, a probabilidade de a soma ser 7 é:
+A) 1/6
+B) 1/12
+C) 7/36
+D) 1/36
+R: A
+E: Pares que somam 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) — seis. Total de pares: 6 × 6 = 36. P = 6 ÷ 36 = 1/6.
+Q407 [2] De quantas formas se escolhem 3 variáveis entre 10 candidatas, sem importar a ordem?
+A) 720
+B) 120
+C) 30
+D) 1.000
+R: B
+E: Combinação C(10, 3) = 10! ÷ (3! × 7!) = (10 × 9 × 8) ÷ (3 × 2 × 1) = 720 ÷ 6 = 120. Se a ordem importasse (arranjo), seriam 720.
+Q408 [2] Três modelos devem ser validados em sequência, escolhidos entre 5. Quantas ordens diferentes existem?
+A) 10
+B) 15
+C) 60
+D) 125
+R: C
+E: Arranjo (a ordem importa): A(5, 3) = 5 × 4 × 3 = 60. Sem ordem seria C(5, 3) = 10; com repetição permitida, 5³ = 125.
+Q409 [3] Três servidores independentes têm, cada um, probabilidade de 10% de falhar num dia. A probabilidade de pelo menos uma falha no dia é:
+A) 27,1%
+B) 30%
+C) 0,1%
+D) 72,9%
+R: A
+E: Mais fácil pelo complemento: P(nenhuma falha) = 0,9³ = 0,729. P(pelo menos uma) = 1 − 0,729 = 0,271. Somar 10% três vezes (30%) conta em dobro os dias com mais de uma falha.
+Q410 [2] Um jogo paga R$ 100 com probabilidade 0,1 e custa R$ 5 (perde R$ 5) com probabilidade 0,9. O valor esperado é:
+A) R$ 5,50
+B) R$ 10,00
+C) −R$ 4,50
+D) R$ 95,00
+R: A
+E: E[X] = 0,1 × 100 + 0,9 × (−5) = 10 − 4,5 = 5,5. Valor esperado = média ponderada dos resultados pelas probabilidades; é o ganho médio por jogada no longo prazo.
+Q411 [3] Se Var(X) = 4, quanto vale Var(2X + 3)?
+A) 11
+B) 16
+C) 8
+D) 19
+R: B
+E: Var(aX + b) = a² × Var(X). Somar uma constante (3) não altera a dispersão; multiplicar por 2 multiplica a variância por 4: 4 × 4 = 16.
+Q412 [3] Var(X) = 4, Var(Y) = 9 e Cov(X, Y) = 2. Quanto vale Var(X + Y)?
+A) 13
+B) 15
+C) 11
+D) 17
+R: D
+E: Var(X + Y) = Var(X) + Var(Y) + 2 Cov(X, Y) = 4 + 9 + 2 × 2 = 17. Covariância positiva aumenta a variância da soma; com covariância negativa, as variações se compensam em parte.
+Q413 [3] Uma montadora recebe 60% das peças da fábrica A (2% defeituosas) e 40% da fábrica B (7% defeituosas). A taxa de defeito geral é:
+A) 4,0%
+B) 9,0%
+C) 3,0%
+D) 4,5%
+R: A
+E: Lei da probabilidade total: 0,6 × 2% + 0,4 × 7% = 1,2% + 2,8% = 4,0%. É a média das taxas ponderada pela participação de cada fábrica.
+Q414 [3] Com 60% das peças da fábrica A (2% defeituosas) e 40% da B (7% defeituosas), dado que uma peça é defeituosa, a probabilidade de ela vir da fábrica B é:
+A) 70%
+B) 40%
+C) 7%
+D) 28%
+R: A
+E: Bayes: P(B | defeito) = P(defeito ∩ B) ÷ P(defeito) = (0,4 × 0,07) ÷ 0,04 = 0,028 ÷ 0,04 = 0,70. A fábrica B fornece 40% das peças, mas 70% dos defeitos.
+Q415 [2] Dois eventos mutuamente exclusivos, cada um com probabilidade positiva, são:
+A) Independentes
+B) Dependentes, pois saber que um ocorreu zera a chance do outro
+C) Sempre complementares
+D) Equiprováveis
+R: B
+E: Se A ocorreu, B não pode ocorrer: P(B | A) = 0 ≠ P(B). Logo há dependência. É um erro comum confundir "exclusivos" com "independentes".
+Q416 [3] No problema de Monty Hall (três portas, um prêmio; o apresentador abre uma porta vazia que você não escolheu), trocar de porta dá probabilidade de ganhar de:
+A) 1/2
+B) 1/3
+C) 2/3
+D) 1
+R: C
+E: A porta inicial acerta com 1/3. Os 2/3 restantes ficam concentrados na outra porta fechada, porque o apresentador sabe onde está o prêmio e nunca abre a porta dele.
+Q417 [1] A Lei dos Grandes Números afirma que:
+A) A média amostral converge para o valor esperado à medida que o número de observações cresce
+B) Toda distribuição vira normal
+C) Amostras grandes eliminam o viés de seleção
+D) A variância cresce com n
+R: A
+E: Exemplo: a proporção de caras em 10 lançamentos oscila muito; em 100.000, fica muito perto de 50%. Não corrige viés: se a amostra é viesada, converge para o valor errado.
+Q418 [3] Dois voos partem do mesmo aeroporto e cada um atrasa com probabilidade 5%. Se os atrasos fossem independentes, P(ambos atrasarem) = 0,25%. Com correlação positiva entre os atrasos (mau tempo afeta os dois), P(ambos) fica:
+A) Igual a 0,25%
+B) Igual a 0
+C) Menor que 0,25%
+D) Maior que 0,25%
+R: D
+E: Correlação positiva = um evento torna o outro mais provável. Isso aumenta a chance de eventos simultâneos, algo que cálculos supondo independência subestimam.
+Q419 [3] Em uma pesquisa por telefone, cada ligação independente é atendida com probabilidade 0,2. O número esperado de ligações até o primeiro atendimento é:
+A) 0,2
+B) 4
+C) 5
+D) 20
+R: C
+E: Distribuição geométrica: E[N] = 1 ÷ p = 1 ÷ 0,2 = 5.
+Q420 [4] Pela desigualdade de Chebyshev, qualquer que seja a distribuição (com variância finita), a proporção mínima de valores a até 2 desvios-padrão da média é:
+A) 95%
+B) 50%
+C) 68%
+D) 75%
+R: D
+E: Chebyshev: P(|X − μ| < kσ) ≥ 1 − 1/k². Com k = 2: 1 − 1/4 = 75%. Vale para qualquer distribuição; os 95% da regra empírica valem só para a normal.
+# Estatística | Probabilidade e Distribuições | Variáveis Aleatórias e Distribuições
+Q421 [1] A distribuição normal padrão tem:
+A) Média 0 e desvio-padrão 1
+B) Média 1 e desvio-padrão 0
+C) Média 0 e variância 2
+D) Média e variância iguais
+R: A
+E: Normal padrão = Z ~ N(0, 1). Qualquer normal vira padrão pela transformação z = (x − μ) ÷ σ.
+Q422 [2] P(Z ≤ 1,96) numa normal padrão é aproximadamente:
+A) 0,950
+B) 0,975
+C) 0,990
+D) 0,500
+R: B
+E: 1,96 deixa 2,5% na cauda superior. Por simetria, também 2,5% abaixo de −1,96, e 95% entre os dois. Por isso 1,96 aparece em intervalos de 95%.
+Q423 [2] P(Z > 1,645) numa normal padrão é aproximadamente:
+A) 0,10
+B) 0,025
+C) 0,05
+D) 0,01
+R: C
+E: 1,645 é o quantil 95% da normal padrão, usado em testes unilaterais com α = 5%. Quantil = valor que deixa uma proporção fixada de dados abaixo dele.
+Q424 [2] X ~ Uniforme(0, 10). Quanto vale P(X < 3)?
+A) 0,3
+B) 0,03
+C) 3
+D) 0,7
+R: A
+E: Na uniforme contínua a probabilidade é proporcional ao comprimento do intervalo: 3 ÷ 10 = 0,3. A média é (0 + 10) ÷ 2 = 5.
+Q425 [2] A variância de X ~ Uniforme(0, 12) é:
+A) 6
+B) 144
+C) 36
+D) 12
+R: D
+E: Var = (b − a)² ÷ 12 = 12² ÷ 12 = 144 ÷ 12 = 12. Desvio-padrão ≈ 3,46.
+Q426 [2] De um lote de 50 peças, das quais 5 são defeituosas, sorteiam-se 10 sem reposição. O número de defeituosas na amostra segue:
+A) Hipergeométrica
+B) Binomial
+C) Poisson
+D) Geométrica
+R: A
+E: Sem reposição numa população finita, a probabilidade muda a cada sorteio: é a hipergeométrica. Com reposição (ou população muito grande), seria binomial. Usada em controle de qualidade por amostragem.
+Q427 [3] Em 1.000 transações, cada uma com probabilidade 0,002 de ser fraude, o número de fraudes pode ser aproximado por uma Poisson com λ igual a:
+A) 2
+B) 0,002
+C) 20
+D) 500
+R: A
+E: Com n grande e p pequeno, Binomial(n, p) ≈ Poisson(λ = n × p) = 1.000 × 0,002 = 2. A aproximação é boa quando n ≥ 100 e n × p ≤ 10, aproximadamente.
+Q428 [3] X ~ Poisson(λ = 2). Quanto vale P(X = 2)?
+A) ≈ 0,135
+B) ≈ 0,500
+C) ≈ 0,180
+D) ≈ 0,271
+R: D
+E: P(X = k) = e^(−λ) λ^k ÷ k! = e^(−2) × 4 ÷ 2 = 2 × 0,1353 ≈ 0,271. Observação: P(X = 1) também vale 2e^(−2), coincidência que ocorre quando k = λ.
+Q429 [2] Em relação à normal padrão, a distribuição t de Student:
+A) Tem caudas mais pesadas e se aproxima da normal quando os graus de liberdade crescem
+B) É assimétrica
+C) Tem variância menor
+D) Só assume valores positivos
+R: A
+E: A t aparece quando o desvio-padrão é estimado da amostra, o que adiciona incerteza. Com 5 graus de liberdade o quantil 97,5% é 2,571; com 30, 2,042; com infinitos, 1,96.
+Q430 [3] Numa contagem de reclamações por loja, a média é 4 e a variância é 20. O modelo de Poisson:
+A) É adequado
+B) Superestima a variabilidade
+C) Não pode ser testado
+D) Subestima a variabilidade (superdispersão); uma binomial negativa é mais adequada
+R: D
+E: Na Poisson, variância = média. Variância 5 vezes maior indica superdispersão (heterogeneidade entre lojas). A binomial negativa tem um parâmetro extra para a variância.
+Q431 [2] O tempo até um evento segue uma exponencial com taxa λ = 0,5 por mês. O tempo médio é:
+A) 0,5 mês
+B) 2 meses
+C) 5 meses
+D) 0,25 mês
+R: B
+E: Na exponencial, média = 1 ÷ λ = 1 ÷ 0,5 = 2 meses. A taxa é o número médio de eventos por unidade de tempo.
+Q432 [3] T segue uma exponencial. P(T > 5 | T > 3) é igual a:
+A) P(T > 5)
+B) P(T > 8)
+C) P(T > 2)
+D) P(T > 3)
+R: C
+E: Falta de memória: se já sobreviveu 3, a chance de sobreviver mais 2 é a mesma de um recém-chegado sobreviver 2. Algebricamente: e^(−5λ) ÷ e^(−3λ) = e^(−2λ).
+Q433 [3] X ~ Normal(100, 15²). P(X > 130) é aproximadamente:
+A) 16%
+B) 5%
+C) 0,1%
+D) 2,3%
+R: D
+E: z = (130 − 100) ÷ 15 = 2. P(Z > 2) ≈ 0,0228. Ou seja, cerca de 2,3% acima de 2 desvios.
+Q434 [3] X ~ N(10, 9) e Y ~ N(20, 16), independentes. A soma X + Y tem desvio-padrão:
+A) 5
+B) 7
+C) 25
+D) √7
+R: A
+E: Variâncias se somam: 9 + 16 = 25; desvio = √25 = 5. Desvios não se somam (3 + 4 = 7 estaria errado). A soma é N(30, 25).
+Q435 [2] Uma variável Bernoulli com p = 0,3 tem variância:
+A) 0,30
+B) 0,21
+C) 0,09
+D) 0,70
+R: B
+E: Bernoulli = um único ensaio com resultado 0 ou 1. Var = p(1 − p) = 0,3 × 0,7 = 0,21. É máxima em p = 0,5 (0,25).
+Q436 [3] O número de tentativas necessárias até obter o k-ésimo sucesso segue a distribuição:
+A) Binomial
+B) Poisson
+C) Binomial negativa
+D) Hipergeométrica
+R: C
+E: A geométrica é o caso k = 1. A binomial fixa o número de tentativas e conta sucessos; a binomial negativa fixa os sucessos e conta tentativas.
+Q437 [3] A estatística F, usada na ANOVA e no teste global da regressão, é definida como:
+A) A diferença entre duas médias
+B) O produto de duas normais
+C) A soma de quadrados de normais
+D) A razão entre duas qui-quadrado independentes, cada uma dividida por seus graus de liberdade
+R: D
+E: F = (χ²₁ ÷ gl₁) ÷ (χ²₂ ÷ gl₂). Na ANOVA, compara a variação entre grupos com a variação dentro deles.
+Q438 [4] Numa distribuição de Weibull para o tempo até a falha de uma máquina, parâmetro de forma k > 1 indica:
+A) Taxa de falha constante
+B) Taxa de falha decrescente
+C) Taxa de falha crescente com o tempo (desgaste)
+D) Tempo médio infinito
+R: C
+E: Taxa de falha (hazard) = chance instantânea do evento dado que ainda não ocorreu. k = 1 recupera a exponencial (constante); k < 1 indica falhas precoces, que diminuem com o tempo (defeitos de fabricação).
+Q439 [3] Se ln(X) ~ N(0, 1), a média de X é aproximadamente:
+A) 1,00
+B) 0
+C) 2,72
+D) 1,65
+R: D
+E: Média da log-normal = e^(μ + σ²/2) = e^(0 + 0,5) = e^0,5 ≈ 1,65. A mediana é e^0 = 1; a média é maior por causa da cauda à direita.
+Q440 [4] Um dado justo é lançado 6 vezes. A probabilidade de cada face aparecer exatamente uma vez é aproximadamente:
+A) 1,5%
+B) 16,7%
+C) 0,02%
+D) 50%
+R: A
+E: Distribuição multinomial: P = 6! ÷ 6⁶ = 720 ÷ 46.656 ≈ 0,0154. Há 6! ordens possíveis com todas as faces diferentes entre 6⁶ sequências igualmente prováveis.
+# Estatística | Modelos de Regressão | Regressão Linear
+Q441 [1] O método de mínimos quadrados ordinários (OLS) escolhe os coeficientes que minimizam:
+A) A soma dos resíduos
+B) A soma dos quadrados dos resíduos
+C) O maior resíduo
+D) A soma dos valores absolutos de y
+R: B
+E: Resíduo = valor observado − valor previsto. A soma simples dos resíduos é zero em qualquer reta com intercepto ajustado, por isso se elevam ao quadrado.
+Q442 [1] Uma regressão tem R² = 0,64. Isso significa que:
+A) 64% das previsões estão corretas
+B) A correlação é 0,64
+C) 64% da variância de y é explicada pelo modelo
+D) O modelo erra 36% das vezes
+R: C
+E: R² = 1 − SQ_resíduos ÷ SQ_total. Numa regressão simples, R² = r², então a correlação seria 0,8.
+Q443 [2] Na equação ŷ = 2 + 3x, o aumento de uma unidade em x:
+A) Aumenta ŷ em 3 unidades
+B) Aumenta ŷ em 5 unidades
+C) Aumenta ŷ em 2 unidades
+D) Multiplica ŷ por 3
+R: A
+E: O coeficiente angular (inclinação) é a variação de ŷ por unidade de x. O 2 é o intercepto: o valor previsto quando x = 0.
+Q444 [2] Cov(x, y) = 10, Var(x) = 5, média de x = 3 e média de y = 10. A reta de regressão de y em x é:
+A) ŷ = 10 + 2x
+B) ŷ = 4 + 2x
+C) ŷ = 3 + 0,5x
+D) ŷ = 7 + x
+R: B
+E: Inclinação β = Cov(x, y) ÷ Var(x) = 10 ÷ 5 = 2. Intercepto = ȳ − β x̄ = 10 − 2 × 3 = 4. A reta sempre passa pelo ponto das médias (3, 10).
+Q445 [2] Numa regressão linear simples com correlação r = 0,8, o R² é:
+A) 0,80
+B) 0,89
+C) 0,64
+D) 0,40
+R: C
+E: Na regressão simples, R² = r² = 0,8² = 0,64. Com várias variáveis, o R² é o quadrado da correlação entre y e ŷ.
+Q446 [2] Para um cliente, o valor observado é 50 e o previsto é 45. O resíduo é:
+A) −5
+B) 5
+C) 95
+D) 0,9
+R: B
+E: Resíduo = observado − previsto = 50 − 45 = 5. Positivo indica que o modelo subestimou esse caso.
+Q447 [2] Homocedasticidade dos resíduos significa:
+A) Resíduos com média zero
+B) Resíduos independentes
+C) Resíduos com distribuição normal
+D) Variância dos resíduos constante ao longo dos valores previstos
+R: D
+E: Se o espalhamento dos resíduos cresce com ŷ (forma de funil), há heterocedasticidade. O teste de Breusch-Pagan verifica isso formalmente.
+Q448 [3] Na presença de heterocedasticidade, os coeficientes de OLS:
+A) Continuam não viesados, mas os erros-padrão usuais ficam incorretos; usam-se erros-padrão robustos (White, HC)
+B) Ficam viesados
+C) Ficam iguais a zero
+D) Não podem ser calculados
+R: A
+E: O viés dos coeficientes depende da relação entre X e o erro, não da variância do erro. O que falha são os testes t e intervalos, corrigidos pelos erros-padrão robustos (HC = heteroskedasticity-consistent).
+Q449 [3] Uma regressão com n = 50 observações e k = 4 variáveis tem R² = 0,60. O R² ajustado é aproximadamente:
+A) 0,60
+B) 0,56
+C) 0,64
+D) 0,48
+R: B
+E: R²aj = 1 − (1 − R²) × (n − 1) ÷ (n − k − 1) = 1 − 0,40 × 49 ÷ 45 = 1 − 0,4356 ≈ 0,564. Ele penaliza variáveis que não acrescentam explicação suficiente.
+Q450 [2] Uma variável categórica com 3 categorias entra numa regressão com intercepto. Quantas variáveis dummy (binárias) são criadas?
+A) 1
+B) 3
+C) 2
+D) 4
+R: C
+E: Com 3 dummies e intercepto, a soma delas é sempre 1, igual à coluna do intercepto: colinearidade perfeita (armadilha da dummy). A categoria omitida vira referência.
+Q451 [3] No modelo ŷ = 1 + 2x + 3z + 4(x × z), o efeito de aumentar x em uma unidade é:
+A) Sempre 2
+B) 6
+C) 2 + 4z, ou seja, depende do valor de z
+D) 4
+R: C
+E: Termo de interação = produto de duas variáveis. Derivando em x: 2 + 4z. Com z = 0, o efeito é 2; com z = 1, é 6.
+Q452 [3] No modelo ln(y) = a + 0,05x, aumentar x em uma unidade altera y em aproximadamente:
+A) +0,05 unidade
+B) +5%
+C) +50%
+D) ×0,05
+R: B
+E: Modelo log-linear: y é multiplicado por e^0,05 ≈ 1,051, ou seja, +5,1%. Para coeficientes pequenos, coeficiente × 100 ≈ variação percentual.
+Q453 [3] No modelo ln(y) = a + 0,8 ln(x), um aumento de 1% em x altera y em aproximadamente:
+A) 0,8%
+B) 8%
+C) 80%
+D) 0,008 unidade
+R: A
+E: No modelo log-log o coeficiente é uma elasticidade: variação percentual de y por 1% de variação em x.
+Q454 [3] Um ponto com valor de x muito distante dos demais, que altera bastante a reta quando removido, é chamado de:
+A) Resíduo padronizado
+B) Ponto influente, medido pela distância de Cook
+C) Dummy
+D) Multicolinearidade
+R: B
+E: Alavancagem (leverage) mede quão extremo é o x; influência combina alavancagem com resíduo grande. Regra prática: distância de Cook acima de 4 ÷ n merece inspeção.
+Q455 [3] Uma estatística de Durbin-Watson próxima de 0,5 nos resíduos de uma regressão de série temporal indica:
+A) Ausência de autocorrelação
+B) Autocorrelação negativa
+C) Heterocedasticidade
+D) Autocorrelação positiva dos resíduos
+R: D
+E: Durbin-Watson vai de 0 a 4. Perto de 2 = sem autocorrelação; perto de 0 = positiva (resíduo alto seguido de resíduo alto); perto de 4 = negativa.
+Q456 [3] Um coeficiente estimado é 0,6, com erro-padrão 0,2. A estatística t é:
+A) 0,12
+B) 3,0
+C) 0,8
+D) 0,33
+R: B
+E: t = coeficiente ÷ erro-padrão = 0,6 ÷ 0,2 = 3. Acima de ≈ 1,96 (amostras grandes), rejeita-se que o coeficiente seja zero a 5%.
+Q457 [3] Coeficiente 0,6, erro-padrão 0,2, amostra grande. O IC de 95% é aproximadamente:
+A) [0,21; 0,99]
+B) [0,40; 0,80]
+C) [0,20; 1,00]
+D) [0,56; 0,64]
+R: A
+E: IC = 0,6 ± 1,96 × 0,2 = 0,6 ± 0,392 = [0,208; 0,992]. Como não contém zero, o coeficiente é significativo a 5%.
+Q458 [3] O nível socioeconômico afeta a nota dos alunos e também está correlacionado com as horas de estudo. Se ele for omitido do modelo, o coeficiente de "horas de estudo":
+A) Fica não viesado
+B) Fica sempre zero
+C) Fica com erro-padrão zero
+D) Carrega parte do efeito do nível socioeconômico: viés de variável omitida
+R: D
+E: Ocorre quando a variável omitida afeta y e se correlaciona com uma variável incluída. O coeficiente incluído passa a capturar os dois efeitos.
+Q459 [2] Um modelo de renda foi ajustado com clientes de 18 a 60 anos. Usá-lo para prever a renda de um cliente de 85 anos é arriscado porque:
+A) O R² muda
+B) É extrapolação: a relação pode não valer fora da faixa observada
+C) A variância é zero
+D) O intercepto é inválido
+R: B
+E: Extrapolar = prever fora do domínio dos dados de treino. Nada nos dados garante que a reta continue igual além dos 60 anos.
+Q460 [3] O teste F global de uma regressão múltipla testa a hipótese nula de que:
+A) O intercepto é zero
+B) Os resíduos são normais
+C) Pelo menos um coeficiente é zero
+D) Todos os coeficientes, exceto o intercepto, são zero
+R: D
+E: Se rejeitada, ao menos uma variável ajuda a explicar y. Os testes t avaliam cada coeficiente isoladamente.
+Q461 [3] Um gráfico QQ (quantil-quantil) dos resíduos serve para verificar:
+A) A normalidade dos resíduos
+B) A multicolinearidade
+C) A significância dos coeficientes
+D) A estacionariedade
+R: A
+E: Compara os quantis dos resíduos com os de uma normal. Pontos sobre a diagonal = normalidade; curvas nas pontas = caudas mais pesadas ou assimetria.
+Q462 [4] Na regressão linear, a soma dos elementos da diagonal da matriz chapéu H = X(XᵀX)⁻¹Xᵀ é igual a:
+A) n, o número de observações
+B) 1
+C) R²
+D) p, o número de parâmetros estimados (incluindo o intercepto)
+R: D
+E: H transforma y em ŷ ("põe o chapéu"). Cada elemento da diagonal é a alavancagem de uma observação; o traço é p, logo a alavancagem média é p ÷ n.
+Q463 [4] Na regressão de y em x a inclinação é 0,5; na de x em y, a inclinação é 1,28. A correlação entre x e y é aproximadamente:
+A) 0,64
+B) 0,80
+C) 1,78
+D) 0,39
+R: B
+E: O produto das duas inclinações é r²: 0,5 × 1,28 = 0,64 → r = 0,8. As duas retas só coincidem quando |r| = 1.
+Q464 [3] Duas variáveis explicativas são exatamente proporcionais (x₂ = 2x₁). Ao estimar OLS:
+A) Os coeficientes ficam mais precisos
+B) O R² vai a 1
+C) A matriz XᵀX não tem inversa e os coeficientes não são identificados
+D) Nada muda
+R: C
+E: Colinearidade perfeita: infinitas combinações de coeficientes produzem o mesmo ajuste. Softwares descartam uma das variáveis ou emitem erro.
+Q465 [4] Os alunos com as piores notas na prova 1, sem nenhuma intervenção, aparecem em média com notas melhores na prova 2. A explicação mais provável é:
+A) Efeito do professor
+B) Erro na correção
+C) Paradoxo de Simpson
+D) Regressão à média: valores extremos medidos com ruído tendem a se aproximar da média na medição seguinte
+R: D
+E: Parte da nota extrema era ruído momentâneo (um dia ruim). Sem grupo de controle, essa melhora pode ser atribuída erroneamente a uma intervenção.
+# Estatística | Modelos de Regressão | GLM e Regressão Logística
+Q466 [1] Na regressão logística, a função de ligação (link) padrão é:
+A) Identidade
+B) Logaritmo
+C) Logit: ln[p ÷ (1 − p)]
+D) Raiz quadrada
+R: C
+E: GLM (Generalized Linear Model, modelo linear generalizado) liga a média de y a uma combinação linear das variáveis por uma função de ligação. O logit leva probabilidades (0 a 1) para toda a reta real.
+Q467 [2] Para p = 0,2, a chance (odds) e o logit valem aproximadamente:
+A) Chance 0,20 e logit −1,61
+B) Chance 0,25 e logit −1,39
+C) Chance 4,00 e logit 1,39
+D) Chance 0,80 e logit −0,22
+R: B
+E: Chance = p ÷ (1 − p) = 0,2 ÷ 0,8 = 0,25. Logit = ln(0,25) ≈ −1,386.
+Q468 [2] Uma regressão logística prevê log-odds de −2 para um cliente. A probabilidade correspondente é aproximadamente:
+A) 0,12
+B) 0,02
+C) 0,88
+D) 0,50
+R: A
+E: p = 1 ÷ (1 + e^(−log-odds)) = 1 ÷ (1 + e²) = 1 ÷ (1 + 7,389) ≈ 0,119. Essa função é a sigmoide (logística).
+Q469 [2] Numa regressão de Poisson com ligação log, o coeficiente de uma variável é 0,1. Aumentar a variável em uma unidade multiplica a contagem esperada por aproximadamente:
+A) 1,10
+B) 0,10
+C) 1,01
+D) 2,72
+R: A
+E: Com ligação log, E[y] = exp(β₀ + β₁x). Um passo em x multiplica E[y] por e^0,1 ≈ 1,105, ou seja, +10,5%.
+Q470 [3] Para modelar o número de acidentes de trânsito por cidade, onde cada cidade tem população diferente, a regressão de Poisson deve incluir:
+A) O logaritmo da população como offset (coeficiente fixo em 1)
+B) Uma dummy por cidade
+C) A população como variável comum
+D) Nada; a Poisson ajusta sozinha
+R: A
+E: Offset transforma a contagem em taxa: ln E[acidentes] = ln(população) + Xβ, ou seja, modela-se acidentes por habitante. Sem ele, cidades grandes parecem mais perigosas só por serem grandes.
+Q471 [3] Ao comparar dois GLMs aninhados (um contido no outro), a diferença de deviance segue aproximadamente:
+A) Uma normal
+B) Uma t de Student
+C) Uma qui-quadrado com graus de liberdade iguais à diferença de parâmetros
+D) Uma uniforme
+R: C
+E: Deviance = 2 × (log-verossimilhança do modelo saturado − do modelo ajustado); quanto menor, melhor o ajuste. A diferença entre modelos aninhados é o próprio teste da razão de verossimilhança.
+Q472 [3] Numa regressão de Poisson, a deviance residual dividida pelos graus de liberdade vale 4. A conclusão é:
+A) Ajuste perfeito
+B) Superdispersão; usar quasi-Poisson ou binomial negativa
+C) Subdispersão
+D) O modelo deve virar logístico
+R: B
+E: Sob a Poisson esse quociente deveria ser próximo de 1. Com 4, os erros-padrão estão subestimados em cerca de √4 = 2 vezes, e testes ficam otimistas demais.
+Q473 [2] Para modelar o valor de uma perda (contínuo, positivo e com cauda à direita), um GLM adequado usa a família:
+A) Binomial
+B) Poisson
+C) Gama com ligação log
+D) Bernoulli
+R: C
+E: A Gama modela valores positivos assimétricos com variância crescente com a média. Muito usada em seguros e severidade de perdas.
+Q474 [3] Sobre os modelos probit e logit para classificação binária:
+A) Probit usa a distribuição acumulada da normal; os coeficientes do logit costumam ser cerca de 1,6 a 1,8 vezes os do probit
+B) São idênticos em coeficientes
+C) Probit não estima probabilidades
+D) Logit exige normalidade
+R: A
+E: As duas curvas em S são muito parecidas; a diferença de escala vem das variâncias distintas da logística (π²/3) e da normal (1).
+Q475 [3] Um modelo logístico tem log-verossimilhança −400; o modelo só com intercepto tem −500. O pseudo-R² de McFadden é:
+A) 0,80
+B) 0,20
+C) 0,25
+D) 0,10
+R: B
+E: McFadden = 1 − ℓ_modelo ÷ ℓ_nulo = 1 − (−400 ÷ −500) = 1 − 0,8 = 0,2. Valores entre 0,2 e 0,4 já indicam bom ajuste nessa medida, que é menor que o R² linear.
+Q476 [3] O teste de Hosmer-Lemeshow, com p-valor 0,001, indica que o modelo logístico:
+A) Discrimina bem
+B) Tem coeficientes significativos
+C) Tem boa calibração
+D) Tem má calibração: a taxa observada difere da prevista em grupos (geralmente decis) de probabilidade
+R: D
+E: O teste agrupa os casos por decil da probabilidade prevista e compara eventos observados e esperados com uma qui-quadrado. Em bases enormes, rejeita quase sempre; complemente com gráfico de calibração.
+Q477 [3] Numa regressão logística, uma variável separa perfeitamente as duas classes. O que acontece com a estimação?
+A) O coeficiente converge rapidamente
+B) O intercepto vira zero
+C) O coeficiente tende ao infinito e o algoritmo não converge; usa-se correção de Firth ou regularização
+D) Nada
+R: C
+E: Separação perfeita = um corte na variável classifica todos corretamente. A verossimilhança aumenta sem limite conforme o coeficiente cresce. A correção de Firth penaliza a verossimilhança para obter estimativas finitas.
+Q478 [2] Num modelo logístico de reprovação de alunos, o coeficiente de "horas de estudo por semana" é negativo. Isso significa que:
+A) Mais horas de estudo estão associadas a menor chance de reprovação
+B) Mais horas aumentam a reprovação
+C) A variável não tem efeito
+D) O modelo está errado
+R: A
+E: Coeficiente negativo reduz o log-odds do evento. Exemplo: −0,3 → cada hora a mais multiplica a chance de reprovação por e^(−0,3) ≈ 0,74.
+Q479 [3] Ao treinar uma regressão logística de cancelamento com todos os clientes que cancelaram e só uma fração dos que ficaram (amostragem por desfecho), quais parâmetros ficam distorcidos em relação à população?
+A) Essencialmente só o intercepto
+B) Todos os coeficientes
+C) Só os coeficientes das variáveis contínuas
+D) Nenhum
+R: A
+E: Resultado clássico de amostragem caso-controle: as inclinações se mantêm e o intercepto desloca. Corrige-se somando ln(β) ao intercepto, com β = fração mantida da classe subamostrada.
+Q480 [3] Para modelar uma nota de satisfação ordenada (péssimo, ruim, regular, bom, ótimo), o modelo mais natural é:
+A) Regressão logística ordinal (chances proporcionais)
+B) Regressão linear
+C) Poisson
+D) Logística binária repetida sem ordem
+R: A
+E: O modelo ordinal usa a ordem das classes com um conjunto de cortes e um único vetor de coeficientes. O multinomial ignoraria a ordem e estimaria muito mais parâmetros.
+Q481 [3] A variável alvo é a fração do tempo de tela gasta num aplicativo (entre 0 e 1), com muitos valores exatamente em 0 e em 1. Uma abordagem adequada é:
+A) Regressão linear sem restrição
+B) Poisson
+C) Qui-quadrado
+D) Regressão de resposta fracionária (fractional logit) ou modelos em duas etapas
+R: D
+E: O fractional logit de Papke e Wooldridge (1996) aceita valores em [0, 1], inclusive extremos. A regressão beta pura não aceita 0 e 1 exatos.
+Q482 [3] O número de compras por cliente num mês tem muito mais zeros do que a Poisson prevê (a maioria não compra nada). Isso pede um modelo:
+A) Gama
+B) Normal
+C) Exponencial
+D) Inflado de zeros (zero-inflated Poisson)
+R: D
+E: Mistura de dois processos: um gera zeros "estruturais" (quem não está em modo de compra) e outro gera contagens Poisson.
+Q483 [3] Numa regressão logística, β = 0,5 para uma variável e um cliente tem p = 0,1. O efeito marginal (variação de p por unidade da variável) é aproximadamente:
+A) 0,500
+B) 0,045
+C) 0,050
+D) 0,090
+R: B
+E: Efeito marginal = β × p × (1 − p) = 0,5 × 0,1 × 0,9 = 0,045. Na logística, o efeito sobre a probabilidade depende do nível de risco, sendo máximo em p = 0,5.
+Q484 [3] Numa regressão logística, uma variável aumenta o log-odds em 0,693 por unidade. Aumentar essa variável em uma unidade:
+A) Dobra a chance (odds) do evento
+B) Dobra a probabilidade do evento
+C) Soma 0,693 à probabilidade
+D) Não altera a chance
+R: A
+E: e^0,693 ≈ 2: a chance é multiplicada por 2. A probabilidade não dobra: de p = 0,5 (chance 1) vai para p = 0,667 (chance 2).
+Q485 [3] Para prever a probabilidade de três classes mutuamente exclusivas (ex.: produto A, B ou C), a extensão natural da regressão logística é:
+A) Regressão logística multinomial, com função softmax
+B) Três regressões lineares
+C) Regressão de Poisson
+D) Regressão ordinal
+R: A
+E: A softmax transforma os escores das classes em probabilidades que somam 1. No scikit-learn, `LogisticRegression` usa essa formulação para alvos com mais de duas classes.
+# Estatística | Testes e Comparações | ANOVA e Comparações Múltiplas
+Q486 [1] A ANOVA de um fator testa:
+A) Se as variâncias de dois grupos são iguais
+B) Se as médias de três ou mais grupos são todas iguais
+C) Se duas variáveis são correlacionadas
+D) Se os dados são normais
+R: B
+E: ANOVA (Analysis of Variance, análise de variância) compara médias decompondo a variação total em "entre grupos" e "dentro dos grupos".
+Q487 [2] Numa ANOVA, o quadrado médio entre grupos é 40 e o quadrado médio dentro dos grupos é 10. A estatística F é:
+A) 30
+B) 0,25
+C) 400
+D) 4
+R: D
+E: F = QM_entre ÷ QM_dentro = 40 ÷ 10 = 4. Quadrado médio = soma de quadrados ÷ graus de liberdade. F alto indica médias diferentes.
+Q488 [2] Numa ANOVA com 4 grupos e 40 observações no total, os graus de liberdade entre e dentro dos grupos são:
+A) 4 e 40
+B) 3 e 39
+C) 3 e 36
+D) 4 e 36
+R: C
+E: Entre = k − 1 = 4 − 1 = 3. Dentro = N − k = 40 − 4 = 36. Total = N − 1 = 39 = 3 + 36.
+Q489 [2] Os pressupostos da ANOVA clássica são:
+A) Independência, normalidade dos resíduos e variâncias iguais entre grupos
+B) Apenas tamanhos iguais
+C) Ausência de outliers e média zero
+D) Variáveis categóricas ordenadas
+R: A
+E: A violação mais séria é a de independência. Para variâncias diferentes usa-se a ANOVA de Welch; para não normalidade forte, Kruskal-Wallis.
+Q490 [3] A ANOVA rejeitou a igualdade das médias de tempo na página para 4 versões de layout. Para saber quais pares diferem, controlando o erro global, usa-se:
+A) Vários testes t sem correção
+B) Um novo teste F
+C) Shapiro-Wilk
+D) O teste de Tukey (HSD)
+R: D
+E: Tukey HSD (Honestly Significant Difference) compara todos os pares mantendo o erro tipo I conjunto em α. Com 4 grupos, são 6 pares.
+Q491 [3] As variâncias dos grupos são claramente diferentes e os tamanhos desbalanceados. A melhor alternativa à ANOVA clássica é:
+A) ANOVA de Welch
+B) Ignorar
+C) Regressão logística
+D) Teste qui-quadrado
+R: A
+E: A ANOVA de Welch não supõe variâncias iguais e ajusta os graus de liberdade, como o teste t de Welch faz para dois grupos.
+Q492 [3] Numa ANOVA, SQ_entre = 30 e SQ_total = 120. O eta quadrado (η²) é:
+A) 0,25
+B) 0,33
+C) 4
+D) 0,75
+R: A
+E: η² = SQ_entre ÷ SQ_total = 30 ÷ 120 = 0,25: 25% da variação é explicada pelos grupos. É uma medida de tamanho de efeito, que o p-valor sozinho não informa.
+Q493 [3] Numa ANOVA de dois fatores (canal × desconto), uma interação significativa significa que:
+A) Os dois fatores são correlacionados
+B) Nenhum fator importa
+C) Há erro de digitação
+D) O efeito de um fator depende do nível do outro
+R: D
+E: Exemplo: o desconto aumenta o pagamento em 8 pontos no SMS e em apenas 1 ponto no e-mail. Os efeitos principais isolados ficam enganosos.
+Q494 [3] Numa ANOVA com apenas dois grupos, a estatística F se relaciona com o t do teste t (variâncias iguais) por:
+A) F = t
+B) F = t²
+C) F = 2t
+D) F = √t
+R: B
+E: Com dois grupos os testes são equivalentes: t = 2,5 corresponde a F = 6,25, com o mesmo p-valor bilateral.
+Q495 [3] Com 6 comparações e α global de 5%, a correção de Bonferroni usa em cada teste:
+A) 0,30
+B) 0,05
+C) 0,0083
+D) 0,01
+R: C
+E: α ÷ m = 0,05 ÷ 6 ≈ 0,0083. É conservadora: controla o erro global, mas reduz o poder de cada teste.
+Q496 [2] Numa ANOVA, SQ_entre = 30 e SQ_dentro = 90. A soma de quadrados total é:
+A) 60
+B) 3
+C) 2.700
+D) 120
+R: D
+E: Decomposição da variância: SQ_total = SQ_entre + SQ_dentro = 30 + 90 = 120. SQ = soma dos desvios ao quadrado.
+Q497 [3] A ANCOVA (análise de covariância) acrescenta à ANOVA:
+A) Uma covariável contínua, comparando médias ajustadas por ela
+B) Mais grupos
+C) Um teste de normalidade
+D) Uma variável dependente extra
+R: A
+E: Exemplo: comparar notas finais entre escolas ajustando pela nota de entrada dos alunos, para não confundir escola com perfil inicial.
+Q498 [4] Na ANOVA de medidas repetidas (mesmos clientes medidos em vários momentos), o teste de Mauchly verifica:
+A) Normalidade
+B) Esfericidade; se violada, aplica-se a correção de Greenhouse-Geisser
+C) Independência entre clientes
+D) Outliers
+R: B
+E: Esfericidade = variâncias das diferenças entre todos os pares de momentos são iguais. A correção de Greenhouse-Geisser reduz os graus de liberdade quando ela falha.
+Q499 [3] As escolas estudadas foram sorteadas de um universo de 2.000 e o interesse é generalizar para todas. O fator "escola" deve ser tratado como:
+A) Efeito fixo
+B) Variável dependente
+C) Covariável contínua
+D) Efeito aleatório
+R: D
+E: Efeito aleatório = os níveis observados são amostra de uma população de níveis; estima-se a variância entre eles. Efeito fixo = interesse só nos níveis observados.
+Q500 [4] O procedimento de Benjamini-Hochberg em testes múltiplos controla:
+A) A probabilidade de ao menos um falso positivo (FWER)
+B) A taxa de falsas descobertas (FDR): a proporção esperada de falsos positivos entre os resultados declarados significativos
+C) O poder
+D) A variância
+R: B
+E: FWER (Family-Wise Error Rate) é o que Bonferroni controla. O BH ordena os p-valores e compara o i-ésimo com (i ÷ m) × q; é menos conservador, útil ao testar centenas de variáveis.

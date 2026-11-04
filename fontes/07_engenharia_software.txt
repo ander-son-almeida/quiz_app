@@ -1,0 +1,401 @@
+# Ciência de Dados | Engenharia de Software e DevOps | Boas Práticas de Programação
+Q345 [1] O princípio DRY recomenda:
+A) Escrever todo o código num único arquivo
+B) Não repetir a mesma lógica em vários lugares; extraí-la para uma função reutilizável
+C) Evitar comentários
+D) Usar sempre classes
+R: B
+E: DRY = Don't Repeat Yourself (não se repita). Se o cálculo de PSI está copiado em cinco notebooks, uma correção precisa ser feita cinco vezes e uma delas será esquecida.
+Q346 [2] Uma função pura:
+A) Escreve no disco
+B) Não tem parâmetros
+C) Retorna sempre o mesmo resultado para a mesma entrada e não altera nada fora dela
+D) Usa variáveis globais
+R: C
+E: Exemplo: `def area_circulo(r): return math.pi * r ** 2`. Fácil de testar e de reutilizar. Gravar arquivo ou alterar um DataFrame recebido são efeitos colaterais.
+Q347 [2] Pela PEP 8 (guia de estilo do Python), a convenção de nomes correta é:
+A) Funções em CamelCase, classes em snake_case
+B) Tudo em maiúsculas
+C) Funções e variáveis em snake_case, classes em CamelCase, constantes em MAIÚSCULAS
+D) Não há convenção
+R: C
+E: Exemplo: `calcular_psi()`, `class ValidadorModelo`, `LIMITE_PSI = 0.25`.
+Q348 [2] Uma função `processar()` lê a tabela, limpa, treina o modelo, calcula métricas e envia e-mail. Ela viola principalmente:
+A) O DRY
+B) A PEP 8
+C) O versionamento semântico
+D) O princípio da responsabilidade única
+R: D
+E: Cada função deve ter um motivo para mudar. Separar em `ler_base()`, `limpar()`, `treinar()`, `avaliar()`, `notificar()` facilita testar e reutilizar. É o "S" do acrônimo SOLID.
+Q349 [3] Anotações de tipo como `def media(valores: list[float]) -> float:` servem para:
+A) Acelerar a execução
+B) Converter tipos automaticamente
+C) São obrigatórias no Python
+D) Documentar a interface da função e permitir que ferramentas (mypy, IDE) detectem erros antes de rodar
+R: D
+E: O Python não impõe os tipos em tempo de execução; o ganho é na leitura e na verificação estática. IDE = ambiente de desenvolvimento integrado.
+Q350 [3] Em programação orientada a objetos, encapsulamento significa:
+A) Esconder o estado interno do objeto e expor apenas uma interface controlada
+B) Herdar de várias classes
+C) Criar muitos objetos
+D) Usar variáveis globais
+R: A
+E: Exemplo: um objeto de conexão guarda a senha internamente e expõe só o método `consultar()`. Em código só com funções, efeito parecido se obtém com módulos e funções auxiliares com prefixo `_`.
+Q351 [4] O conselho "prefira composição a herança" significa:
+A) Nunca usar classes
+B) Usar herança sempre que possível
+C) Montar comportamento combinando componentes independentes, em vez de criar hierarquias profundas de classes que acoplam tudo
+D) Usar só funções lambda
+R: C
+E: Exemplo: um pipeline recebe uma função de amostragem e uma de métrica como parâmetros, em vez de uma classe `PipelineUndersampleAUC` herdando de `PipelineUndersample`.
+# Ciência de Dados | Engenharia de Software e DevOps | Design Patterns
+Q352 [1] Um design pattern (padrão de projeto) é:
+A) Uma biblioteca
+B) Um estilo visual
+C) Uma linguagem de programação
+D) Uma solução reutilizável e nomeada para um problema recorrente de desenho de software
+R: D
+E: Popularizados pelo livro "Design Patterns" (Gamma, Helm, Johnson e Vlissides, 1994), conhecido como GoF (Gang of Four, gangue dos quatro).
+Q353 [2] Um AutoML recebe o nome da métrica como texto ("auc", "ks", "logloss") e escolhe a função correspondente num dicionário. Esse é o padrão:
+A) Strategy (estratégia): algoritmos intercambiáveis escolhidos em tempo de execução
+B) Singleton
+C) Observer
+D) Adapter
+R: A
+E: Exemplo: `METRICAS = {"auc": calc_auc, "ks": calc_ks}` e `METRICAS[nome](y, p)`. Em Python, funções num dicionário implementam o padrão sem classes.
+Q354 [2] Uma função `criar_modelo(tipo)` que devolve um LightGBM, um XGBoost ou uma logística configurados, conforme o parâmetro, segue o padrão:
+A) Decorator
+B) Observer
+C) Factory (fábrica): centraliza a criação de objetos, escondendo os detalhes de configuração
+D) Singleton
+R: C
+E: Quem usa não precisa saber os parâmetros de cada biblioteca, e trocar o padrão de configuração exige mudar um só lugar.
+Q355 [2] `SparkSession.builder.getOrCreate()` devolve a sessão já existente, se houver, em vez de criar outra. Isso ilustra o padrão:
+A) Factory
+B) Singleton: garante uma única instância compartilhada
+C) Strategy
+D) Observer
+R: B
+E: Evita várias sessões concorrentes consumindo recursos do cluster.
+Q356 [3] Em Python, `@medir_tempo` acima de `def treinar(...)` acrescenta registro de duração sem alterar o corpo da função. É o padrão:
+A) Factory
+B) Strategy
+C) Adapter
+D) Decorator
+R: D
+E: O decorador recebe a função, devolve outra que mede o tempo, chama a original e registra. Útil para log, cache e novas tentativas (retry).
+Q357 [3] Quando o PSI passa de 0,25, o monitor deve avisar e-mail, Teams e o painel, e novos canais podem ser adicionados sem mudar o monitor. O padrão adequado é:
+A) Observer (observador): os interessados se inscrevem e são notificados quando o evento ocorre
+B) Singleton
+C) Factory
+D) Decorator
+R: A
+E: Em código com funções: uma lista de funções de notificação que o monitor percorre ao disparar o alerta.
+# Ciência de Dados | Engenharia de Software e DevOps | Processamento Paralelo e Distribuído
+Q358 [1] No Spark, `df.filter(...).select(...)` não executa nada até que se chame:
+A) Outro filter
+B) withColumn
+C) Uma ação, como count(), collect() ou write
+D) Nunca executa
+R: C
+E: Avaliação preguiçosa (lazy evaluation): transformações só montam o plano; a ação o executa. Isso permite ao otimizador (Catalyst) reorganizar o plano inteiro.
+Q359 [2] Pela lei de Amdahl, se 90% de um job é paralelizável, o ganho máximo com 10 núcleos é aproximadamente:
+A) 10 vezes
+B) 5,3 vezes
+C) 9 vezes
+D) 2 vezes
+R: B
+E: Ganho = 1 ÷ [(1 − P) + P ÷ N] = 1 ÷ (0,10 + 0,90 ÷ 10) = 1 ÷ 0,19 ≈ 5,26. A parte sequencial (10%) limita o ganho: mesmo com infinitos núcleos, no máximo 10 vezes.
+Q360 [2] Qual operação do Spark causa shuffle (redistribuição de dados entre máquinas)?
+A) filter
+B) select
+C) withColumn
+D) groupBy com agregação
+R: D
+E: Transformações estreitas (narrow) trabalham dentro de cada partição; largas (wide), como groupBy e join, precisam reunir linhas da mesma chave, movendo dados pela rede. Shuffle costuma ser a etapa mais cara.
+Q361 [2] Para juntar uma tabela de 2 bilhões de cliques com uma tabela de 500 páginas do site, a técnica mais eficiente é:
+A) Cross join
+B) Converter para pandas
+C) collect() na tabela grande
+D) Broadcast join: copiar a tabela pequena para todos os executores e evitar o shuffle da grande
+R: D
+E: `df_cliques.join(F.broadcast(df_paginas), "id_pagina")`. Executor = processo que roda as tarefas num nó do cluster.
+Q362 [3] Num groupBy por produto, um único produto concentra 40% das linhas e uma tarefa demora 30 minutos enquanto as outras levam 1. O problema e uma solução são:
+A) Falta de memória; aumentar o driver
+B) Erro de esquema; recriar a tabela
+C) Desbalanceamento de chave (data skew); usar salting (dividir a chave grande com um sufixo aleatório) ou o AQE do Spark
+D) Muitas partições; usar coalesce(1)
+R: C
+E: AQE (Adaptive Query Execution) detecta partições enviesadas e as divide automaticamente nos joins. Salting: agrega por (produto, sal) e depois por produto.
+Q363 [3] Uma pandas UDF é mais rápida que uma UDF Python comum porque:
+A) Roda em GPU
+B) Processa lotes de linhas como vetores via Apache Arrow, em vez de uma linha por vez
+C) Não usa Python
+D) Evita o Spark
+R: B
+E: UDF (User-Defined Function, função definida pelo usuário). A UDF comum serializa cada linha entre a JVM (máquina virtual Java, onde o Spark roda) e o Python. Quando existe função nativa em `pyspark.sql.functions`, ela é ainda melhor.
+Q364 [4] Para processar 200 GB com partições de cerca de 128 MB, o número aproximado de partições é:
+A) 200
+B) 16
+C) 16.000
+D) 1.600
+R: D
+E: 200 GB ≈ 204.800 MB ÷ 128 MB ≈ 1.600. Partições grandes demais estouram memória; pequenas demais geram custo de agendamento. O padrão de shuffle do Spark é 200, raramente ideal para volumes grandes.
+# Ciência de Dados | Engenharia de Software e DevOps | Controle de Versão
+Q365 [1] A diferença entre `git commit` e `git push` é:
+A) commit grava as mudanças no repositório local; push envia os commits ao repositório remoto
+B) São iguais
+C) push grava localmente; commit envia
+D) commit apaga arquivos
+R: A
+E: Git é distribuído: cada cópia tem o histórico completo. O remoto (GitHub, Azure Repos) é o ponto de integração do time.
+Q366 [2] Sobre `git rebase` em comparação com `git merge`:
+A) São idênticos
+B) Rebase preserva o histórico original intacto
+C) Rebase reaplica commits sobre outra base e reescreve o histórico, deixando-o linear; não deve ser usado em branches que outras pessoas já baixaram
+D) Merge apaga commits
+R: C
+E: Merge cria um commit de junção e preserva o histórico como aconteceu. Rebase em branch compartilhada obriga os colegas a reconciliar históricos divergentes.
+Q367 [2] O arquivo `.gitignore` deve listar, por exemplo:
+A) O código-fonte
+B) Arquivos de dados, saídas geradas e arquivos de credenciais (.env)
+C) Os testes
+D) O README
+R: B
+E: Dados não pertencem ao Git (volume e sigilo); credenciais nunca. Um segredo que entrou num commit continua no histórico e deve ser trocado.
+Q368 [2] Para desfazer um commit que já foi enviado à branch principal compartilhada, o comando seguro é:
+A) `git reset --hard` e `git push --force`
+B) Apagar o repositório
+C) `git stash`
+D) `git revert <commit>`, que cria um novo commit desfazendo as mudanças
+R: D
+E: Revert preserva o histórico. Reset seguido de force push reescreve a história que outros já têm.
+Q369 [3] Um conflito de merge ocorre quando:
+A) As duas branches alteraram as mesmas linhas do mesmo arquivo de formas diferentes
+B) Uma branch tem mais commits
+C) O repositório está offline
+D) Há arquivos novos
+R: A
+E: O Git não decide qual versão vale; marca o trecho com `<<<<<<<`, `=======` e `>>>>>>>` para resolução manual.
+Q370 [3] O desenvolvimento baseado em tronco (trunk-based development) caracteriza-se por:
+A) Branches de longa duração por funcionalidade
+B) Commits só no fim do projeto
+C) Branches curtas, integradas à principal pelo menos diariamente, com testes automáticos protegendo a principal
+D) Ausência de branch principal
+R: C
+E: Reduz conflitos grandes. GitFlow, alternativa com branches develop, release e hotfix, combina mais com lançamentos programados.
+# Ciência de Dados | Engenharia de Software e DevOps | Testes Unitários e Integrados
+Q371 [1] Um teste unitário verifica:
+A) O sistema inteiro de ponta a ponta
+B) A menor unidade de código (uma função) de forma isolada
+C) A performance do cluster
+D) A interface gráfica
+R: B
+E: Exemplo: `calcular_psi` com duas distribuições conhecidas cujo PSI foi calculado à mão.
+Q372 [2] Uma função de desvio-padrão populacional deve retornar ≈ 14,142 para [10, 40, 30, 50, 20]. Qual teste pytest está correto?
+A) `assert desvio(dados) == 14.142`
+B) `print(desvio(dados))`
+C) `assert desvio(dados) == pytest.approx(14.142, abs=1e-3)`
+D) `assert desvio`
+R: C
+E: Números de ponto flutuante raramente batem exatamente; `pytest.approx` compara com tolerância. A opção B não verifica nada; a D só testa se a função existe.
+Q373 [2] Um teste que roda o job completo numa tabela pequena de exemplo, lê a entrada, transforma e confere a tabela gravada, é um teste:
+A) Unitário
+B) De carga
+C) De usabilidade
+D) De integração
+R: D
+E: Verifica que as partes funcionam juntas: leitura, transformações e escrita.
+Q374 [2] Em testes, um mock (simulacro) serve para:
+A) Acelerar o cluster
+B) Substituir uma dependência externa (API, banco de dados, e-mail) por um objeto controlado que simula as respostas
+C) Gerar dados reais
+D) Medir cobertura
+R: B
+E: Exemplo: simular a API de cálculo de frete para testar o tratamento de erro sem chamar o serviço real. Com `unittest.mock.patch`.
+Q375 [3] Um projeto tem 100% de cobertura de testes. Isso garante:
+A) Ausência de bugs
+B) Apenas que toda linha foi executada por algum teste; não que os resultados foram bem verificados ou que os casos de borda foram cobertos
+C) Que o código é rápido
+D) Que o modelo é preciso
+R: B
+E: Um teste que roda a função sem `assert` aumenta a cobertura e não testa nada. Casos de borda: base vazia, todas as linhas nulas, uma só classe no alvo.
+Q376 [3] A pirâmide de testes recomenda:
+A) Muitos testes de ponta a ponta e poucos unitários
+B) Só testes manuais
+C) Quantidades iguais de cada tipo
+D) Muitos testes unitários (rápidos e baratos), menos de integração e poucos de ponta a ponta (lentos e frágeis)
+R: D
+E: Testes de ponta a ponta (E2E, end-to-end) dão confiança mas demoram e quebram por motivos alheios ao código.
+# Ciência de Dados | Engenharia de Software e DevOps | Deploy e Release Management
+Q377 [1] No deploy canary, a nova versão:
+A) Substitui a antiga de uma vez
+B) Nunca vai para produção
+C) Recebe primeiro uma pequena fração do tráfego e é ampliada aos poucos se os indicadores estiverem bons
+D) Roda só em desenvolvimento
+R: C
+E: Nome vem do canário usado em minas para detectar gás. Exemplo: 5% → 25% → 100% ao longo de dias.
+Q378 [2] No deploy blue-green (azul-verde):
+A) Há dois ambientes idênticos; a nova versão sobe no ocioso e o tráfego é trocado de uma vez, permitindo voltar rapidamente
+B) A versão é testada só por cores
+C) Há um único ambiente
+D) O tráfego é dividido aleatoriamente para sempre
+R: A
+E: Rollback (reversão) = apontar o tráfego de volta ao ambiente anterior, que continua de pé.
+Q379 [2] Um novo modelo de recomendação recebe as mesmas requisições que o atual e calcula recomendações, mas elas não são mostradas aos usuários; apenas registradas para comparação. Isso é:
+A) Canary
+B) Blue-green
+C) Rollback
+D) Implantação em sombra (shadow)
+R: D
+E: Permite comparar distribuições de saída, latência e erros com tráfego real antes de dar ao modelo novo qualquer efeito sobre o usuário.
+Q380 [2] Pelo versionamento semântico, um pacote na versão 2.3.1 que recebe uma mudança incompatível com versões anteriores passa a:
+A) 2.3.2
+B) 2.4.0
+C) 2.3.1-b
+D) 3.0.0
+R: D
+E: Formato MAIOR.MENOR.CORREÇÃO: correção compatível → 2.3.2; nova funcionalidade compatível → 2.4.0; quebra de compatibilidade → 3.0.0.
+Q381 [3] Uma feature flag (chave de funcionalidade) permite:
+A) Ligar ou desligar uma funcionalidade em produção por configuração, sem novo deploy
+B) Selecionar variáveis do modelo
+C) Marcar dados faltantes
+D) Compilar mais rápido
+R: A
+E: Separa implantar (o código está lá) de liberar (o recurso está ativo). Facilita desligar rapidamente algo que deu errado.
+Q382 [3] Num canary com 5% do tráfego, a taxa de erro da nova versão é 2,0% contra 0,5% da atual, acima do limite combinado de 1,0%. A ação correta é:
+A) Ampliar para 50% para ter mais dados
+B) Ignorar
+C) Reverter (rollback) o canary e investigar antes de nova tentativa
+D) Desligar a versão atual
+R: C
+E: Os critérios de reversão devem ser definidos antes do lançamento justamente para que a decisão seja automática.
+# Ciência de Dados | Engenharia de Software e DevOps | Esteiras CI/CD
+Q383 [1] Integração contínua (CI) é:
+A) Implantar em produção uma vez por ano
+B) Escrever documentação
+C) Testar manualmente
+D) Integrar o código à branch principal com frequência, com build e testes automáticos a cada mudança
+R: D
+E: CI = Continuous Integration. Esteira (pipeline) = sequência automática de etapas: instalar dependências, checar estilo, rodar testes, empacotar.
+Q384 [2] A diferença entre continuous delivery e continuous deployment é:
+A) São sinônimos
+B) Deployment não tem testes
+C) Na entrega contínua, cada versão fica pronta para produção, mas a liberação exige aprovação; na implantação contínua, vai para produção automaticamente se passar nos testes
+D) Delivery é só para dados
+R: C
+E: Sistemas críticos (como os de saúde) costumam usar entrega contínua, com aprovação formal antes da produção.
+Q385 [2] Para rodar os testes automaticamente a cada pull request no GitHub, configura-se:
+A) Um workflow do GitHub Actions (arquivo YAML) com gatilho `on: pull_request`
+B) Um cron no notebook
+C) Um e-mail ao revisor
+D) Um arquivo .gitignore
+R: A
+E: Pull request = pedido para integrar uma branch à principal, com revisão. No Azure DevOps, o equivalente é um pipeline YAML com gatilho de PR.
+Q386 [2] Incluir uma etapa de lint (ex.: ruff, flake8) na esteira serve para:
+A) Treinar o modelo
+B) Aumentar a cobertura
+C) Detectar automaticamente problemas de estilo e erros simples (variável não usada, import faltando) antes da revisão
+D) Implantar em produção
+R: C
+E: Lint = análise estática do código, sem executá-lo.
+Q387 [3] A forma correta de usar a senha de um banco numa esteira de CI é:
+A) Escrevê-la no YAML
+B) Colocá-la num comentário
+C) Enviá-la por e-mail ao time
+D) Guardá-la em variáveis secretas da esteira ou num cofre (Azure Key Vault) e injetá-la em tempo de execução
+R: D
+E: O valor fica mascarado nos logs e o acesso é controlado e auditável.
+Q388 [3] No Databricks, os Asset Bundles permitem:
+A) Comprimir tabelas
+B) Descrever jobs, notebooks e configurações como arquivos versionados e implantá-los por linha de comando a partir da esteira de CI/CD
+C) Criar clusters GPU
+D) Treinar modelos automaticamente
+R: B
+E: É infraestrutura como código: o mesmo pacote é implantado em desenvolvimento, homologação e produção com variáveis diferentes.
+# Ciência de Dados | Engenharia de Software e DevOps | DataOps
+Q389 [1] DataOps é:
+A) Aplicar práticas ágeis e de DevOps (automação, testes, monitoramento) aos pipelines de dados
+B) Um banco de dados
+C) Um cargo de suporte
+D) Uma linguagem
+R: A
+E: Objetivo: entregar dados confiáveis com rapidez, com qualidade testada automaticamente a cada execução.
+Q390 [2] Um job diário grava com `mode("append")`. Ao ser reexecutado por falha, duplica os dados do dia. A propriedade que falta é:
+A) Escalabilidade
+B) Paralelismo
+C) Idempotência: executar duas vezes deve dar o mesmo resultado que uma
+D) Latência
+R: C
+E: Correções: sobrescrever a partição do dia (`replaceWhere` no Delta) ou usar `MERGE` pela chave.
+Q391 [2] Um contrato de dados (data contract) é:
+A) Uma licença de compra de dados de terceiros
+B) Uma licença de software
+C) Um tipo de tabela
+D) Um acordo formal entre produtor e consumidor sobre esquema, significado, qualidade e prazo de entrega dos dados
+R: D
+E: Exemplo: "coluna `valor_pedido` decimal, não nula, disponível até D+1 às 6h". Mudanças são negociadas e testadas.
+Q392 [2] Ferramentas como Databricks Workflows ou Apache Airflow são usadas para:
+A) Treinar modelos
+B) Visualizar dados
+C) Versionar código
+D) Orquestrar tarefas: definir a ordem, as dependências, os horários e as novas tentativas de cada etapa do pipeline
+R: D
+E: O fluxo é um DAG (grafo acíclico dirigido): ingestão → limpeza → features → escoragem; uma etapa só começa se as anteriores terminaram com sucesso.
+Q393 [3] Ao gravar numa tabela Delta um DataFrame com uma coluna nova não prevista:
+A) Por padrão a escrita é rejeitada (schema enforcement); aceitar a coluna exige habilitar a evolução de esquema, como `mergeSchema`
+B) A coluna é descartada em silêncio
+C) A tabela é apagada
+D) Os tipos são convertidos para texto
+R: A
+E: Impede que mudanças acidentais na origem corrompam a tabela. A evolução deve ser decisão consciente.
+Q394 [3] Para manter o histórico do plano de assinatura de cada cliente, com data de início e fim de validade de cada plano, usa-se uma dimensão:
+A) SCD tipo 1, que sobrescreve
+B) SCD tipo 2: cada mudança gera nova linha com vigência, preservando as anteriores
+C) Tabela temporária
+D) View
+R: B
+E: SCD (Slowly Changing Dimension, dimensão de mudança lenta). Permite reconstruir o que se sabia em qualquer data passada e evitar vazamento em modelos.
+# Ciência de Dados | Engenharia de Software e DevOps | MLOps
+Q395 [1] MLOps é:
+A) Um algoritmo de ML
+B) O conjunto de práticas para desenvolver, implantar, monitorar e manter modelos em produção de forma reprodutível e automatizada
+C) Uma linguagem de consulta
+D) Um tipo de GPU
+R: B
+E: Une ML, DevOps e engenharia de dados. Inclui versionamento de dados e modelos, esteiras de treino e monitoramento.
+Q396 [2] Um registro de modelos (model registry), como o do MLflow no Unity Catalog, serve para:
+A) Armazenar dados brutos
+B) Gerar features
+C) Executar SQL
+D) Guardar versões dos modelos com metadados e apelidos (ex.: "campeão", "desafiante"), controlando o que está em produção
+R: D
+E: A produção carrega `models:/pd_varejo@campeao`; promover outro modelo é mudar o apelido, com rastro de quem e quando.
+Q397 [2] Uma feature store resolve principalmente:
+A) A diferença entre o cálculo das features no treino e na produção (training-serving skew), oferecendo definições únicas e reutilizáveis
+B) O armazenamento de modelos
+C) A escolha de hiperparâmetros
+D) O versionamento de código
+R: A
+E: Exemplo: no treino, "renda" era a declarada; na produção, um engenheiro usou a presumida. A feature store guarda uma só definição e seu histórico pontual no tempo.
+Q398 [2] Para reproduzir exatamente um modelo treinado há um ano, é preciso ter versionado:
+A) Só o código
+B) Só os dados
+C) Código, dados (ou a versão da tabela Delta), ambiente (bibliotecas) e semente aleatória
+D) Só os hiperparâmetros
+R: C
+E: Faltando qualquer um, o resultado muda. O time travel do Delta e o registro de parâmetros no MLflow ajudam.
+Q399 [3] Um bom gatilho de retreino de um modelo de cancelamento em produção é:
+A) Retreinar todo dia, sempre
+B) Pedido de qualquer usuário
+C) Indicadores de monitoramento passando de limites definidos, como PSI > 0,25 ou queda relevante de AUC medida com rótulos já disponíveis
+D) Nunca retreinar
+R: C
+E: Retreinar sem necessidade gera custo e instabilidade. PSI (Population Stability Index) mede quanto a distribuição das entradas ou do score mudou.
+Q400 [4] No modelo de maturidade de MLOps descrito pelo Google, o nível em que a própria esteira de treino passa por CI/CD (testes e implantação automáticos do pipeline, não só do modelo) é:
+A) Nível 0, processo manual
+B) Nível 1, treino contínuo automatizado
+C) Não existe
+D) Nível 2, CI/CD do pipeline de ML
+R: D
+E: Nível 0: notebooks e passos manuais. Nível 1: pipeline de treino automatizado e disparado por gatilhos. Nível 2: mudanças no pipeline são testadas e implantadas automaticamente, permitindo experimentar rápido com segurança.

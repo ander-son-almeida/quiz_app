@@ -1,0 +1,426 @@
+# Estatística | Experimentação e Inferência | Planejamento de Experimentos
+Q101 [1] Por que se sorteiam os clientes entre grupo de teste e grupo de controle num teste A/B?
+A) Para ter grupos de tamanhos diferentes
+B) Para equilibrar, em média, fatores observados e não observados entre os grupos
+C) Para dispensar o grupo de controle
+D) Para escolher os melhores clientes para o teste
+R: B
+E: A randomização faz com que a única diferença sistemática entre os grupos seja o tratamento. Assim a diferença no resultado pode ser atribuída a ele. Teste A/B = experimento com uma versão atual (A) e uma nova (B).
+Q102 [2] Num teste de um novo e-mail de reengajamento, o grupo de controle é formado por usuários que:
+A) Recebem o e-mail novo com desconto extra
+B) Já estavam ativos
+C) Foram escolhidos pelo gestor
+D) Foram sorteados para continuar recebendo o e-mail atual
+R: D
+E: O controle mostra o que teria acontecido sem a mudança. Sem sorteio, diferenças entre os grupos se misturam ao efeito do e-mail.
+Q103 [2] Poder estatístico é:
+A) A probabilidade de detectar o efeito quando ele de fato existe (1 − β)
+B) A probabilidade de erro tipo I
+C) O tamanho do efeito
+D) O p-valor
+R: A
+E: β é a probabilidade do erro tipo II (não detectar um efeito real). Padrão de mercado: poder de 80%.
+Q104 [2] Mantendo tudo o mais igual, aumentar o tamanho da amostra:
+A) Aumenta o erro tipo I
+B) Não muda nada
+C) Aumenta o poder e reduz o erro-padrão
+D) Aumenta o tamanho do efeito
+R: C
+E: O erro-padrão cai com √n: quadruplicar a amostra reduz o erro-padrão à metade. O nível α (erro tipo I) é fixado pelo pesquisador e não muda com n.
+Q105 [3] Quantos clientes por grupo são necessários para detectar uma mudança na taxa de pagamento de 10% para 12%, com α = 5% (bicaudal) e poder de 80%?
+A) ≈ 385
+B) ≈ 3.840
+C) ≈ 38.400
+D) ≈ 1.068
+R: B
+E: n = (z₁₋α/₂ + z₁₋β)² × [p₁(1 − p₁) + p₂(1 − p₂)] ÷ (p₂ − p₁)² = (1,96 + 0,84)² × (0,09 + 0,1056) ÷ 0,02² = 7,84 × 0,1956 ÷ 0,0004 ≈ 3.834. Efeitos pequenos exigem amostras grandes.
+Q106 [3] Acompanhar o p-valor diariamente e encerrar o teste no primeiro dia em que ficar abaixo de 0,05 (peeking):
+A) É a prática recomendada
+B) Infla a taxa de falsos positivos muito acima de 5%
+C) Reduz o erro tipo I
+D) Não tem efeito
+R: B
+E: Cada olhada é uma nova chance de o acaso cruzar o limite. Com dezenas de olhadas, a chance de falso positivo pode passar de 20%. Alternativas: fixar o tamanho antes ou usar testes sequenciais com limites corrigidos.
+Q107 [3] Num teste de nova oferta no app, randomizar por sessão em vez de por cliente gera qual problema?
+A) Contaminação: o mesmo cliente vê as duas versões e o efeito fica diluído
+B) Nenhum
+C) Aumenta o poder sem custo
+D) Elimina a necessidade de controle
+R: A
+E: A unidade de randomização deve ser a mesma em que o efeito acontece. Se o cliente vê A numa sessão e B na outra, os grupos deixam de ser distintos.
+Q108 [3] Randomizar separadamente dentro de cada faixa de score (blocos) serve para:
+A) Aumentar o viés
+B) Dispensar o cálculo de amostra
+C) Garantir que todos recebam o tratamento
+D) Reduzir a variância da estimativa, balanceando uma variável que afeta muito o resultado
+R: D
+E: É o desenho em blocos (blocking). Se o score explica boa parte do pagamento, balanceá-lo entre grupos remove essa fonte de ruído da comparação.
+Q109 [3] Um teste planejado 50/50 com 100.000 clientes terminou com 52.000 no teste e 48.000 no controle. O que isso indica?
+A) Variação normal
+B) Efeito do tratamento
+C) Desbalanceamento na atribuição (SRM), sinal de falha no experimento
+D) Poder alto
+R: C
+E: SRM (Sample Ratio Mismatch, desvio na proporção da amostra). Qui-quadrado: (2.000² ÷ 50.000) × 2 = 160, com p-valor praticamente zero. Antes de olhar o resultado, investigue a falha (filtro, bug de atribuição).
+Q110 [4] Um desenho fatorial 2×2 (canal: SMS ou e-mail × desconto: sim ou não) permite:
+A) Estimar os dois efeitos e a interação entre eles com os mesmos clientes
+B) Testar só o canal
+C) Dispensar a randomização
+D) Usar metade da amostra para cada fator, sem interação
+R: A
+E: Quatro grupos: SMS sem desconto, SMS com desconto, e-mail sem, e-mail com. A interação responde se o desconto funciona melhor num canal do que no outro.
+# Estatística | Experimentação e Inferência | Testes de Hipótese
+Q111 [1] O p-valor é:
+A) A probabilidade de H0 ser verdadeira
+B) A probabilidade de H1 ser verdadeira
+C) A probabilidade de obter um resultado tão ou mais extremo que o observado, supondo H0 verdadeira
+D) O tamanho do efeito
+R: C
+E: H0 = hipótese nula (sem efeito); H1 = alternativa. Um p-valor de 0,03 diz que, se não houvesse efeito, um resultado assim apareceria 3% das vezes. Não é a probabilidade de H0.
+Q112 [1] Erro tipo I é:
+A) Rejeitar H0 quando ela é verdadeira
+B) Não rejeitar H0 quando ela é falsa
+C) Erro de digitação
+D) Usar o teste errado
+R: A
+E: É o falso positivo, controlado pelo nível α (ex.: 5%). O erro tipo II é o falso negativo.
+Q113 [2] Para comparar a renda média de dois grupos independentes com variâncias diferentes, usa-se:
+A) t pareado
+B) t de Welch
+C) Qui-quadrado
+D) ANOVA de medidas repetidas
+R: B
+E: O teste t de Welch não supõe variâncias iguais e ajusta os graus de liberdade. É o padrão do `scipy.stats.ttest_ind(..., equal_var=False)`.
+Q114 [2] Para testar se a faixa etária está associada a ter comprado (sim ou não), usa-se:
+A) Teste t
+B) Qui-quadrado de independência
+C) Correlação de Pearson
+D) Teste F
+R: B
+E: Duas variáveis categóricas organizadas numa tabela de contingência. O teste compara as contagens observadas com as esperadas se não houvesse associação.
+Q115 [2] O teste de Kolmogorov-Smirnov (KS) de duas amostras compara:
+A) As médias de dois grupos
+B) As variâncias de dois grupos
+C) A maior distância entre as funções de distribuição acumuladas empíricas das duas amostras
+D) A correlação entre duas variáveis
+R: C
+E: Exemplo: tempos de entrega antes e depois de trocar a transportadora. Se, num ponto, 60% de uma amostra e 20% da outra estão abaixo do valor, e essa é a maior diferença, a estatística é 0,40.
+Q116 [3] Ao testar 20 variáveis independentes com α = 5%, a chance de pelo menos um falso positivo é de aproximadamente:
+A) 5%
+B) 20%
+C) 64%
+D) 100%
+R: C
+E: 1 − 0,95²⁰ = 1 − 0,358 ≈ 64%. A correção de Bonferroni usa α ÷ 20 = 0,0025 em cada teste para manter o erro global em 5%.
+Q117 [3] A alternativa não paramétrica ao teste t para duas amostras independentes é:
+A) Wilcoxon pareado
+B) Mann-Whitney U
+C) Shapiro-Wilk
+D) Levene
+R: B
+E: Não paramétrico = não supõe distribuição normal. O Mann-Whitney compara os postos (ordens) dos dois grupos. Shapiro-Wilk testa normalidade; Levene testa igualdade de variâncias.
+Q118 [3] Para comparar a nota dos mesmos alunos antes e depois de um curso, usa-se:
+A) t de Welch
+B) Qui-quadrado
+C) Mann-Whitney
+D) t pareado
+R: D
+E: As duas medidas do mesmo aluno não são independentes. O t pareado testa se a média das diferenças individuais é zero, eliminando a variação entre alunos.
+Q119 [3] Um classificador previu probabilidade de 2% de falha para 1.000 equipamentos, e 30 falharam. Pelo teste binomial (aproximação normal, α = 5% bicaudal), a conclusão é:
+A) A previsão está mal calibrada: z ≈ 2,26 > 1,96
+B) A previsão está calibrada: z ≈ 0,5
+C) Não é possível testar
+D) A probabilidade está superestimada
+R: A
+E: Esperado = 1.000 × 0,02 = 20. Desvio = √(1.000 × 0,02 × 0,98) = √19,6 ≈ 4,43. z = (30 − 20) ÷ 4,43 ≈ 2,26. Ocorreram mais falhas do que o previsto: a probabilidade está subestimada.
+Q120 [4] Os mesmos pacientes recebem doses crescentes de um medicamento (baixa, média, alta). Para testar se o tempo de reação aumenta de forma ordenada com a dose, o teste adequado é:
+A) Qui-quadrado de aderência
+B) t de Student
+C) Shapiro-Wilk
+D) Teste L de Page, alternativa ordenada ao teste de Friedman
+R: D
+E: O teste de Friedman detecta qualquer diferença entre tratamentos medidos nos mesmos blocos (aqui, pacientes). O de Page tem mais poder quando a hipótese é de tendência numa ordem prevista (baixa < média < alta).
+# Estatística | Experimentação e Inferência | Inferência Estatística
+Q121 [1] A interpretação correta de um intervalo de confiança de 95% é:
+A) Há 95% de probabilidade de o parâmetro estar neste intervalo específico
+B) Se o procedimento fosse repetido muitas vezes, 95% dos intervalos conteriam o parâmetro
+C) 95% dos dados estão no intervalo
+D) O erro é de 5%
+R: B
+E: Na visão frequentista, o parâmetro é fixo e o intervalo é que varia de amostra para amostra. A frase da opção A é a interpretação do intervalo de credibilidade bayesiano.
+Q122 [2] Amostra de 100 clientes, média 50, desvio 10. O IC de 95% para a média é aproximadamente:
+A) [48,04; 51,96]
+B) [30,4; 69,6]
+C) [49,0; 51,0]
+D) [45,0; 55,0]
+R: A
+E: Erro-padrão = 10 ÷ √100 = 1. IC = 50 ± 1,96 × 1 = [48,04; 51,96]. A opção B usou o desvio (10) em vez do erro-padrão (1), um erro comum.
+Q123 [2] Um estimador é não viesado quando:
+A) Tem variância zero
+B) É sempre igual ao parâmetro
+C) Usa todos os dados
+D) Seu valor esperado é igual ao parâmetro
+R: D
+E: E[θ̂] = θ: em média, acerta. A média amostral é não viesada para a média populacional; a variância dividida por n é viesada (por isso se usa n − 1).
+Q124 [2] Uma moeda deu 7 caras em 10 lançamentos. A estimativa de máxima verossimilhança para a probabilidade de cara é:
+A) 0,5
+B) 0,07
+C) 0,7
+D) 1
+R: C
+E: Máxima verossimilhança (MLE, Maximum Likelihood Estimation) escolhe o valor que torna os dados observados mais prováveis. Para a binomial, p̂ = k ÷ n = 7 ÷ 10. A regressão logística estima seus coeficientes pelo mesmo princípio.
+Q125 [3] Um site teve 40 compras em 1.000 visitas. O IC de 95% para a taxa de conversão é aproximadamente:
+A) [3,0%; 5,0%]
+B) [3,9%; 4,1%]
+C) [2,8%; 5,2%]
+D) [0%; 8%]
+R: C
+E: p̂ = 0,04. Erro-padrão = √(0,04 × 0,96 ÷ 1.000) = √0,0000384 ≈ 0,0062. IC = 0,04 ± 1,96 × 0,0062 = 0,04 ± 0,0121 → [2,8%; 5,2%].
+Q126 [3] Numa regressão, a variável X₁ tem R² = 0,90 quando explicada pelas demais variáveis. O VIF de X₁ é:
+A) 10
+B) 0,9
+C) 1,9
+D) 0,1
+R: A
+E: VIF (Variance Inflation Factor, fator de inflação da variância) = 1 ÷ (1 − R²) = 1 ÷ 0,1 = 10. A variância do coeficiente de X₁ fica 10 vezes maior do que seria sem colinearidade; regra prática: VIF > 5 ou 10 merece atenção.
+Q127 [3] Um estimador é consistente quando:
+A) É não viesado em qualquer amostra
+B) Tem variância constante
+C) É calculado por máxima verossimilhança
+D) Converge para o valor verdadeiro à medida que n cresce
+R: D
+E: Pode ter viés em amostras pequenas desde que ele desapareça com n grande. Exemplo: a variância dividida por n é viesada, mas consistente.
+Q128 [3] Um modelo logístico restrito tem log-verossimilhança −520; o completo, com 2 variáveis a mais, tem −512. Pelo teste da razão de verossimilhança (LRT) a 5%:
+A) Estatística 8, não significativa
+B) Estatística 4, não significativa
+C) Estatística 16 > 5,99, as variáveis são significativas
+D) Não se pode comparar
+R: C
+E: LRT (Likelihood Ratio Test) = 2 × (ℓ₁ − ℓ₀) = 2 × (−512 − (−520)) = 2 × 8 = 16. Compara-se com a qui-quadrado de 2 graus de liberdade (diferença de parâmetros), cujo valor crítico a 5% é 5,99.
+Q129 [3] Modelo A: 5 parâmetros, log-verossimilhança −100. Modelo B: 10 parâmetros, −97. Pelo AIC, qual escolher?
+A) B, porque tem maior verossimilhança
+B) A, porque tem menor AIC (210 contra 214)
+C) Tanto faz
+D) B, porque tem mais parâmetros
+R: B
+E: AIC (Akaike Information Criterion) = 2k − 2ℓ. A: 10 + 200 = 210. B: 20 + 194 = 214. O ganho de verossimilhança de B não compensa os 5 parâmetros a mais; menor AIC é melhor.
+Q130 [4] Com 1.000 réplicas bootstrap da AUC ordenadas, o IC de 95% pelo método percentil é dado por:
+A) A 25ª e a 975ª réplicas ordenadas
+B) A 50ª e a 950ª
+C) Média ± 2 desvios das réplicas, sempre
+D) A 1ª e a 1.000ª
+R: A
+E: Percentis 2,5% e 97,5% de 1.000 valores: posições 25 e 975. AUC (Area Under the Curve) = área sob a curva ROC, medida de ordenação do modelo.
+# Estatística | Experimentação e Inferência | Inferência Bayesiana
+Q131 [1] No teorema de Bayes, a posterior é proporcional a:
+A) Prior ÷ verossimilhança
+B) Evidência × prior
+C) Só a verossimilhança
+D) Verossimilhança × prior
+R: D
+E: P(θ | dados) ∝ P(dados | θ) × P(θ). Prior (a priori) = crença antes dos dados; verossimilhança = quão prováveis são os dados para cada θ; posterior (a posteriori) = crença atualizada.
+Q132 [2] Fraude ocorre em 1% das transações. O alerta detecta 90% das fraudes e dispara em 5% das transações legítimas. Dado um alerta, a probabilidade de fraude é:
+A) 90%
+B) ≈ 15,4%
+C) 5%
+D) ≈ 50%
+R: B
+E: Em 10.000 transações: 100 fraudes → 90 alertas verdadeiros; 9.900 legítimas → 495 alertas falsos. P(fraude | alerta) = 90 ÷ (90 + 495) = 90 ÷ 585 ≈ 15,4%. Com prevalência baixa, a maioria dos alertas é falsa mesmo com bom detector.
+Q133 [2] A prior conjugada para uma proporção com verossimilhança binomial é:
+A) Beta
+B) Normal
+C) Gama
+D) Poisson
+R: A
+E: Conjugada = a posterior fica na mesma família da prior. Beta(a, b) + k sucessos em n → Beta(a + k, b + n − k), sem precisar de simulação.
+Q134 [2] Prior Beta(2, 98) (média 2%) para a taxa de conversão de uma página nova. Observam-se 5 conversões em 100 visitas. A média da posterior é:
+A) 2%
+B) 5%
+C) 7%
+D) 3,5%
+R: D
+E: Posterior = Beta(2 + 5, 98 + 95) = Beta(7, 193). Média = 7 ÷ 200 = 3,5%. A estimativa fica entre a prior (2%) e o dado (5%), com peso igual porque a prior equivale a 100 observações e os dados também.
+Q135 [3] Um intervalo de credibilidade de 95% significa:
+A) 95% dos intervalos repetidos contêm o parâmetro
+B) Dados os dados e a prior, há 95% de probabilidade de o parâmetro estar no intervalo
+C) O p-valor é 0,05
+D) O mesmo que o IC frequentista, sempre
+R: B
+E: Na visão bayesiana o parâmetro tem distribuição, então a afirmação probabilística direta é válida.
+Q136 [3] MCMC é usado para:
+A) Calcular o p-valor exato
+B) Treinar redes neurais
+C) Selecionar variáveis
+D) Amostrar da posterior quando ela não tem forma fechada
+R: D
+E: MCMC (Markov Chain Monte Carlo) gera uma cadeia de valores cuja distribuição converge para a posterior. Ferramentas: PyMC, Stan. Com as amostras calculam-se médias e intervalos.
+Q137 [3] Num modelo hierárquico da taxa de devolução por loja, uma loja pequena com 3 devoluções em 10 vendas (30%), numa rede com média de 5%, terá estimativa:
+A) Exatamente 30%
+B) Puxada em direção a 5%, por agrupamento parcial (shrinkage)
+C) Exatamente 5%
+D) Zero
+R: B
+E: Grupos com poucos dados recebem mais peso da média geral; grupos grandes ficam próximos da própria taxa. Evita que o ruído de amostras pequenas vire ranking.
+Q138 [3] Um bom diagnóstico de convergência de cadeias MCMC é:
+A) Acurácia acima de 90%
+B) Número de cadeias igual a 1
+C) R-hat (Gelman-Rubin) próximo de 1, por exemplo abaixo de 1,01
+D) p-valor < 0,05
+R: C
+E: R-hat compara a variância entre cadeias com a variância dentro delas. Valores próximos de 1 indicam que cadeias iniciadas em pontos diferentes chegaram à mesma distribuição.
+Q139 [4] O intervalo de Jeffreys para uma proporção, recomendado quando há poucos eventos, é obtido a partir de:
+A) Distribuição t
+B) Teste KS
+C) Bootstrap
+D) Posterior Beta com prior Beta(0,5; 0,5)
+R: D
+E: Com k sucessos em n, a posterior é Beta(k + 0,5; n − k + 0,5) e o intervalo vai dos seus quantis 2,5% a 97,5%. Funciona bem com proporções perto de 0 ou 1, onde o intervalo de Wald falha.
+Q140 [4] Um fator de Bayes BF₁₀ = 20 significa que:
+A) H1 tem 20% de probabilidade
+B) O p-valor é 0,05
+C) H0 é 20 vezes mais provável
+D) Os dados são 20 vezes mais prováveis sob H1 do que sob H0
+R: D
+E: BF₁₀ = P(dados | H1) ÷ P(dados | H0). Pela escala de Jeffreys, entre 10 e 30 é evidência forte. Multiplicado pelas chances a priori, dá as chances a posteriori.
+# Estatística | Experimentação e Inferência | Inferência Causal
+Q141 [1] Venda de sorvete e afogamentos estão correlacionados. A explicação mais provável é:
+A) Sorvete causa afogamento
+B) Afogamento causa venda de sorvete
+C) Uma terceira variável, a temperatura, causa as duas
+D) Coincidência pura
+R: C
+E: A temperatura é um confundidor. Correlação não implica causalidade.
+Q142 [2] Confundidor é uma variável que:
+A) Só afeta o desfecho
+B) É afetada pelo desfecho
+C) Afeta tanto o tratamento quanto o desfecho
+D) É aleatória
+R: C
+E: Exemplo: pacientes mais jovens recebem com mais frequência o tratamento novo e também se recuperam mais rápido. Comparar tratados com não tratados mistura o efeito do tratamento com o da idade.
+Q143 [2] O frete grátis foi lançado só na região Sul. Conversão: Sul 10% → 12%; Sudeste (sem mudança) 9% → 9,5%. O efeito estimado por diferenças em diferenças é:
+A) +2,0 p.p.
+B) +2,5 p.p.
+C) +0,5 p.p.
+D) +1,5 p.p.
+R: D
+E: DiD (Difference-in-Differences) = (12 − 10) − (9,5 − 9) = 2,0 − 0,5 = 1,5 p.p. (pontos percentuais). O Sudeste mostra o que teria ocorrido no Sul sem o frete grátis. Pressuposto: tendências paralelas antes da intervenção.
+Q144 [2] O escore de propensão (propensity score) é:
+A) A probabilidade de receber o tratamento, dadas as covariáveis
+B) A probabilidade do desfecho
+C) O efeito do tratamento
+D) Um score de satisfação
+R: A
+E: Pareando ou ponderando tratados e controles com propensão parecida, comparam-se grupos semelhantes nas variáveis observadas. Não corrige confundidores não observados.
+Q145 [3] Uma variável instrumental válida deve:
+A) Afetar só o desfecho
+B) Ser um confundidor
+C) Ser independente do tratamento
+D) Afetar o tratamento e influenciar o desfecho apenas por meio do tratamento
+R: D
+E: Exemplo clássico: a distância até a faculdade mais próxima afeta os anos de estudo, mas supostamente só afeta o salário por meio do estudo. As duas condições são relevância e restrição de exclusão.
+Q146 [3] Uma bolsa de estudos é dada a quem tira nota ≥ 600 num exame. Para estimar o efeito da bolsa sobre a renda futura, compara-se quem tirou 598–599 com quem tirou 600–601. O método é:
+A) Diferenças em diferenças
+B) Regressão descontínua (RDD)
+C) Teste A/B
+D) Regressão logística
+R: B
+E: RDD (Regression Discontinuity Design). Logo abaixo e logo acima do corte, os estudantes são praticamente iguais; a única diferença é ter recebido a bolsa. O efeito vale localmente, perto do corte.
+Q147 [3] Uma universidade admite candidatos com nota alta na prova OU com portfólio forte. Analisando só os admitidos, aparece uma correlação negativa entre nota e qualidade do portfólio, embora entre todos os candidatos elas sejam independentes. A causa é:
+A) Confundimento
+B) Condicionar num colisor: a admissão depende da nota e do portfólio
+C) Erro de medida
+D) Multicolinearidade
+R: B
+E: Colisor (collider) é uma variável causada por outras duas. Entre os admitidos, quem tem nota baixa precisou ter portfólio forte, o que cria uma associação espúria. É o viés de Berkson, comum quando a base contém só um grupo selecionado.
+Q148 [3] O ATT difere do ATE porque:
+A) São iguais por definição
+B) O ATT usa só o controle
+C) O ATE ignora os tratados
+D) O ATT é o efeito médio nos que de fato foram tratados; o ATE, na população inteira
+R: D
+E: ATE (Average Treatment Effect) e ATT (Average Treatment effect on the Treated). Se a oferta foi para clientes com maior chance de resposta, o ATT tende a ser maior que o ATE.
+Q149 [4] Num DAG com Z → T, Z → Y e T → Y, para estimar o efeito de T em Y deve-se:
+A) Ajustar por Z, fechando o caminho de porta dos fundos T ← Z → Y
+B) Não ajustar nada
+C) Ajustar por Y
+D) Ajustar por T
+R: A
+E: DAG (Directed Acyclic Graph, grafo acíclico dirigido) desenha as relações causais. O critério da porta dos fundos (backdoor) manda ajustar variáveis que bloqueiam caminhos não causais entre T e Y.
+Q150 [4] Para decidir a quem enviar um cupom de desconto, priorizando quem só compra por causa do cupom, estima-se:
+A) A probabilidade de compra
+B) O ticket médio
+C) O efeito condicional (CATE) via modelo de uplift, por exemplo T-learner
+D) O ATE global
+R: C
+E: CATE (Conditional Average Treatment Effect) = efeito para um perfil específico. T-learner treina um modelo nos tratados e outro nos controles; o uplift é a diferença das previsões. Quem compraria de qualquer jeito tem uplift ≈ 0 e não precisa do cupom.
+# Estatística | Experimentação e Inferência | Séries Temporais
+Q151 [1] Uma série é (fracamente) estacionária quando:
+A) Não tem ruído
+B) Média e variância são constantes e a autocovariância depende só da defasagem
+C) Cresce linearmente
+D) Tem sazonalidade
+R: B
+E: Defasagem (lag) = distância entre os instantes comparados. Séries com tendência ou sazonalidade não são estacionárias.
+Q152 [2] O teste ADF de uma série deu p-valor 0,30. A conclusão é:
+A) Não se rejeita a raiz unitária: a série provavelmente não é estacionária
+B) A série é estacionária
+C) A série é sazonal
+D) O modelo está calibrado
+R: A
+E: ADF (Augmented Dickey-Fuller) tem H0 = raiz unitária (não estacionária). p alto → não se rejeita H0. O teste KPSS tem as hipóteses invertidas.
+Q153 [2] A primeira diferença de 100, 103, 107, 112 é:
+A) 100, 3, 4, 5
+B) 103, 107, 112
+C) 3, 4, 5
+D) 1, 1, 1
+R: C
+E: Δyₜ = yₜ − yₜ₋₁: 103 − 100 = 3; 107 − 103 = 4; 112 − 107 = 5. Uma segunda diferença daria 1, 1 (opção D tem um termo a mais).
+Q154 [2] Num processo AR(1), a ACF e a PACF se comportam como:
+A) ACF corta após lag 1; PACF decai
+B) Ambas zero
+C) Ambas cortam no lag 12
+D) ACF decai geometricamente; PACF corta após lag 1
+R: D
+E: AR(1) (autorregressivo de ordem 1): yₜ = φyₜ₋₁ + εₜ. ACF (autocorrelação) no lag k = φ^k, decaindo. PACF (autocorrelação parcial) só é diferente de zero no lag 1. Num MA(1) (média móvel) acontece o contrário.
+Q155 [2] Para validar um modelo de previsão de série temporal, deve-se:
+A) Embaralhar e usar k-fold comum
+B) Testar nos dados de treino
+C) Treinar no passado e testar no futuro, com janelas que avançam no tempo (walk-forward)
+D) Usar só o último ponto
+R: C
+E: Embaralhar deixa o modelo ver o futuro (vazamento). Exemplo: na previsão de demanda, treina-se até março e testa-se em abril, depois treina-se até abril e testa-se em maio.
+Q156 [3] No ARIMA(1, 1, 1), o número do meio indica:
+A) Uma diferenciação
+B) Uma defasagem autorregressiva
+C) Um termo de média móvel
+D) Um período sazonal
+R: A
+E: ARIMA(p, d, q): p = ordem autorregressiva, d = número de diferenciações, q = ordem da média móvel. ARIMA = AutoRegressive Integrated Moving Average.
+Q157 [3] Uma série mensal de vendas tem pico todo mês de dezembro. No SARIMA, o período sazonal é:
+A) 4
+B) 7
+C) 1
+D) 12
+R: D
+E: Dados mensais com padrão anual repetem a cada 12 observações: SARIMA(p, d, q)(P, D, Q)₁₂. Sazonalidade semanal em dados diários seria 7.
+Q158 [3] Valores reais 100 e 50; previsões 90 e 60. O MAPE é:
+A) 10%
+B) 15%
+C) 20%
+D) 13,3%
+R: B
+E: MAPE (Mean Absolute Percentage Error) = média de |real − previsto| ÷ real. |100 − 90| ÷ 100 = 10%; |50 − 60| ÷ 50 = 20%; média = 15%. O mesmo erro absoluto (10) pesa mais quando o valor real é pequeno.
+Q159 [3] O benchmark ingênuo sazonal para dados mensais com padrão anual é:
+A) Média de toda a série
+B) Último valor observado
+C) Zero
+D) O valor do mesmo mês do ano anterior: ŷₜ = yₜ₋₁₂
+R: D
+E: Benchmark = referência mínima. Um modelo sofisticado que não supera o "mesmo mês do ano passado" não se justifica.
+Q160 [4] Num modelo idade–período–coorte (APC) da taxa de cancelamento de assinaturas (coorte = mês de cadastro; idade = meses desde o cadastro; período = mês do calendário), por que os três efeitos não podem ser identificados sem uma restrição adicional?
+A) Porque faltam dados
+B) Porque o cancelamento é binário
+C) Porque há relação linear exata: período = coorte + idade
+D) Porque o efeito do período é sempre zero
+R: C
+E: Exemplo: a coorte de janeiro com 6 meses de idade está em julho. Qualquer tendência linear pode ser transferida entre os três efeitos sem mudar o ajuste. É preciso fixar algo, como supor que o efeito de período não tem tendência linear.
